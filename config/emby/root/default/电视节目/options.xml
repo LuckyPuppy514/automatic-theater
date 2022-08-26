@@ -75,8 +75,8 @@
         <string>The Open Movie Database</string>
       </MetadataFetcherOrder>
       <ImageFetchers>
-        <string>FanArt</string>
         <string>TheMovieDb</string>
+        <string>FanArt</string>
         <string>TheTVDB</string>
         <string>The Open Movie Database</string>
       </ImageFetchers>
@@ -85,8 +85,8 @@
         <string>AniDB</string>
         <string>MyAnimeList</string>
         <string>AniList</string>
-        <string>FanArt</string>
         <string>TheMovieDb</string>
+        <string>FanArt</string>
         <string>TheTVDB</string>
         <string>The Open Movie Database</string>
       </ImageFetcherOrder>
@@ -102,8 +102,8 @@
         <string>TheMovieDb</string>
       </MetadataFetcherOrder>
       <ImageFetchers>
-        <string>FanArt</string>
         <string>TheMovieDb</string>
+        <string>FanArt</string>
         <string>TheTVDB</string>
       </ImageFetchers>
       <ImageFetcherOrder>
@@ -111,8 +111,8 @@
         <string>AniDB</string>
         <string>MyAnimeList</string>
         <string>AniList</string>
-        <string>FanArt</string>
         <string>TheMovieDb</string>
+        <string>FanArt</string>
         <string>TheTVDB</string>
       </ImageFetcherOrder>
       <ImageOptions />
@@ -131,14 +131,14 @@
         <string>The Open Movie Database</string>
       </MetadataFetcherOrder>
       <ImageFetchers>
-        <string>Screen Grabber</string>
         <string>TheMovieDb</string>
+        <string>Screen Grabber</string>
         <string>TheTVDB</string>
         <string>The Open Movie Database</string>
       </ImageFetchers>
       <ImageFetcherOrder>
-        <string>Screen Grabber</string>
         <string>TheMovieDb</string>
+        <string>Screen Grabber</string>
         <string>TheTVDB</string>
         <string>The Open Movie Database</string>
       </ImageFetcherOrder>

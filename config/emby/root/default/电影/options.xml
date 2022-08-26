@@ -73,17 +73,17 @@
         <string>The Open Movie Database</string>
       </MetadataFetcherOrder>
       <ImageFetchers>
-        <string>FanArt</string>
         <string>TheMovieDb</string>
         <string>Douban</string>
+        <string>FanArt</string>
         <string>TheTVDB</string>
         <string>Screen Grabber</string>
         <string>The Open Movie Database</string>
       </ImageFetchers>
       <ImageFetcherOrder>
-        <string>FanArt</string>
         <string>TheMovieDb</string>
         <string>Douban</string>
+        <string>FanArt</string>
         <string>TheTVDB</string>
         <string>Screen Grabber</string>
         <string>The Open Movie Database</string>

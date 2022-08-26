@@ -44,6 +44,8 @@
   <LyricsDownloadLanguages />
   <DisabledSubtitleFetchers />
   <SubtitleFetcherOrder>
+    <string>MeiamSub.Thunder</string>
+    <string>MeiamSub.Shooter</string>
     <string>Open Subtitles</string>
   </SubtitleFetcherOrder>
   <SkipSubtitlesIfEmbeddedSubtitlesPresent>false</SkipSubtitlesIfEmbeddedSubtitlesPresent>
@@ -76,8 +78,8 @@
         <string>The Open Movie Database</string>
       </MetadataFetcherOrder>
       <ImageFetchers>
-        <string>FanArt</string>
         <string>TheMovieDb</string>
+        <string>FanArt</string>
         <string>AniSearch</string>
         <string>MyAnimeList</string>
         <string>AniDB</string>
@@ -86,8 +88,8 @@
         <string>The Open Movie Database</string>
       </ImageFetchers>
       <ImageFetcherOrder>
-        <string>FanArt</string>
         <string>TheMovieDb</string>
+        <string>FanArt</string>
         <string>AniSearch</string>
         <string>MyAnimeList</string>
         <string>AniDB</string>
@@ -108,8 +110,8 @@
         <string>AniDB</string>
       </MetadataFetcherOrder>
       <ImageFetchers>
-        <string>FanArt</string>
         <string>TheMovieDb</string>
+        <string>FanArt</string>
         <string>AniSearch</string>
         <string>AniDB</string>
         <string>MyAnimeList</string>
@@ -117,8 +119,8 @@
         <string>TheTVDB</string>
       </ImageFetchers>
       <ImageFetcherOrder>
-        <string>FanArt</string>
         <string>TheMovieDb</string>
+        <string>FanArt</string>
         <string>AniSearch</string>
         <string>AniDB</string>
         <string>MyAnimeList</string>
@@ -142,14 +144,14 @@
         <string>The Open Movie Database</string>
       </MetadataFetcherOrder>
       <ImageFetchers>
-        <string>Screen Grabber</string>
         <string>TheMovieDb</string>
+        <string>Screen Grabber</string>
         <string>TheTVDB</string>
         <string>The Open Movie Database</string>
       </ImageFetchers>
       <ImageFetcherOrder>
-        <string>Screen Grabber</string>
         <string>TheMovieDb</string>
+        <string>Screen Grabber</string>
         <string>TheTVDB</string>
         <string>The Open Movie Database</string>
       </ImageFetcherOrder>
