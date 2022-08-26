@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<SubtitleOptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DeliveryPreference>PreferOnTheFlyExtraction</DeliveryPreference>
+  <HighFramerateSubtitleBurnIn>false</HighFramerateSubtitleBurnIn>
+  <SubtitleOptionsContent>
+    <EnableSpeakerName>false</EnableSpeakerName>
+    <SpeakerPrefixMode>SquareBrackets</SpeakerPrefixMode>
+    <EnableTextMod1>false</EnableTextMod1>
+    <OptionsTextMod1>
+      <TextModMode>ToUpper</TextModMode>
+    </OptionsTextMod1>
+    <EnableTextMod2>false</EnableTextMod2>
+    <OptionsTextMod2>
+      <TextModMode>ToUpper</TextModMode>
+    </OptionsTextMod2>
+    <EnableCensoring>false</EnableCensoring>
+    <OptionsCensor>
+      <CensorMode>KeepFirstLast</CensorMode>
+      <CensorChar>*</CensorChar>
+      <CensorSource>BuiltIn</CensorSource>
+    </OptionsCensor>
+  </SubtitleOptionsContent>
+  <SubtitleOptionsAppearance>
+    <StripInlineStyles>false</StripInlineStyles>
+    <StripAnimations>false</StripAnimations>
+    <OverrideStyle>false</OverrideStyle>
+    <StyleOverrideOptions>
+      <FontOverrideMode>NoOverride</FontOverrideMode>
+      <FontSize xsi:nil="true" />
+      <Bold xsi:nil="true" />
+      <Italic xsi:nil="true" />
+      <BorderStyle xsi:nil="true" />
+      <Outline xsi:nil="true" />
+      <Shadow xsi:nil="true" />
+      <PrimaryColour xsi:nil="true" />
+      <OutlineColour xsi:nil="true" />
+      <BackColour xsi:nil="true" />
+      <Margin xsi:nil="true" />
+    </StyleOverrideOptions>
+  </SubtitleOptionsAppearance>
+  <SubtitleOptionsOcr>
+    <EnableOcrConversion>false</EnableOcrConversion>
+    <OcrMode>Default</OcrMode>
+    <Conditions>OnlySelectedAndKnownLanguages</Conditions>
+    <SelectedOcrFeatures>Halign,Valign,Bold,Italic,Underline,Font,Fontsize,Color,Outlinecolor</SelectedOcrFeatures>
+    <FontSizeFactor>100</FontSizeFactor>
+  </SubtitleOptionsOcr>
+  <SubtitleOptionsClosedCaptions>
+    <DisableRealtimeMode>false</DisableRealtimeMode>
+    <UseClassicDisplayStyle>false</UseClassicDisplayStyle>
+    <DisableClientDecoding>false</DisableClientDecoding>
+  </SubtitleOptionsClosedCaptions>
+</SubtitleOptions>

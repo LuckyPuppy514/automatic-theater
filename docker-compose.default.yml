@@ -1,0 +1,222 @@
+version: "3"
+networks:
+  network:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.128.1.0/24
+
+services:
+  portainer:
+    image: 6053537/portainer-ce
+    container_name: portainer
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${CONFIG_PATH}/portainer/data:/data
+      - ${CONFIG_PATH}/portainer/public:/public
+    ports:
+      - 9000:9000
+    networks:
+      network:
+        ipv4_address: 172.128.1.10
+    restart: unless-stopped
+
+  heimdall:
+    image: linuxserver/heimdall:latest
+    container_name: heimdall
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=Asia/Shanghai
+    volumes:
+      - ${CONFIG_PATH}/heimdall:/config
+    ports:
+      - 10080:80
+      - 10443:443
+    networks:
+      network:
+        ipv4_address: 172.128.1.11
+    restart: unless-stopped
+
+  flaresolverr:
+    image: flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_HTML=${LOG_HTML:-false}
+      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=Asia/Shanghai
+    ports:
+      - 8191:8191
+    networks:
+      network:
+        ipv4_address: 172.128.1.12
+    restart: unless-stopped
+  
+  prowlarr:
+    image: linuxserver/prowlarr:nightly
+    container_name: prowlarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=Asia/Shanghai
+    volumes:
+      - ${CONFIG_PATH}/prowlarr:/config
+    ports:
+      - 9696:9696
+    networks:
+      network:
+        ipv4_address: 172.128.1.14
+    restart: unless-stopped
+
+  jproxy:
+    image: luckypuppy514/jproxy:${JPROXY_TAG}
+    container_name: jproxy
+    environment:
+      - TZ=Asia/Shanghai
+      - "JAVA_OPTS=-Xms256m -Xmx256m"
+    volumes:
+      - ${CONFIG_PATH}/jproxy:/app/config
+      - /mnt/truenas:/mnt/truenas 
+    ports:
+      - 8117:8117
+    networks:
+      network:
+        ipv4_address: 172.128.1.15
+    restart: unless-stopped
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    environment:
+      - LOG_LEVEL=info
+      - JELLYFIN_TYPE=emby
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=Asia/Shanghai
+    ports:
+      - 5055:5055
+    networks:
+      network:
+        ipv4_address: 172.128.1.16
+    depends_on:
+      - sonarr
+      - radarr
+    volumes:
+      - ${CONFIG_PATH}/jellyseerr:/app/config
+    restart: unless-stopped
+
+  radarr:
+    image: linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=Asia/Shanghai
+    volumes:
+      - ${CONFIG_PATH}/radarr:/config
+      - ${MEDIA_PATH}:/mnt/mergerfs/media/video
+    ports:
+      - 7878:7878
+    networks:
+      network:
+        ipv4_address: 172.128.1.17
+    depends_on:
+      - jproxy
+      - qbittorrentee
+    restart: unless-stopped
+
+  sonarr:
+    image: linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=Asia/Shanghai
+    volumes:
+      - ${CONFIG_PATH}/sonarr:/config
+      - ${MEDIA_PATH}:/mnt/mergerfs/media/video
+    ports:
+      - 8989:8989
+    networks:
+      network:
+        ipv4_address: 172.128.1.18
+    depends_on:
+      - jproxy
+      - qbittorrentee
+    restart: unless-stopped
+
+  qbittorrentee:
+    image: superng6/qbittorrentee:latest
+    container_name: qbittorrentee
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=Asia/Shanghai
+    volumes:
+      - ${CONFIG_PATH}/qbittorrentee:/config
+      - ${MEDIA_PATH}:/mnt/mergerfs/media/video
+    ports:
+      - 8080:8080
+      - 6881:6881
+      - 6881:6881/udp
+    networks:
+      network:
+        ipv4_address: 172.128.1.20
+    restart: unless-stopped
+
+  dashdot:
+    image: mauricenino/dashdot:latest
+    container_name: dashdot
+    environment:
+      - TZ=Asia/Shanghai
+      - DASHDOT_ENABLE_CPU_TEMPS=true
+      - DASHDOT_ENABLE_STORAGE_SPLIT_VIEW=true
+      - DASHDOT_ALWAYS_SHOW_PERCENTAGES=true
+      - DASHDOT_WIDGET_LIST=cpu,ram,storage,network
+      - DASHDOT_SPEED_TEST_INTERVAL=1440
+    volumes:
+      - /etc/os-release:/etc/os-release:ro
+      - /proc/1/ns/net:/mnt/host_ns_net:ro
+    ports:
+      - 3001:3001
+    restart: unless-stopped
+
+  jackett:
+    image: linuxserver/jackett:latest
+    container_name: jackett
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=Asia/Shanghai
+    volumes:
+      - ${CONFIG_PATH}/jackett:/config
+    ports:
+      - 9117:9117
+    networks:
+      network:
+        ipv4_address: 172.128.1.13
+    restart: unless-stopped
+
+  emby:
+    image: lovechen/embyserver:latest
+    container_name: emby
+    environment:
+      - UID=0
+      - GID=0
+      - GIDLIST=0
+      - TZ=Asia/Shanghai
+    volumes:
+      - ${CONFIG_PATH}/emby:/config
+      - ${MEDIA_PATH}:/mnt/mergerfs/media/video
+    ports:
+      - 8096:8096
+      - 8920:8920
+    networks:
+      network:
+        ipv4_address: 172.128.1.19
+    restart: unless-stopped

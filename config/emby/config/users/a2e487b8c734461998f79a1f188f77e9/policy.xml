@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<UserPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <IsAdministrator>true</IsAdministrator>
+  <IsHidden>false</IsHidden>
+  <IsHiddenRemotely>true</IsHiddenRemotely>
+  <IsHiddenFromUnusedDevices>false</IsHiddenFromUnusedDevices>
+  <IsDisabled>false</IsDisabled>
+  <MaxParentalRating xsi:nil="true" />
+  <BlockedTags />
+  <IsTagBlockingModeInclusive>false</IsTagBlockingModeInclusive>
+  <IncludeTags />
+  <EnableUserPreferenceAccess>true</EnableUserPreferenceAccess>
+  <AccessSchedules />
+  <BlockUnratedItems />
+  <EnableRemoteControlOfOtherUsers>true</EnableRemoteControlOfOtherUsers>
+  <EnableSharedDeviceControl>true</EnableSharedDeviceControl>
+  <EnableRemoteAccess>true</EnableRemoteAccess>
+  <EnableLiveTvManagement>true</EnableLiveTvManagement>
+  <EnableLiveTvAccess>true</EnableLiveTvAccess>
+  <EnableMediaPlayback>true</EnableMediaPlayback>
+  <EnableAudioPlaybackTranscoding>true</EnableAudioPlaybackTranscoding>
+  <EnableVideoPlaybackTranscoding>true</EnableVideoPlaybackTranscoding>
+  <EnablePlaybackRemuxing>true</EnablePlaybackRemuxing>
+  <EnableContentDeletion>true</EnableContentDeletion>
+  <EnableContentDeletionFromFolders />
+  <EnableContentDownloading>true</EnableContentDownloading>
+  <EnableSubtitleDownloading>true</EnableSubtitleDownloading>
+  <EnableSubtitleManagement>true</EnableSubtitleManagement>
+  <EnableSyncTranscoding>true</EnableSyncTranscoding>
+  <EnableMediaConversion>true</EnableMediaConversion>
+  <EnabledChannels />
+  <EnableAllChannels>true</EnableAllChannels>
+  <EnabledFolders />
+  <EnableAllFolders>true</EnableAllFolders>
+  <InvalidLoginAttemptCount>0</InvalidLoginAttemptCount>
+  <EnablePublicSharing>true</EnablePublicSharing>
+  <RemoteClientBitrateLimit>0</RemoteClientBitrateLimit>
+  <AuthenticationProviderId>Emby.Server.Implementations.Library.DefaultAuthenticationProvider</AuthenticationProviderId>
+  <ExcludedSubFolders />
+  <SimultaneousStreamLimit>0</SimultaneousStreamLimit>
+  <EnabledDevices />
+  <EnableAllDevices>true</EnableAllDevices>
+</UserPolicy>

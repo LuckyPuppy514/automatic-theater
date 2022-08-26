@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<ServerConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <EnableDebugLevelLogging>false</EnableDebugLevelLogging>
+  <EnableAutoUpdate>true</EnableAutoUpdate>
+  <LogFileRetentionDays>3</LogFileRetentionDays>
+  <RunAtStartup>true</RunAtStartup>
+  <IsStartupWizardCompleted>true</IsStartupWizardCompleted>
+  <EnableUPnP>false</EnableUPnP>
+  <PublicPort>8096</PublicPort>
+  <PublicHttpsPort>8920</PublicHttpsPort>
+  <HttpServerPortNumber>8096</HttpServerPortNumber>
+  <HttpsPortNumber>8920</HttpsPortNumber>
+  <EnableHttps>false</EnableHttps>
+  <IsPortAuthorized>true</IsPortAuthorized>
+  <AutoRunWebApp>true</AutoRunWebApp>
+  <EnableRemoteAccess>true</EnableRemoteAccess>
+  <LogAllQueryTimes>false</LogAllQueryTimes>
+  <EnableCaseSensitiveItemIds>true</EnableCaseSensitiveItemIds>
+  <PreferredMetadataLanguage>zh-CN</PreferredMetadataLanguage>
+  <MetadataCountryCode>CN</MetadataCountryCode>
+  <SortRemoveWords>
+    <string>the</string>
+    <string>a</string>
+    <string>an</string>
+    <string>das</string>
+    <string>der</string>
+    <string>el</string>
+    <string>la</string>
+  </SortRemoveWords>
+  <LibraryMonitorDelay>60</LibraryMonitorDelay>
+  <EnableDashboardResponseCaching>true</EnableDashboardResponseCaching>
+  <ImageSavingConvention>Compatible</ImageSavingConvention>
+  <EnableAutomaticRestart>true</EnableAutomaticRestart>
+  <CollectionFolderIdsMigrated>true</CollectionFolderIdsMigrated>
+  <ServerName>ATM</ServerName>
+  <UICulture>zh-CN</UICulture>
+  <SaveMetadataHidden>false</SaveMetadataHidden>
+  <RemoteClientBitrateLimit>0</RemoteClientBitrateLimit>
+  <DisplaySpecialsWithinSeasons>true</DisplaySpecialsWithinSeasons>
+  <LocalNetworkSubnets />
+  <LocalNetworkAddresses />
+  <EnableExternalContentInSuggestions>true</EnableExternalContentInSuggestions>
+  <RequireHttps>false</RequireHttps>
+  <IsBehindProxy>false</IsBehindProxy>
+  <RemoteIPFilter />
+  <IsRemoteIPFilterBlacklist>false</IsRemoteIPFilterBlacklist>
+  <ImageExtractionTimeoutMs>0</ImageExtractionTimeoutMs>
+  <PathSubstitutions />
+  <UninstalledPlugins />
+  <CollapseVideoFolders>true</CollapseVideoFolders>
+  <EnableOriginalTrackTitles>false</EnableOriginalTrackTitles>
+  <VacuumDatabaseOnStartup>false</VacuumDatabaseOnStartup>
+  <SimultaneousStreamLimit>0</SimultaneousStreamLimit>
+  <DatabaseCacheSizeMB>96</DatabaseCacheSizeMB>
+  <EnableSqLiteMmio>false</EnableSqLiteMmio>
+  <NextUpUpgraded>true</NextUpUpgraded>
+  <ChannelOptionsUpgraded>true</ChannelOptionsUpgraded>
+  <TimerIdsUpgraded>true</TimerIdsUpgraded>
+  <ForcedSortNameUpgraded>true</ForcedSortNameUpgraded>
+  <InheritedParentalRatingValueUpgraded>true</InheritedParentalRatingValueUpgraded>
+  <EnablePeopleLetterSubFolders>true</EnablePeopleLetterSubFolders>
+  <OptimizeDatabaseOnShutdown>true</OptimizeDatabaseOnShutdown>
+  <DatabaseAnalysisLimit>400</DatabaseAnalysisLimit>
+  <DisableAsyncIO>false</DisableAsyncIO>
+</ServerConfiguration>

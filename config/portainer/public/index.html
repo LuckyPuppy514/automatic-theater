@@ -1,0 +1,64 @@
+<!DOCTYPE html
+><html lang="zh" ng-app="portainer" ng-strict-di>
+  <head>
+    <meta charset="utf-8" />
+    <title>Portainer</title>
+    <meta name="description" content="" />
+    <meta name="author" content="Portainer.io" />
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="83a4b9c32a60e49c459795b8a8e8db1c.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="7999afe47cc2ba87b1d2d68340275314.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="d10bb86245b2b5493b533014464a0fef.png" />
+    <link rel="mask-icon" href="93824e5b4b160e0891e3345c019e3346.svg" color="#5bbad5" />
+    <link rel="shortcut icon" href="17929936296d031195530fbe01af606d.ico" />
+    <meta name="msapplication-config" content="4806ce9049e1e082dd3da4063ceb0eea.xml" />
+    <meta name="theme-color" content="#ffffff" />
+  <link href="vendor.vendor.css" rel="stylesheet"><link href="main.c826f9e0f52218c2d4eb.css" rel="stylesheet"></head>
+
+  <body ng-controller="MainController">
+    <div
+      id="page-wrapper"
+      ng-class="{
+        open: toggle && ['portainer.auth', 'portainer.init.admin', 'portainer.init.endpoint'].indexOf($state.current.name) === -1,
+        nopadding: ['portainer.auth', 'portainer.init.admin', 'portainer.init.endpoint', 'portainer.logout'].indexOf($state.current.name) > -1 || applicationState.loading
+      }"
+      ng-cloak
+    >
+      <div id="sideview" ui-view="sidebar" ng-if="!applicationState.loading"></div>
+
+      <div id="content-wrapper">
+        <div class="page-content">
+          <div class="page-wrapper" ng-if="applicationState.loading">
+            <!-- loading box -->
+            <div class="container simple-box">
+              <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+                <!-- loading box logo -->
+                <div class="row">
+                  <img ng-if="logo" ng-src="{{ logo }}" class="simple-box-logo" />
+                  <img ng-if="!logo" src="3cd5f1a0e5071957109c822d2acb8438.svg" class="simple-box-logo" alt="Portainer" />
+                </div>
+                <!-- !loading box logo -->
+                <!-- panel -->
+                <div class="row" style="text-align: center;">
+                  Portainer 加载中...
+                  <i class="fa fa-cog fa-spin" style="margin-left: 5px;"></i>
+                </div>
+                <!-- !panel -->
+              </div>
+            </div>
+            <!-- !loading box -->
+          </div>
+
+          <!-- Main Content -->
+          <div id="view" ui-view="content" ng-if="!applicationState.loading"></div> </div
+        ><!-- End Page Content --> </div
+      ><!-- End Content Wrapper --> </div
+    ><!-- End Page Wrapper -->
+  <script type="text/javascript" src="vendor.c826f9e0f52218c2d4eb.js"></script><script type="text/javascript" src="main.c826f9e0f52218c2d4eb.js"></script></body></html
+>

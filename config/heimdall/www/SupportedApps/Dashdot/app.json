@@ -1,0 +1,10 @@
+{
+  "appid": "f3319963720d2293ed504bb1f5c1c4a879147a34",
+  "name": "Dashdot",
+  "website": "https://getdashdot.com/",
+  "license": "MIT License",
+  "description": "Dash. (or Dashdot) is a modern server dashboard, running on the latest tech, designed with glassmorphism in mind. It is intended to be used for smaller VPS and private servers.",
+  "enhanced": false,
+  "tile_background": "dark",
+  "icon": "dashdot.png"
+}

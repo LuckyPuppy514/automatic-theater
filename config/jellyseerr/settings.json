@@ -1,0 +1,219 @@
+{
+ "clientId": "3d3be6fc-db1e-4e3b-8bf4-632552e2bdd8",
+ "vapidPrivate": "wUv6SOd-w-ef1NamClSzJIeTGqpkCOl9KwojCwgGOK0",
+ "vapidPublic": "BPuqT0J_Q-QwOF2kmEZOM8ldnREWeLsAiQwVSsuoUpuYkUEY8trIP4KumGfCeLJ0yzOxp9c02MolYClLTjjWhWE",
+ "main": {
+  "apiKey": "MTY2MTA1MTg2MTIxMWFmYmFhMjdjLTU5NDYtNDVjYi05OGNjLTcyZmRiYmNmOWE2YSk=",
+  "applicationTitle": "Jellyseerr",
+  "applicationUrl": "",
+  "csrfProtection": false,
+  "cacheImages": false,
+  "defaultPermissions": 32,
+  "defaultQuotas": {
+   "movie": {},
+   "tv": {}
+  },
+  "hideAvailable": false,
+  "localLogin": true,
+  "newPlexLogin": true,
+  "region": "",
+  "originalLanguage": "",
+  "trustProxy": false,
+  "mediaServerType": 2,
+  "partialRequestsEnabled": true,
+  "locale": "zh-CN"
+ },
+ "plex": {
+  "name": "",
+  "ip": "",
+  "port": 32400,
+  "useSsl": false,
+  "libraries": []
+ },
+ "jellyfin": {
+  "name": "",
+  "hostname": "http://172.128.1.19:8096",
+  "externalHostname": "",
+  "libraries": [
+   {
+    "id": "3227ce1e069754c594af25ea66d69fc7",
+    "name": "电影",
+    "enabled": true,
+    "type": "movie"
+   },
+   {
+    "id": "040d82c4cf758c8db8263882bcad9c70",
+    "name": "电视节目",
+    "enabled": true,
+    "type": "show"
+   },
+   {
+    "id": "00f4e72f6c222cd20f10e5f9771cfabf",
+    "name": "动漫",
+    "enabled": true,
+    "type": "show"
+   }
+  ],
+  "serverId": "66480f1e473348fd82ffc94a989c6eb4"
+ },
+ "tautulli": {},
+ "radarr": [
+  {
+   "name": "Radarr",
+   "hostname": "172.128.1.17",
+   "port": 7878,
+   "apiKey": "ca7d9fcbaae64526b24adf580e32fe41",
+   "useSsl": false,
+   "baseUrl": "",
+   "activeProfileId": 10,
+   "activeProfileName": "UHD-2160p HDR",
+   "activeDirectory": "/mnt/mergerfs/media/video/movie",
+   "is4k": false,
+   "minimumAvailability": "released",
+   "tags": [],
+   "isDefault": true,
+   "syncEnabled": true,
+   "preventSearch": false,
+   "id": 0
+  }
+ ],
+ "sonarr": [
+  {
+   "name": "Sonarr",
+   "hostname": "172.128.1.18",
+   "port": 8989,
+   "apiKey": "43cc956985c343998f815949250c2a34",
+   "useSsl": false,
+   "baseUrl": "",
+   "activeProfileId": 7,
+   "activeLanguageProfileId": 3,
+   "activeProfileName": "UHD-2160p",
+   "activeDirectory": "/mnt/mergerfs/media/video/serial",
+   "activeAnimeProfileId": 4,
+   "activeAnimeLanguageProfileId": 2,
+   "activeAnimeProfileName": "HD-1080p",
+   "activeAnimeDirectory": "/mnt/mergerfs/media/video/anime",
+   "tags": [],
+   "animeTags": [],
+   "is4k": false,
+   "isDefault": true,
+   "enableSeasonFolders": true,
+   "syncEnabled": true,
+   "preventSearch": false,
+   "id": 0
+  }
+ ],
+ "public": {
+  "initialized": true
+ },
+ "notifications": {
+  "agents": {
+   "email": {
+    "enabled": false,
+    "options": {
+     "userEmailRequired": false,
+     "emailFrom": "",
+     "smtpHost": "",
+     "smtpPort": 587,
+     "secure": false,
+     "ignoreTls": false,
+     "requireTls": false,
+     "allowSelfSigned": false,
+     "senderName": "Jellyseerr"
+    }
+   },
+   "discord": {
+    "enabled": false,
+    "types": 0,
+    "options": {
+     "webhookUrl": "",
+     "enableMentions": true
+    }
+   },
+   "lunasea": {
+    "enabled": false,
+    "types": 0,
+    "options": {
+     "webhookUrl": ""
+    }
+   },
+   "slack": {
+    "enabled": false,
+    "types": 0,
+    "options": {
+     "webhookUrl": ""
+    }
+   },
+   "telegram": {
+    "enabled": false,
+    "types": 0,
+    "options": {
+     "botAPI": "",
+     "chatId": "",
+     "sendSilently": false
+    }
+   },
+   "pushbullet": {
+    "enabled": false,
+    "types": 0,
+    "options": {
+     "accessToken": ""
+    }
+   },
+   "pushover": {
+    "enabled": false,
+    "types": 0,
+    "options": {
+     "accessToken": "",
+     "userToken": ""
+    }
+   },
+   "webhook": {
+    "enabled": false,
+    "types": 0,
+    "options": {
+     "webhookUrl": "",
+     "jsonPayload": "IntcbiAgICBcIm5vdGlmaWNhdGlvbl90eXBlXCI6IFwie3tub3RpZmljYXRpb25fdHlwZX19XCIsXG4gICAgXCJldmVudFwiOiBcInt7ZXZlbnR9fVwiLFxuICAgIFwic3ViamVjdFwiOiBcInt7c3ViamVjdH19XCIsXG4gICAgXCJtZXNzYWdlXCI6IFwie3ttZXNzYWdlfX1cIixcbiAgICBcImltYWdlXCI6IFwie3tpbWFnZX19XCIsXG4gICAgXCJ7e21lZGlhfX1cIjoge1xuICAgICAgICBcIm1lZGlhX3R5cGVcIjogXCJ7e21lZGlhX3R5cGV9fVwiLFxuICAgICAgICBcInRtZGJJZFwiOiBcInt7bWVkaWFfdG1kYmlkfX1cIixcbiAgICAgICAgXCJ0dmRiSWRcIjogXCJ7e21lZGlhX3R2ZGJpZH19XCIsXG4gICAgICAgIFwic3RhdHVzXCI6IFwie3ttZWRpYV9zdGF0dXN9fVwiLFxuICAgICAgICBcInN0YXR1czRrXCI6IFwie3ttZWRpYV9zdGF0dXM0a319XCJcbiAgICB9LFxuICAgIFwie3tyZXF1ZXN0fX1cIjoge1xuICAgICAgICBcInJlcXVlc3RfaWRcIjogXCJ7e3JlcXVlc3RfaWR9fVwiLFxuICAgICAgICBcInJlcXVlc3RlZEJ5X2VtYWlsXCI6IFwie3tyZXF1ZXN0ZWRCeV9lbWFpbH19XCIsXG4gICAgICAgIFwicmVxdWVzdGVkQnlfdXNlcm5hbWVcIjogXCJ7e3JlcXVlc3RlZEJ5X3VzZXJuYW1lfX1cIixcbiAgICAgICAgXCJyZXF1ZXN0ZWRCeV9hdmF0YXJcIjogXCJ7e3JlcXVlc3RlZEJ5X2F2YXRhcn19XCJcbiAgICB9LFxuICAgIFwie3tpc3N1ZX19XCI6IHtcbiAgICAgICAgXCJpc3N1ZV9pZFwiOiBcInt7aXNzdWVfaWR9fVwiLFxuICAgICAgICBcImlzc3VlX3R5cGVcIjogXCJ7e2lzc3VlX3R5cGV9fVwiLFxuICAgICAgICBcImlzc3VlX3N0YXR1c1wiOiBcInt7aXNzdWVfc3RhdHVzfX1cIixcbiAgICAgICAgXCJyZXBvcnRlZEJ5X2VtYWlsXCI6IFwie3tyZXBvcnRlZEJ5X2VtYWlsfX1cIixcbiAgICAgICAgXCJyZXBvcnRlZEJ5X3VzZXJuYW1lXCI6IFwie3tyZXBvcnRlZEJ5X3VzZXJuYW1lfX1cIixcbiAgICAgICAgXCJyZXBvcnRlZEJ5X2F2YXRhclwiOiBcInt7cmVwb3J0ZWRCeV9hdmF0YXJ9fVwiXG4gICAgfSxcbiAgICBcInt7Y29tbWVudH19XCI6IHtcbiAgICAgICAgXCJjb21tZW50X21lc3NhZ2VcIjogXCJ7e2NvbW1lbnRfbWVzc2FnZX19XCIsXG4gICAgICAgIFwiY29tbWVudGVkQnlfZW1haWxcIjogXCJ7e2NvbW1lbnRlZEJ5X2VtYWlsfX1cIixcbiAgICAgICAgXCJjb21tZW50ZWRCeV91c2VybmFtZVwiOiBcInt7Y29tbWVudGVkQnlfdXNlcm5hbWV9fVwiLFxuICAgICAgICBcImNvbW1lbnRlZEJ5X2F2YXRhclwiOiBcInt7Y29tbWVudGVkQnlfYXZhdGFyfX1cIlxuICAgIH0sXG4gICAgXCJ7e2V4dHJhfX1cIjogW11cbn0i"
+    }
+   },
+   "webpush": {
+    "enabled": false,
+    "options": {}
+   },
+   "gotify": {
+    "enabled": false,
+    "types": 0,
+    "options": {
+     "url": "",
+     "token": ""
+    }
+   }
+  }
+ },
+ "jobs": {
+  "plex-recently-added-scan": {
+   "schedule": "0 */5 * * * *"
+  },
+  "plex-full-scan": {
+   "schedule": "0 0 3 * * *"
+  },
+  "radarr-scan": {
+   "schedule": "0 0 4 * * *"
+  },
+  "sonarr-scan": {
+   "schedule": "0 30 4 * * *"
+  },
+  "download-sync": {
+   "schedule": "0 * * * * *"
+  },
+  "download-sync-reset": {
+   "schedule": "0 0 1 * * *"
+  },
+  "jellyfin-recently-added-sync": {
+   "schedule": "0 */5 * * * *"
+  },
+  "jellyfin-full-sync": {
+   "schedule": "0 0 3 * * *"
+  }
+ }
+}

@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<LibraryOptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <EnableArchiveMediaFiles>false</EnableArchiveMediaFiles>
+  <EnablePhotos>true</EnablePhotos>
+  <EnableRealtimeMonitor>true</EnableRealtimeMonitor>
+  <EnableMarkerDetection>false</EnableMarkerDetection>
+  <EnableMarkerDetectionDuringLibraryScan>false</EnableMarkerDetectionDuringLibraryScan>
+  <EnableChapterImageExtraction>false</EnableChapterImageExtraction>
+  <ExtractChapterImagesDuringLibraryScan>false</ExtractChapterImagesDuringLibraryScan>
+  <DownloadImagesInAdvance>false</DownloadImagesInAdvance>
+  <PathInfos>
+    <MediaPathInfo>
+      <Path>/mnt/mergerfs/media/video/serial</Path>
+    </MediaPathInfo>
+  </PathInfos>
+  <IgnoreHiddenFiles>false</IgnoreHiddenFiles>
+  <IgnoreFileExtensions />
+  <SaveLocalMetadata>true</SaveLocalMetadata>
+  <SaveMetadataHidden>false</SaveMetadataHidden>
+  <SaveLocalThumbnailSets>false</SaveLocalThumbnailSets>
+  <ImportMissingEpisodes>false</ImportMissingEpisodes>
+  <ImportPlaylists>true</ImportPlaylists>
+  <EnableAutomaticSeriesGrouping>true</EnableAutomaticSeriesGrouping>
+  <EnableEmbeddedTitles>false</EnableEmbeddedTitles>
+  <EnableAudioResume>false</EnableAudioResume>
+  <AutomaticRefreshIntervalDays>0</AutomaticRefreshIntervalDays>
+  <PreferredMetadataLanguage>zh-CN</PreferredMetadataLanguage>
+  <PreferredImageLanguage>zh-CN</PreferredImageLanguage>
+  <ContentType>tvshows</ContentType>
+  <MetadataCountryCode>CN</MetadataCountryCode>
+  <SeasonZeroDisplayName>Specials</SeasonZeroDisplayName>
+  <Name>电视节目</Name>
+  <MetadataSavers>
+    <string>Nfo</string>
+  </MetadataSavers>
+  <DisabledLocalMetadataReaders />
+  <LocalMetadataReaderOrder>
+    <string>Nfo</string>
+  </LocalMetadataReaderOrder>
+  <DisabledLyricsFetchers />
+  <SaveLyricsWithMedia>true</SaveLyricsWithMedia>
+  <LyricsDownloadMaxAgeDays>0</LyricsDownloadMaxAgeDays>
+  <LyricsFetcherOrder />
+  <LyricsDownloadLanguages />
+  <DisabledSubtitleFetchers />
+  <SubtitleFetcherOrder>
+    <string>MeiamSub.Shooter</string>
+    <string>MeiamSub.Thunder</string>
+    <string>Open Subtitles</string>
+  </SubtitleFetcherOrder>
+  <SkipSubtitlesIfEmbeddedSubtitlesPresent>false</SkipSubtitlesIfEmbeddedSubtitlesPresent>
+  <SkipSubtitlesIfAudioTrackMatches>false</SkipSubtitlesIfAudioTrackMatches>
+  <SubtitleDownloadLanguages>
+    <string>zh-CN</string>
+  </SubtitleDownloadLanguages>
+  <SubtitleDownloadMaxAgeDays>0</SubtitleDownloadMaxAgeDays>
+  <RequirePerfectSubtitleMatch>true</RequirePerfectSubtitleMatch>
+  <SaveSubtitlesWithMedia>true</SaveSubtitlesWithMedia>
+  <ForcedSubtitlesOnly>true</ForcedSubtitlesOnly>
+  <TypeOptions>
+    <TypeOptions>
+      <Type>Series</Type>
+      <MetadataFetchers>
+        <string>TheMovieDb</string>
+        <string>TheTVDB</string>
+        <string>The Open Movie Database</string>
+      </MetadataFetchers>
+      <MetadataFetcherOrder>
+        <string>MyAnimeList</string>
+        <string>AniSearch</string>
+        <string>AniList</string>
+        <string>AniDB</string>
+        <string>TheMovieDb</string>
+        <string>TheTVDB</string>
+        <string>The Open Movie Database</string>
+      </MetadataFetcherOrder>
+      <ImageFetchers>
+        <string>FanArt</string>
+        <string>TheMovieDb</string>
+        <string>TheTVDB</string>
+        <string>The Open Movie Database</string>
+      </ImageFetchers>
+      <ImageFetcherOrder>
+        <string>AniSearch</string>
+        <string>AniDB</string>
+        <string>MyAnimeList</string>
+        <string>AniList</string>
+        <string>FanArt</string>
+        <string>TheMovieDb</string>
+        <string>TheTVDB</string>
+        <string>The Open Movie Database</string>
+      </ImageFetcherOrder>
+      <ImageOptions />
+    </TypeOptions>
+    <TypeOptions>
+      <Type>Season</Type>
+      <MetadataFetchers>
+        <string>TheMovieDb</string>
+      </MetadataFetchers>
+      <MetadataFetcherOrder>
+        <string>AniDB</string>
+        <string>TheMovieDb</string>
+      </MetadataFetcherOrder>
+      <ImageFetchers>
+        <string>FanArt</string>
+        <string>TheMovieDb</string>
+        <string>TheTVDB</string>
+      </ImageFetchers>
+      <ImageFetcherOrder>
+        <string>AniSearch</string>
+        <string>AniDB</string>
+        <string>MyAnimeList</string>
+        <string>AniList</string>
+        <string>FanArt</string>
+        <string>TheMovieDb</string>
+        <string>TheTVDB</string>
+      </ImageFetcherOrder>
+      <ImageOptions />
+    </TypeOptions>
+    <TypeOptions>
+      <Type>Episode</Type>
+      <MetadataFetchers>
+        <string>TheMovieDb</string>
+        <string>TheTVDB</string>
+        <string>The Open Movie Database</string>
+      </MetadataFetchers>
+      <MetadataFetcherOrder>
+        <string>AniDB</string>
+        <string>TheMovieDb</string>
+        <string>TheTVDB</string>
+        <string>The Open Movie Database</string>
+      </MetadataFetcherOrder>
+      <ImageFetchers>
+        <string>Screen Grabber</string>
+        <string>TheMovieDb</string>
+        <string>TheTVDB</string>
+        <string>The Open Movie Database</string>
+      </ImageFetchers>
+      <ImageFetcherOrder>
+        <string>Screen Grabber</string>
+        <string>TheMovieDb</string>
+        <string>TheTVDB</string>
+        <string>The Open Movie Database</string>
+      </ImageFetcherOrder>
+      <ImageOptions />
+    </TypeOptions>
+  </TypeOptions>
+  <CollapseSingleItemFolders>true</CollapseSingleItemFolders>
+  <EnableAdultMetadata>true</EnableAdultMetadata>
+  <ImportCollections>false</ImportCollections>
+  <MinCollectionItems>2</MinCollectionItems>
+  <MinResumePct>3</MinResumePct>
+  <MaxResumePct>90</MaxResumePct>
+  <MinResumeDurationSeconds>120</MinResumeDurationSeconds>
+  <ThumbnailImagesIntervalSeconds>10</ThumbnailImagesIntervalSeconds>
+  <SampleIgnoreSize>314572800</SampleIgnoreSize>
+</LibraryOptions>
