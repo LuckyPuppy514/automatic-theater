@@ -81,7 +81,6 @@ services:
       - "JAVA_OPTS=-Xms256m -Xmx256m"
     volumes:
       - ${CONFIG_PATH}/jproxy:/app/config
-      - /mnt/truenas:/mnt/truenas 
     ports:
       - 8117:8117
     networks:
