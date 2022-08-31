@@ -44,8 +44,8 @@
   <LyricsDownloadLanguages />
   <DisabledSubtitleFetchers />
   <SubtitleFetcherOrder>
-    <string>MeiamSub.Thunder</string>
     <string>MeiamSub.Shooter</string>
+    <string>MeiamSub.Thunder</string>
     <string>Open Subtitles</string>
   </SubtitleFetcherOrder>
   <SkipSubtitlesIfEmbeddedSubtitlesPresent>false</SkipSubtitlesIfEmbeddedSubtitlesPresent>
@@ -62,38 +62,39 @@
       <Type>Series</Type>
       <MetadataFetchers>
         <string>TheMovieDb</string>
-        <string>MyAnimeList</string>
-        <string>AniSearch</string>
-        <string>AniList</string>
         <string>AniDB</string>
+        <string>AniList</string>
+        <string>AniSearch</string>
+        <string>MyAnimeList</string>
         <string>TheTVDB</string>
+        <string>The Open Movie Database</string>
       </MetadataFetchers>
       <MetadataFetcherOrder>
         <string>TheMovieDb</string>
-        <string>MyAnimeList</string>
-        <string>AniSearch</string>
-        <string>AniList</string>
         <string>AniDB</string>
+        <string>AniList</string>
+        <string>AniSearch</string>
+        <string>MyAnimeList</string>
         <string>TheTVDB</string>
         <string>The Open Movie Database</string>
       </MetadataFetcherOrder>
       <ImageFetchers>
         <string>TheMovieDb</string>
         <string>FanArt</string>
-        <string>AniSearch</string>
-        <string>MyAnimeList</string>
         <string>AniDB</string>
         <string>AniList</string>
+        <string>AniSearch</string>
+        <string>MyAnimeList</string>
         <string>TheTVDB</string>
         <string>The Open Movie Database</string>
       </ImageFetchers>
       <ImageFetcherOrder>
         <string>TheMovieDb</string>
         <string>FanArt</string>
-        <string>AniSearch</string>
-        <string>MyAnimeList</string>
         <string>AniDB</string>
         <string>AniList</string>
+        <string>AniSearch</string>
+        <string>MyAnimeList</string>
         <string>TheTVDB</string>
         <string>The Open Movie Database</string>
       </ImageFetcherOrder>
@@ -112,19 +113,19 @@
       <ImageFetchers>
         <string>TheMovieDb</string>
         <string>FanArt</string>
-        <string>AniSearch</string>
         <string>AniDB</string>
-        <string>MyAnimeList</string>
         <string>AniList</string>
+        <string>AniSearch</string>
+        <string>MyAnimeList</string>
         <string>TheTVDB</string>
       </ImageFetchers>
       <ImageFetcherOrder>
         <string>TheMovieDb</string>
         <string>FanArt</string>
-        <string>AniSearch</string>
         <string>AniDB</string>
-        <string>MyAnimeList</string>
         <string>AniList</string>
+        <string>AniSearch</string>
+        <string>MyAnimeList</string>
         <string>TheTVDB</string>
       </ImageFetcherOrder>
       <ImageOptions />

@@ -69,7 +69,7 @@
    "activeProfileName": "UHD-2160p HDR",
    "activeDirectory": "/mnt/mergerfs/media/video/movie",
    "is4k": false,
-   "minimumAvailability": "released",
+   "minimumAvailability": "announced",
    "tags": [],
    "isDefault": true,
    "syncEnabled": true,
