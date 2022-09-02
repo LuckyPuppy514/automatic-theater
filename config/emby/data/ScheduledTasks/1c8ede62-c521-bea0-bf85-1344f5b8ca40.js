@@ -1,1 +1,1 @@
-{"StartTimeUtc":"2022-08-31T06:46:01.5606222Z","EndTimeUtc":"2022-08-31T06:46:01.5627549Z","Status":"Completed","Name":"Log file cleanup","Key":"CleanLogFiles","Id":"1c8ede62c521bea0bf851344f5b8ca40"}
+{"StartTimeUtc":"2022-09-02T03:04:34.0383744Z","EndTimeUtc":"2022-09-02T03:04:34.0549584Z","Status":"Completed","Name":"Log file cleanup","Key":"CleanLogFiles","Id":"1c8ede62c521bea0bf851344f5b8ca40"}
