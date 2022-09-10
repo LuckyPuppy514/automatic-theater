@@ -27,7 +27,7 @@ echo "==============================================="
 echo ""
 
 # 输入要使用的用户信息
-echo "请输入用户名和组名，建议不要使用 root 用户，例如：atm:atm"
+echo "请输入用户名和组名：username:groupname，建议不要使用 root 用户，例如：atm:atm"
 read USERNAME_GROUPNAME
 until [[ ${USERNAME_GROUPNAME} ]]
 do
@@ -141,6 +141,7 @@ sudo chmod -R 770 ../automatic-theater
 
 # 为 emby 添加显卡设备
 sudo cp docker-compose.default.yml docker-compose.yml
+sudo chmod -R 770 ./docker-compose.yml
 DEVICE=""
 if [[ -d "/dev/dri" ]]; then
 	DEVICE="/dev/dri:/dev/dri"
@@ -151,7 +152,9 @@ fi
 if [[ ${DEVICE} ]]; then
 	sudo echo "    devices:" >> docker-compose.yml
 	sudo echo "      - ${DEVICE}" >> docker-compose.yml
+	echo "添加显卡设备配置成功"
+else
+	echo "未检测到/dev/dri或/dev/vchiq，无法为 Emby 添加硬件加速设备"
 fi
-echo "添加显卡设备配置成功"
 
 echo "执行完毕"
