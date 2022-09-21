@@ -225,7 +225,7 @@ graph LR
 | Radarr | `http://ip:7878` | - | - |
 | Jackett | `http://ip:9117` | - | - |
 | FlareSolverr | `http://ip:8191` | - | - |
-| JProxy | `http://ip:8117` | jproxy | jproxy@2022 |
+| JProxy | `http://ip:8117` | atm | atm@2022 |
 | qBittorrentee | `http://ip:8080` | atm | atm@2022 |
 | Emby | `http://ip:8096` | atm | atm@2022 |
 | Dashdot | `http://ip:3001` | - | - |

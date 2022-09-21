@@ -162,7 +162,6 @@ settings:
     type: text
     label: Replace "VOSTFR" and "SUBFRENCH" by this word
 
-
 login:
   method: post
   path: takelogin.php

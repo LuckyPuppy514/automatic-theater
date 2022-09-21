@@ -1,27 +1,27 @@
 ---
-id: pixelados
-name: Pixelados (API)
-description: "Pixelados is a Spanish Private Torrent Tracker for HD MOVIES / TV"
-language: es-ES
+id: nbtorrents-api
+name: NBTorrents (API)
+description: "NBTorrents is an INDIAN Private site for MOVIES / TV / MUSIC"
+language: en-US
 type: private
 encoding: UTF-8
 links:
-  - https://pixelados.tv/
+  - https://www.nbtorrents.com/
 
 caps:
   categorymappings:
-    - {id: 1, cat: Movies, desc: "Películas"}
-    - {id: 2, cat: TV, desc: "Series"}
-    - {id: 3, cat: Audio, desc: "Música"}
-    - {id: 4, cat: TV/Documentary, desc: "Documentales"}
-    - {id: 5, cat: TV/Sport, desc: "Deportes"}
-    - {id: 6, cat: TV/Anime, desc: "Animación"}
+    - {id: 1, cat: Movies, desc: "Movies"}
+    - {id: 2, cat: TV, desc: "TV"}
+    - {id: 3, cat: Audio, desc: "Music"}
+    - {id: 4, cat: PC/Games, desc: "Game"}
+    - {id: 5, cat: PC/0day, desc: "Application"}
 
   modes:
     search: [q]
     tv-search: [q, season, ep, imdbid, tvdbid, tmdbid]
     movie-search: [q, imdbid, tmdbid]
     music-search: [q]
+    book-search: [q]
 
 settings:
   - name: apikey
@@ -30,7 +30,7 @@ settings:
   - name: info_key
     type: info
     label: About your API key
-    default: "Find or Generate a new API Token by accessing your <a href=\"https://pixelados.tv/\" target =_blank>Pixelados</a> account <i>My Security</i> page and clicking on the <b>API Token</b> tab."
+    default: "Find or Generate a new API Token by accessing your <a href=\"https://www.nbtorrents.com/\" target =_blank>NBTorrents</a> account <i>My Security</i> page and clicking on the <b>API Token</b> tab."
   - name: freeleech
     type: checkbox
     label: Search freeleech only
@@ -81,15 +81,8 @@ search:
     page: 1
 
   keywordsfilters:
-    - name: diacritics
-      args: replace
     - name: re_replace
       args: ["\\.", " "]
-    # strip season and ep when it's added by tvsearch Query
-    - name: re_replace
-      args: ["(?i)\\bS0*(\\d+)\\b", "{{ if eq .Query.Type \"tvsearch\" }}{{ else }}T$1{{ end }}"]
-    - name: re_replace
-      args: ["(?i)S0?(\\d{1,2})E(\\d{1,2})", "{{ if eq .Query.Type \"tvsearch\" }}{{ else }}$1x$2{{ end }}"]
 
   rows:
     selector: data
@@ -100,44 +93,12 @@ search:
   fields:
     category:
       selector: category_id
-    _mejorada:
-      selector: types:contains(Mejorada)
-      optional: true
-    _corregida:
-      selector: types:contains(Corregida)
-      optional: true
-    _audio_editado:
-      selector: types:contains(Audio-Editado)
-      optional: true
-    title_vose:
-      selector: name:contains(VOSE)
-      optional: true
-    title_notvose:
-      selector: name:not(:contains(VOSE))
-      optional: true
-      filters:
-        - name: append
-          args: " SPANISH"
     title:
-      text: "{{ if .Result.title_vose }}{{ .Result.title_vose }}{{ else }}{{ .Result.title_notvose }}{{ end }}{{ if or .Result._mejorada .Result._corregida .Result._audio_editado }} PROPER{{ else }}{{ end }}"
-      filters:
-        # Replace Spanish season names like T1, MS (MiniSerie), TU (Temporada Unica) for normalized format S1
-        - name: re_replace
-          args: ["(?i)T(\\d{1,2})\\b", "S$1"]
-        - name: re_replace
-          args: ["(\\d{2})[×|x](\\d{2})", "S$1E$2"]
-        - name: re_replace
-          args: ["(\\d{1})[×|x](\\d{2})", "S0$1E$2"]
-        - name: re_replace
-          args: ["(?i)MS\\b", "S1"]
-        - name: re_replace
-          args: ["(?i)TU\\b", "S1"]
+      selector: name
     details:
       selector: details_link
     download:
       selector: download_link
-    infohash:
-      selector: info_hash
     poster:
       selector: poster
       filters:
@@ -182,6 +143,6 @@ search:
 #    minimumratio:
 #      text: 0.4
     minimumseedtime:
-      # 7 day (as seconds = 7 x 24 x 60 x 60)
-      text: 604800
-# json UNIT3D 6.2.1 custom
+      # 2 days (as seconds = 2 x 24 x 60 x 60)
+      text: 172800
+# json UNIT3D 6.3.0
