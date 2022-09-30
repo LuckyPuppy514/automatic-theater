@@ -141,6 +141,7 @@ sudo chmod -R 770 ../automatic-theater
 
 # 为 emby 添加显卡设备
 sudo cp docker-compose.default.yml docker-compose.yml
+sudo chown -R ${USERNAME_GROUPNAME} ./docker-compose.yml
 sudo chmod -R 770 ./docker-compose.yml
 DEVICE=""
 if [[ -d "/dev/dri" ]]; then
