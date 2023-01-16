@@ -222,7 +222,7 @@ sudo docker-compose up -d
 关闭
 
 ```bash
-sudo docker-compose up -down
+sudo docker-compose down
 ```
 
 > 后续启动和关闭等操作可以在 Portainer 中执行
