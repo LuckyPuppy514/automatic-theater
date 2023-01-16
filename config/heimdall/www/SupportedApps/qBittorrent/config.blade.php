@@ -10,7 +10,7 @@
     </div>
     <div class="input">
         <label>{{ __('app.apps.password') }}</label>
-        {!! Form::password('config[password]', isset($item) ? $item->getconfig()->password : null, ['placeholder' => __('app.apps.password'), 'data-config' => 'password', 'class' => 'form-control config-item']) !!}
+        {!! Form::input('password', 'config[password]', '', ['placeholder' => __('app.apps.password'), 'data-config' => 'password', 'class' => 'form-control config-item']) !!}
     </div>
     <div class="input">
         <button style="margin-top: 32px;" class="btn test" id="test_config">Test</button>

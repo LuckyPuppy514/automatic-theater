@@ -51,7 +51,7 @@
   <EnableOriginalTrackTitles>false</EnableOriginalTrackTitles>
   <VacuumDatabaseOnStartup>false</VacuumDatabaseOnStartup>
   <SimultaneousStreamLimit>0</SimultaneousStreamLimit>
-  <DatabaseCacheSizeMB>96</DatabaseCacheSizeMB>
+  <DatabaseCacheSizeMB>128</DatabaseCacheSizeMB>
   <EnableSqLiteMmio>false</EnableSqLiteMmio>
   <NextUpUpgraded>true</NextUpUpgraded>
   <ChannelOptionsUpgraded>true</ChannelOptionsUpgraded>

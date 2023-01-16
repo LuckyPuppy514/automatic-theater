@@ -7,10 +7,10 @@
   <EnableMarkerDetectionDuringLibraryScan>false</EnableMarkerDetectionDuringLibraryScan>
   <EnableChapterImageExtraction>false</EnableChapterImageExtraction>
   <ExtractChapterImagesDuringLibraryScan>false</ExtractChapterImagesDuringLibraryScan>
-  <DownloadImagesInAdvance>false</DownloadImagesInAdvance>
+  <DownloadImagesInAdvance>true</DownloadImagesInAdvance>
   <PathInfos>
     <MediaPathInfo>
-      <Path>/mnt/mergerfs/media/video/anime</Path>
+      <Path>/media/video/anime</Path>
     </MediaPathInfo>
   </PathInfos>
   <IgnoreHiddenFiles>false</IgnoreHiddenFiles>
@@ -23,13 +23,13 @@
   <EnableAutomaticSeriesGrouping>true</EnableAutomaticSeriesGrouping>
   <EnableEmbeddedTitles>false</EnableEmbeddedTitles>
   <EnableAudioResume>false</EnableAudioResume>
-  <AutomaticRefreshIntervalDays>0</AutomaticRefreshIntervalDays>
+  <AutomaticRefreshIntervalDays>30</AutomaticRefreshIntervalDays>
   <PreferredMetadataLanguage>zh-CN</PreferredMetadataLanguage>
   <PreferredImageLanguage>zh-CN</PreferredImageLanguage>
   <ContentType>tvshows</ContentType>
   <MetadataCountryCode>CN</MetadataCountryCode>
   <SeasonZeroDisplayName>Specials</SeasonZeroDisplayName>
-  <Name>动漫</Name>
+  <Name>🌟 动漫剧集 🌟</Name>
   <MetadataSavers>
     <string>Nfo</string>
   </MetadataSavers>
@@ -48,12 +48,14 @@
     <string>MeiamSub.Thunder</string>
     <string>Open Subtitles</string>
   </SubtitleFetcherOrder>
-  <SkipSubtitlesIfEmbeddedSubtitlesPresent>false</SkipSubtitlesIfEmbeddedSubtitlesPresent>
+  <SkipSubtitlesIfEmbeddedSubtitlesPresent>true</SkipSubtitlesIfEmbeddedSubtitlesPresent>
   <SkipSubtitlesIfAudioTrackMatches>false</SkipSubtitlesIfAudioTrackMatches>
   <SubtitleDownloadLanguages>
     <string>zh-CN</string>
+    <string>zh-TW</string>
+    <string>zh-HK</string>
   </SubtitleDownloadLanguages>
-  <SubtitleDownloadMaxAgeDays>0</SubtitleDownloadMaxAgeDays>
+  <SubtitleDownloadMaxAgeDays>30</SubtitleDownloadMaxAgeDays>
   <RequirePerfectSubtitleMatch>true</RequirePerfectSubtitleMatch>
   <SaveSubtitlesWithMedia>true</SaveSubtitlesWithMedia>
   <ForcedSubtitlesOnly>true</ForcedSubtitlesOnly>
@@ -62,39 +64,23 @@
       <Type>Series</Type>
       <MetadataFetchers>
         <string>TheMovieDb</string>
-        <string>AniDB</string>
-        <string>AniList</string>
-        <string>AniSearch</string>
-        <string>MyAnimeList</string>
         <string>TheTVDB</string>
         <string>The Open Movie Database</string>
       </MetadataFetchers>
       <MetadataFetcherOrder>
         <string>TheMovieDb</string>
-        <string>AniDB</string>
-        <string>AniList</string>
-        <string>AniSearch</string>
-        <string>MyAnimeList</string>
         <string>TheTVDB</string>
         <string>The Open Movie Database</string>
       </MetadataFetcherOrder>
       <ImageFetchers>
-        <string>TheMovieDb</string>
         <string>FanArt</string>
-        <string>AniDB</string>
-        <string>AniList</string>
-        <string>AniSearch</string>
-        <string>MyAnimeList</string>
+        <string>TheMovieDb</string>
         <string>TheTVDB</string>
         <string>The Open Movie Database</string>
       </ImageFetchers>
       <ImageFetcherOrder>
-        <string>TheMovieDb</string>
         <string>FanArt</string>
-        <string>AniDB</string>
-        <string>AniList</string>
-        <string>AniSearch</string>
-        <string>MyAnimeList</string>
+        <string>TheMovieDb</string>
         <string>TheTVDB</string>
         <string>The Open Movie Database</string>
       </ImageFetcherOrder>
@@ -104,28 +90,18 @@
       <Type>Season</Type>
       <MetadataFetchers>
         <string>TheMovieDb</string>
-        <string>AniDB</string>
       </MetadataFetchers>
       <MetadataFetcherOrder>
         <string>TheMovieDb</string>
-        <string>AniDB</string>
       </MetadataFetcherOrder>
       <ImageFetchers>
-        <string>TheMovieDb</string>
         <string>FanArt</string>
-        <string>AniDB</string>
-        <string>AniList</string>
-        <string>AniSearch</string>
-        <string>MyAnimeList</string>
+        <string>TheMovieDb</string>
         <string>TheTVDB</string>
       </ImageFetchers>
       <ImageFetcherOrder>
-        <string>TheMovieDb</string>
         <string>FanArt</string>
-        <string>AniDB</string>
-        <string>AniList</string>
-        <string>AniSearch</string>
-        <string>MyAnimeList</string>
+        <string>TheMovieDb</string>
         <string>TheTVDB</string>
       </ImageFetcherOrder>
       <ImageOptions />
@@ -134,25 +110,23 @@
       <Type>Episode</Type>
       <MetadataFetchers>
         <string>TheMovieDb</string>
-        <string>AniDB</string>
         <string>TheTVDB</string>
         <string>The Open Movie Database</string>
       </MetadataFetchers>
       <MetadataFetcherOrder>
         <string>TheMovieDb</string>
-        <string>AniDB</string>
         <string>TheTVDB</string>
         <string>The Open Movie Database</string>
       </MetadataFetcherOrder>
       <ImageFetchers>
-        <string>TheMovieDb</string>
         <string>Screen Grabber</string>
+        <string>TheMovieDb</string>
         <string>TheTVDB</string>
         <string>The Open Movie Database</string>
       </ImageFetchers>
       <ImageFetcherOrder>
-        <string>TheMovieDb</string>
         <string>Screen Grabber</string>
+        <string>TheMovieDb</string>
         <string>TheTVDB</string>
         <string>The Open Movie Database</string>
       </ImageFetcherOrder>

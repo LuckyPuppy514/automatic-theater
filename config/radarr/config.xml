@@ -12,4 +12,6 @@
   <Branch>master</Branch>
   <SslCertPath></SslCertPath>
   <SslCertPassword></SslCertPassword>
+  <InstanceName>Radarr</InstanceName>
+  <Theme>auto</Theme>
 </Config>

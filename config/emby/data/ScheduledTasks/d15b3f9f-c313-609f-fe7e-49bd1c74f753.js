@@ -1,0 +1,1 @@
+{"StartTimeUtc":"2023-01-15T18:59:59.9999026Z","EndTimeUtc":"2023-01-15T19:00:00.0005920Z","Status":"Completed","Name":"Thumbnail image extraction","Key":"RefreshChapterImages","Id":"d15b3f9fc313609ffe7e49bd1c74f753"}

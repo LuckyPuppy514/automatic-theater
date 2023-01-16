@@ -1,0 +1,10 @@
+{
+    "appid": "0628c8d1a4868d6e6b994ae43a091f4e142ce642",
+    "name": "Jellyseerr",
+    "website": "https://github.com/Fallenbagel/jellyseerr",
+    "license": "MIT License",
+    "description": "Jellyseerr is a free and open source software application for managing requests for your media library. It is a a fork of Overseerr built to bring support for Jellyfin & Emby media servers!",
+    "enhanced": true,
+    "tile_background": "dark",
+    "icon": "jellyseerr.png"
+}

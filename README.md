@@ -5,11 +5,15 @@
     - [🐧 2. 系统](#-2-系统)
     - [🌐 3. 网络](#-3-网络)
   - [👨‍💻 安装](#-安装)
-    - [1. 安装 docker](#1-安装-docker)
+    - [1. 安装 docker 和 docker-compose](#1-安装-docker-和-docker-compose)
+      - [1.1. docker](#11-docker)
+      - [1.2. docker-compose](#12-docker-compose)
     - [2. 安装 automatic-theater](#2-安装-automatic-theater)
-      - [2.1. 前期准备](#21-前期准备)
-      - [2.2. 拉取项目并执行配置脚本](#22-拉取项目并执行配置脚本)
-      - [2.3. 拉取镜像并创建容器](#23-拉取镜像并创建容器)
+      - [2.1. 下载项目](#21-下载项目)
+      - [2.1. 修改配置文件](#21-修改配置文件)
+      - [2.3. 执行安装脚本](#23-执行安装脚本)
+      - [2.4. 拉取镜像](#24-拉取镜像)
+      - [2.4. 启动和关闭](#24-启动和关闭)
   - [📺 使用](#-使用)
   - [😘 如何贡献](#-如何贡献)
   - [🃏 使用许可](#-使用许可)
@@ -24,7 +28,7 @@
 
 ```mermaid
 graph LR
-    1[Jellyseerr] == 手动请求电视剧/综艺/动漫 ==> 2[Sonarr] == 自动搜索/下载 ==> 3[JProxy] == 自动搜索 ==> 4[Jackett / Prowlarr]
+    1[Jellyseerr] == 手动请求电视剧/综艺/动漫 ==> 2[Sonarr] == 自动搜索/下载 ==> 3[JProxy] == 自动搜索 ==> 4[Jackett]
     1[Jellyseerr] == 手动请求电影 ==> 6[Radarr] == 自动搜索/下载 ==> 3[JProxy]
     3[JProxy] == 自动下载 ==> 5[qBittorrentee]
     2[Sonarr] == 自动导入 ==> 7[Emby]
@@ -42,14 +46,12 @@ graph LR
 | [Portainer](https://github.com/portainer/portainer) | 容器管理系统 | ⭕ | 方便启动或关闭容器，查看日志等 |
 | [Emby](https://emby.media) | 媒体服务器 | ⭕ | 刮削信息，提供观看服务 |
 | [Jellyseerr](https://github.com/Fallenbagel/jellyseerr) | 聚合搜索 | ⭕ | 搜索并推送到 Sonarr / Radarr |
-| [Radarr](https://github.com/Radarr/Radarr) | 电影订阅 | ⭕ | 定时搜索，下载，重命名并导入 |
-| [Sonarr](https://github.com/Sonarr/Sonarr) | 电视剧，综艺和动漫订阅 | ❌ | 定时搜索，下载，重命名并导入 |
+| [Radarr](https://github.com/Radarr/Radarr) | 电影订阅系统 | ⭕ | 定时搜索，下载，重命名并导入 |
+| [Sonarr](https://github.com/Sonarr/Sonarr) | 电视剧和动漫订阅系统 | ❌ | 定时搜索，下载，重命名并导入 |
 | [Jackett](https://github.com/Jackett/Jackett) | 种子站代理 | ❌ | 可添加种子站，提供种子搜索，支持结果缓存 |
-| [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr) | 绕过 Cloudflare 和 DDoS-GUARD | - | Jackett / Prowlarr 已配置，无其他操作 |
-| [JProxy](https://github.com/LuckyPuppy514/jproxy) | Jackett / Prowlarr 代理 | ⭕ | 优化 Sonarr 识别率，主要针对动漫 |
-| [qBittorrentee](https://github.com/SuperNG6/Docker-qBittorrent-Enhanced-Edition) | 下载客户端 | ⭕ | qBittorrent 增强版 |
-| [Dashdot](https://github.com/MauriceNino/dashdot) | 系统性能监控 | ❌ | 监控 CPU，内存，硬盘，网络信息 |
-| [Prowlarr](https://github.com/Prowlarr/Prowlarr) | 种子站代理 | ⭕ | 相较于 Jackett，多了自动同步配置，但是好像没有缓存，作为备用选择，可自行切换 |
+| [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr) | 绕过 Cloudflare 和 DDoS-GUARD | - | Jackett 已配置，无其他操作 |
+| [JProxy](https://github.com/LuckyPuppy514/jproxy) | 种子站代理过滤 | ⭕ | 优化 Sonarr 识别率，主要针对动漫 |
+| [qBittorrent](https://github.com/qbittorrent/qBittorrent) | 下载客户端 | ⭕ | qBittorrent |
 
 Heimdall
 ![Heimdall_tuya](https://cdn.jsdelivr.net/gh/LuckyPuppy514/pic-bed/common/Heimdall_tuya.jpg)
@@ -75,14 +77,8 @@ Jackett
 JProxy
 ![JProxy_tuya](https://cdn.jsdelivr.net/gh/LuckyPuppy514/pic-bed/common/JProxy_tuya.jpg)
 
-qBittorrentee
+qBittorrent
 ![qBittorrentee_tuya](https://cdn.jsdelivr.net/gh/LuckyPuppy514/pic-bed/common/qBittorrentee_tuya.jpg)
-
-Dashdot
-![Dashdot_tuya](https://cdn.jsdelivr.net/gh/LuckyPuppy514/pic-bed/common/Dashdot_tuya.jpg)
-
-Prowlarr
-![Prowlarr_tuya](https://cdn.jsdelivr.net/gh/LuckyPuppy514/pic-bed/common/Prowlarr_tuya.jpg)
 
 ## 🔥 配置
 
@@ -93,7 +89,7 @@ Prowlarr
 | CPU | 4核 | 例如：J1900, J3160, J4125 等 |
 | GPU | 非必要 | 主要用于 Emby 为转码提供硬件加速 |
 | 内存 | 4G | 4G 完全够用，2G 较为勉强 |
-| 固态 | 32G | 主要用于创建容器，保存配置，16G 够用 |
+| 固态 | 32G | 主要用于创建容器，保存配置 |
 | 硬盘 | 512G | 取决于你的视频数量，也可以参考 [cloud-drive](https://github.com/LuckyPuppy514/cloud-drive) 挂载云盘 |
 | 网络 | 100M | 内网速率 100M 或以上，无线最好支持 5G |
 
@@ -128,9 +124,23 @@ curl https://www.youtube.com
 
 ## 👨‍💻 安装
 
-### 1. 安装 docker
+安装会用到以下命令，请先自行安装，这里仅提供 ubuntu / debian 的安装方式
 
-docker (debian / ubuntu / centos)
+```bash
+apt install sudo git curl
+```
+
+### 1. 安装 docker 和 docker-compose
+
+#### 1.1. docker
+
+执行下面的命令，如果有输出版本号证明已经安装
+
+```bash
+sudo docker -v
+```
+
+未安装，则执行下面的命令进行安装 (debian / ubuntu / centos)
 
 ```bash
 sudo curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
@@ -138,56 +148,60 @@ sudo curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 
 > 其他系统请参考：[菜鸟教程](https://www.runoob.com/docker/docker-tutorial.html) 或自行查阅相关资料
 
-docker-compose
+#### 1.2. docker-compose
+
+执行下面的命令，如果有输出版本号证明已经安装
 
 ```bash
-# 查看版本号，如有则不需要安装
 sudo docker-compose -v
 ```
 
-```bash
-# 下载
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+未安装，则执行下面的命令进行安装
 
-# 添加可执行权限
-sudo chmod +x /usr/local/bin/docker-compose
+```bash
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose
 ```
 
 ### 2. 安装 automatic-theater
 
-#### 2.1. 前期准备
-
-查看当前用户
+#### 2.1. 下载项目
 
 ```bash
-id
+sudo git clone https://github.com/LuckyPuppy514/automatic-theater.git
 ```
 
-如果是 root 用户，且没有非 root 用户，新增用户
+如果提示找不到 git 命令
+
+- 方法一：自行查找自己系统安装 git 的方式
+- 方法二：[👆 点我下载 👆](https://github.com/LuckyPuppy514/automatic-theater/archive/refs/heads/main.zip) 解压后上传对应目录（记得修改目录名称为 `automatic-theater`）
+
+#### 2.1. 修改配置文件
+
+在 automatic-theater 目录下执行
 
 ```bash
-useradd 用户名
+sudo vi docker-compose-default.env
 ```
 
-查看非 root 用户信息
+- 删除：delete
+- 输入：i
+- 保存并退出：ESC 输入 :wq
+
+![20230116142029](https://cdn.jsdelivr.net/gh/LuckyPuppy514/pic-bed/common/20230116142029.png)
+
+> 不会使用 vi 可下载到本地修改后上传
+
+#### 2.3. 执行安装脚本
+
+在 automatic-theater 目录下执行
 
 ```bash
-id 用户名
+sudo chmod -R 777 * && sudo ./install.sh
 ```
 
-![20220825172028](https://cdn.jsdelivr.net/gh/LuckyPuppy514/pic-bed/common/20220825172028.png)
+![20230116141824](https://cdn.jsdelivr.net/gh/LuckyPuppy514/pic-bed/common/20230116141824.png)
 
-> 🔥 记住用户id和名称，以及组id和名称 🔥
-
-#### 2.2. 拉取项目并执行配置脚本
-
-```bash
-sudo git clone https://github.com/LuckyPuppy514/automatic-theater.git && sudo chmod -R 777 automatic-theater && cd automatic-theater && ./install.sh
-```
-
-#### 2.3. 拉取镜像并创建容器
-
-拉取镜像
+#### 2.4. 拉取镜像
 
 ```bash
 sudo docker-compose pull
@@ -195,13 +209,24 @@ sudo docker-compose pull
 
 > 因为镜像较多，拉取较慢，某个失败或卡着，ctrl+c 强制停止，再次执行即可，多试几次
 
-创建容器并启动
+![20230116142504](https://cdn.jsdelivr.net/gh/LuckyPuppy514/pic-bed/common/20230116142504.png)
+
+#### 2.4. 启动和关闭
+
+启动
 
 ```bash
 sudo docker-compose up -d
 ```
 
-> 因为容器较多，启动较慢，请耐心等待
+关闭
+
+```bash
+sudo docker-compose up -down
+```
+
+> 后续启动和关闭等操作可以在 Portainer 中执行
+> 修改参数建议还是修改 docker-compose.yml 和 .env
 
 ## 📺 使用
 
@@ -218,18 +243,16 @@ graph LR
 
 | 名称 | 地址 | 用户名 | 密码 |
 | :---: | :---: | :---: | :---: |
-| Heimdall | `https://ip:10443`  | - | - |
-| Portainer | `http://ip:9000` | atm | atm@2022 |
-| Jellyseerr | `http://ip:5055` | atm | atm@2022 |
-| Sonarr | `http://ip:8989` | - | - |
-| Radarr | `http://ip:7878` | - | - |
-| Jackett | `http://ip:9117` | - | - |
-| FlareSolverr | `http://ip:8191` | - | - |
-| JProxy | `http://ip:8117` | atm | atm@2022 |
-| qBittorrentee | `http://ip:8080` | atm | atm@2022 |
-| Emby | `http://ip:8096` | atm | atm@2022 |
-| Dashdot | `http://ip:3001` | - | - |
-| Prowlarr | `http://ip:9696` | - | - |
+| Heimdall | `https://ip:60211`  | - | - |
+| Portainer | `http://ip:60212` | atm | atm@20230101 |
+| FlareSolverr | `http://ip:60213` | - | - |
+| Jackett | `http://ip:60214` | - | - |
+| JProxy | `http://ip:60215` | atm | atm@20230101 |
+| Jellyseerr | `http://ip:60216` | atm | atm@20230101 |
+| Radarr | `http://ip:60217` | - | - |
+| Sonarr | `http://ip:60218` | - | - |
+| qBittorrent | `http://ip:60219` | atm | atm@20230101 |
+| Emby | `http://ip:60220` | atm | atm@20230101 |
 
 🔥 注意：如需开启外网访问，注意修改对应系统的密码和 API Key，并同时修改其他系统中的配置 🔥
 

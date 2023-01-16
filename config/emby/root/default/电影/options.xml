@@ -7,10 +7,10 @@
   <EnableMarkerDetectionDuringLibraryScan>false</EnableMarkerDetectionDuringLibraryScan>
   <EnableChapterImageExtraction>false</EnableChapterImageExtraction>
   <ExtractChapterImagesDuringLibraryScan>false</ExtractChapterImagesDuringLibraryScan>
-  <DownloadImagesInAdvance>false</DownloadImagesInAdvance>
+  <DownloadImagesInAdvance>true</DownloadImagesInAdvance>
   <PathInfos>
     <MediaPathInfo>
-      <Path>/mnt/mergerfs/media/video/movie</Path>
+      <Path>/media/video/movie</Path>
     </MediaPathInfo>
   </PathInfos>
   <IgnoreHiddenFiles>false</IgnoreHiddenFiles>
@@ -23,13 +23,13 @@
   <EnableAutomaticSeriesGrouping>true</EnableAutomaticSeriesGrouping>
   <EnableEmbeddedTitles>false</EnableEmbeddedTitles>
   <EnableAudioResume>false</EnableAudioResume>
-  <AutomaticRefreshIntervalDays>0</AutomaticRefreshIntervalDays>
+  <AutomaticRefreshIntervalDays>30</AutomaticRefreshIntervalDays>
   <PreferredMetadataLanguage>zh-CN</PreferredMetadataLanguage>
   <PreferredImageLanguage>zh-CN</PreferredImageLanguage>
   <ContentType>movies</ContentType>
   <MetadataCountryCode>CN</MetadataCountryCode>
   <SeasonZeroDisplayName>Specials</SeasonZeroDisplayName>
-  <Name>电影</Name>
+  <Name>🎞️ 电影 🎞️</Name>
   <MetadataSavers>
     <string>Nfo</string>
   </MetadataSavers>
@@ -48,12 +48,14 @@
     <string>MeiamSub.Thunder</string>
     <string>Open Subtitles</string>
   </SubtitleFetcherOrder>
-  <SkipSubtitlesIfEmbeddedSubtitlesPresent>false</SkipSubtitlesIfEmbeddedSubtitlesPresent>
+  <SkipSubtitlesIfEmbeddedSubtitlesPresent>true</SkipSubtitlesIfEmbeddedSubtitlesPresent>
   <SkipSubtitlesIfAudioTrackMatches>false</SkipSubtitlesIfAudioTrackMatches>
   <SubtitleDownloadLanguages>
     <string>zh-CN</string>
+    <string>zh-TW</string>
+    <string>zh-HK</string>
   </SubtitleDownloadLanguages>
-  <SubtitleDownloadMaxAgeDays>0</SubtitleDownloadMaxAgeDays>
+  <SubtitleDownloadMaxAgeDays>30</SubtitleDownloadMaxAgeDays>
   <RequirePerfectSubtitleMatch>true</RequirePerfectSubtitleMatch>
   <SaveSubtitlesWithMedia>true</SaveSubtitlesWithMedia>
   <ForcedSubtitlesOnly>true</ForcedSubtitlesOnly>
@@ -62,31 +64,27 @@
       <Type>Movie</Type>
       <MetadataFetchers>
         <string>TheMovieDb</string>
-        <string>Douban</string>
-        <string>TheTVDB</string>
         <string>The Open Movie Database</string>
+        <string>TheTVDB</string>
       </MetadataFetchers>
       <MetadataFetcherOrder>
         <string>TheMovieDb</string>
-        <string>Douban</string>
-        <string>TheTVDB</string>
         <string>The Open Movie Database</string>
+        <string>TheTVDB</string>
       </MetadataFetcherOrder>
       <ImageFetchers>
-        <string>TheMovieDb</string>
-        <string>Douban</string>
         <string>FanArt</string>
-        <string>TheTVDB</string>
+        <string>TheMovieDb</string>
         <string>Screen Grabber</string>
         <string>The Open Movie Database</string>
+        <string>TheTVDB</string>
       </ImageFetchers>
       <ImageFetcherOrder>
-        <string>TheMovieDb</string>
-        <string>Douban</string>
         <string>FanArt</string>
-        <string>TheTVDB</string>
+        <string>TheMovieDb</string>
         <string>Screen Grabber</string>
         <string>The Open Movie Database</string>
+        <string>TheTVDB</string>
       </ImageFetcherOrder>
       <ImageOptions />
     </TypeOptions>

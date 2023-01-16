@@ -32,7 +32,7 @@
  },
  "jellyfin": {
   "name": "",
-  "hostname": "http://172.128.1.19:8096",
+  "hostname": "http://172.128.2.20:8096",
   "externalHostname": "",
   "libraries": [
    {
@@ -60,14 +60,14 @@
  "radarr": [
   {
    "name": "Radarr",
-   "hostname": "172.128.1.17",
+   "hostname": "172.128.2.17",
    "port": 7878,
    "apiKey": "ca7d9fcbaae64526b24adf580e32fe41",
    "useSsl": false,
    "baseUrl": "",
    "activeProfileId": 10,
    "activeProfileName": "UHD-2160p HDR",
-   "activeDirectory": "/mnt/mergerfs/media/video/movie",
+   "activeDirectory": "/media/video/movie",
    "is4k": false,
    "minimumAvailability": "announced",
    "tags": [],
@@ -80,7 +80,7 @@
  "sonarr": [
   {
    "name": "Sonarr",
-   "hostname": "172.128.1.18",
+   "hostname": "172.128.2.18",
    "port": 8989,
    "apiKey": "43cc956985c343998f815949250c2a34",
    "useSsl": false,
@@ -88,13 +88,17 @@
    "activeProfileId": 7,
    "activeLanguageProfileId": 3,
    "activeProfileName": "UHD-2160p",
-   "activeDirectory": "/mnt/mergerfs/media/video/serial",
+   "activeDirectory": "/media/video/serial",
    "activeAnimeProfileId": 4,
    "activeAnimeLanguageProfileId": 2,
    "activeAnimeProfileName": "HD-1080p",
-   "activeAnimeDirectory": "/mnt/mergerfs/media/video/anime",
-   "tags": [],
-   "animeTags": [],
+   "activeAnimeDirectory": "/media/video/anime",
+   "tags": [
+    1
+   ],
+   "animeTags": [
+    2
+   ],
    "is4k": false,
    "isDefault": true,
    "enableSeasonFolders": true,
@@ -197,6 +201,9 @@
   "plex-full-scan": {
    "schedule": "0 0 3 * * *"
   },
+  "plex-watchlist-sync": {
+   "schedule": "0 */10 * * * *"
+  },
   "radarr-scan": {
    "schedule": "0 0 4 * * *"
   },
@@ -214,6 +221,9 @@
   },
   "jellyfin-full-sync": {
    "schedule": "0 0 3 * * *"
+  },
+  "image-cache-cleanup": {
+   "schedule": "0 0 5 * * *"
   }
  }
 }

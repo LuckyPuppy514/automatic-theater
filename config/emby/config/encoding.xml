@@ -51,5 +51,5 @@
   </CodecConfigurations>
   <HardwareAccelerationMode>2</HardwareAccelerationMode>
   <EnableHardwareToneMapping>true</EnableHardwareToneMapping>
-  <EnableSoftwareToneMapping>false</EnableSoftwareToneMapping>
+  <EnableSoftwareToneMapping>true</EnableSoftwareToneMapping>
 </EncodingOptions>

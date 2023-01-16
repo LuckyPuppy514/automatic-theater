@@ -9,13 +9,13 @@
     "id": "cookieheader",
     "type": "hiddendata",
     "name": "CookieHeader",
-    "value": "_kanako_session=gOfZgBWeWehQBm0BwrhzkOTFK%2FF3osIFHET6LcIMp3ne4MyXFBl5QswhwDz0Fo9pcfI%2FFuwYV0K%2BgH1s9YpvEafY2AZAiF0zQYE3jDuTYQh72c7rTklsmRu61oVZiQyqLKWZvn476eTrwphQG6zDMix0JC0T2CyKDqMqync1X1QpT1ohFD7TzN2IkK%2BzVCZZsTnA2L7uz4rmoMRtoVtLUtzrH1bap3Riqaruk%2F2eIrX9DhCiC6hFpFZnml4RmcX8AeeN7%2FWpWYQX14W7phB2Vvbna333p2Y%3D--H%2B6VppEGzu9G5MH3--oIkgX8oxFFAP8WJi2M%2F5jQ%3D%3D"
+    "value": "_kanako_session=XUTk7MDo47o24bNcrcSVZhrG6ATB%2BL9KAeYjSIIRx0G1NChGA0LehnS2GYM3i0lOn2diT02r%2FlLt487KVxpGtdKv4XSeJDYLgTlfFXJV2rM%2FoeWocVj%2Fb2KG98CajjDOyO2Nbf2Ia1eBudOz1gbyfEe02X7GqykCEB65uc9QXJctyanuBwYXtqje8Pg2P%2FCnRbW0wj02vvfug8xu7uVg%2FgFSGKqjujRzfzcrhkFxkLeT9%2Fq%2FMjocu9JKPtdNv3uaqFyWti5AZ9l3Ik3od02pAyBvCLFqcjY%3D--9Ol1V%2BjeEb0J2vcF--q2UCYC4g02r5VTQDimLMzQ%3D%3D"
   },
   {
     "id": "lasterror",
     "type": "hiddendata",
     "name": "LastError",
-    "value": "Exception (acgrip):  Received an unexpected EOF or 0 bytes from the transport stream.: The SSL connection could not be established, see inner exception."
+    "value": "Exception (acgrip): Connection refused: Connection refused (acg.rip:443)"
   },
   {
     "id": "tags",

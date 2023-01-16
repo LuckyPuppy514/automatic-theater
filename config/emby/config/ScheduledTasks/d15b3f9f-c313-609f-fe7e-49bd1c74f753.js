@@ -1,1 +1,1 @@
-[]
+[{"Type":"DailyTrigger","TimeOfDayTicks":108000000000}]
