@@ -50,7 +50,7 @@ graph LR
 | [Sonarr](https://github.com/Sonarr/Sonarr) | 电视剧和动漫订阅系统 | ❌ | 定时搜索，下载，重命名并导入 |
 | [Jackett](https://github.com/Jackett/Jackett) | 种子站代理 | ❌ | 可添加种子站，提供种子搜索，支持结果缓存 |
 | [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr) | 绕过 Cloudflare 和 DDoS-GUARD | - | Jackett 已配置，无其他操作 |
-| [JProxy](https://github.com/LuckyPuppy514/jproxy) | 种子站代理过滤 | ⭕ | 优化 Sonarr 识别率，主要针对动漫 |
+| [JProxy](https://github.com/LuckyPuppy514/jproxy) | 种子站代理过滤 | ⭕ | 介于 Sonarr / Radarr 和 Jackett / Prowlarr 之间的代理，主要用于优化查询和提升识别率 |
 | [qBittorrent](https://github.com/qbittorrent/qBittorrent) | 下载客户端 | ⭕ | qBittorrent |
 
 Heimdall
