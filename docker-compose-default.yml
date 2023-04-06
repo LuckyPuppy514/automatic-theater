@@ -72,19 +72,33 @@ services:
         ipv4_address: 172.128.2.14
 
   jproxy:
-    image: luckypuppy514/jproxy:${JPROXY_TAG}
+    image: luckypuppy514/jproxy:latest
     container_name: jproxy
     restart: unless-stopped
     environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
       - TZ=${TZ}
-      - "JAVA_OPTS=-Xms256m -Xmx256m"
+      - REDIS_HOST=jproxy-redis
+      - REDIS_PORT=6379
+      - JAVA_OPTS=-Xms512m -Xmx512m
+    links:
+      - jproxy-redis
     volumes:
-      - ${CONFIG_PATH}/jproxy:/app/config
+      - ${CONFIG_PATH}/jproxy/database:/app/database
     ports:
       - 60215:8117
     networks:
       network:
         ipv4_address: 172.128.2.15
+
+  jproxy-redis:
+    image: redis:latest
+    container_name: jproxy-redis
+    restart: unless-stopped
+    networks:
+      network:
+        ipv4_address: 172.128.2.21
 
   jellyseerr:
     image: fallenbagel/jellyseerr:latest

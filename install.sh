@@ -73,12 +73,6 @@ echo "|------------------------------------------------------|"
 echo ""
 echo "生成环境变量 ......"
 sudo cp ./docker-compose-default.env ./.env
-UNAME_M=`uname -m`
-if [[ "${UNAME_M}" =~ "x86" ]]; then
-	sudo echo "JPROXY_TAG=latest" >> ./.env;
-else
-	sudo echo "JPROXY_TAG=arm64v8-latest" >> ./.env;
-fi
 echo "✅  生成环境变量成功"
 
 echo ""

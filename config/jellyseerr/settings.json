@@ -103,7 +103,7 @@
    "isDefault": true,
    "enableSeasonFolders": true,
    "syncEnabled": true,
-   "preventSearch": false,
+   "preventSearch": true,
    "id": 0
   }
  ],
