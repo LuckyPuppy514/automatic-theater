@@ -1,5 +1,7 @@
 logs
 *.log
+.env
+docker-compose.yml
 config/emby/cache
 config/emby/logs
 config/heimdall/log
