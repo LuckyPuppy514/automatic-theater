@@ -79,11 +79,7 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-      - REDIS_HOST=jproxy-redis
-      - REDIS_PORT=6379
       - JAVA_OPTS=-Xms512m -Xmx512m
-    links:
-      - jproxy-redis
     volumes:
       - ${CONFIG_PATH}/jproxy/database:/app/database
     ports:
@@ -91,14 +87,6 @@ services:
     networks:
       network:
         ipv4_address: 172.128.2.15
-
-  jproxy-redis:
-    image: redis:latest
-    container_name: jproxy-redis
-    restart: unless-stopped
-    networks:
-      network:
-        ipv4_address: 172.128.2.21
 
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
