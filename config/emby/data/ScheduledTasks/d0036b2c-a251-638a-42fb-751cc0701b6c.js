@@ -1,1 +1,1 @@
-{"StartTimeUtc":"2023-04-06T22:26:26.0934921Z","EndTimeUtc":"2023-04-06T22:26:26.0992855Z","Status":"Completed","Name":"Refresh Internet Channels","Key":"RefreshInternetChannels","Id":"d0036b2ca251638a42fb751cc0701b6c"}
+{"StartTimeUtc":"2023-04-11T07:19:25.0242871Z","EndTimeUtc":"2023-04-11T07:19:25.0806939Z","Status":"Completed","Name":"Refresh Internet Channels","Key":"RefreshInternetChannels","Id":"d0036b2ca251638a42fb751cc0701b6c"}
