@@ -1,0 +1,10 @@
+{
+  "appid": "86c6a58798da154166de71097263f9c40804d636",
+  "name": "ChangeDetection.io",
+  "website": "https://changedetection.io",
+  "license": "Apache License 2.0",
+  "description": "Self-hosted change monitoring of web pages.\r\n\r\nKnow when web pages change! Stay ontop of new information!\r\n\r\nLive your data-life pro-actively instead of re-actively, do not rely on manipulative social media for consuming important information.",
+  "enhanced": false,
+  "tile_background": "dark",
+  "icon": "changedetectionio.png"
+}

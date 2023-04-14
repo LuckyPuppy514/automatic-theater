@@ -169,6 +169,31 @@ services:
       network:
         ipv4_address: 172.128.2.19
 
+  chinesesubfinder:
+    image: allanpk716/chinesesubfinder:latest-lite
+    container_name: chinesesubfinder
+    restart: unless-stopped
+    volumes:
+      - ${CONFIG_PATH}/chinesesubfinder:/config
+      - ${MEDIA_PATH}:/media/video
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - PERMS=true
+      - UMASK=022
+    hostname: chinesesubfinder
+    ports:
+      - 60221:19035
+      - 19037:19037
+    logging:
+        driver: "json-file"
+        options:
+          max-size: "100m"
+    networks:
+      network:
+        ipv4_address: 172.128.2.21
+
   emby:
     image: lovechen/embyserver:latest
     container_name: emby

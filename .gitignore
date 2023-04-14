@@ -13,3 +13,5 @@ config/radarr/logs
 config/radarr/Backups
 config/sonarr/logs
 config/sonarr/Backups
+config/chinesesubfinder/cache
+config/chinesesubfinder/Logs

@@ -52,9 +52,10 @@ graph LR
 | [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr) | 绕过 Cloudflare 和 DDoS-GUARD | - | Jackett 已配置，无其他操作 |
 | [JProxy](https://github.com/LuckyPuppy514/jproxy) | 种子站代理过滤 | ⭕ | 介于 Sonarr / Radarr 和 Jackett / Prowlarr 之间的代理，主要用于优化查询和提升识别率 |
 | [qBittorrent](https://github.com/qbittorrent/qBittorrent) | 下载客户端 | ⭕ | qBittorrent |
+| [ChineseSubFinder](https://github.com/ChineseSubFinder/ChineseSubFinder) | 字幕下载 | ⭕ | 自动下载电影和电视剧字幕 |
 
 Heimdall
-![Heimdall_tuya](https://cdn.jsdelivr.net/gh/LuckyPuppy514/pic-bed/common/Heimdall_tuya.jpg)
+![20230414183719](https://github.com/LuckyPuppy514/image/raw/main/2023/2023-04-14/20230414183719.webp)
 
 Portainer
 ![Portainer_tuya](https://cdn.jsdelivr.net/gh/LuckyPuppy514/pic-bed/common/Portainer_tuya.jpg)
@@ -79,6 +80,9 @@ JProxy
 
 qBittorrent
 ![qBittorrentee_tuya](https://cdn.jsdelivr.net/gh/LuckyPuppy514/pic-bed/common/qBittorrentee_tuya.jpg)
+
+ChineseSubFinder
+![20230414184249](https://github.com/LuckyPuppy514/image/raw/main/2023/2023-04-14/20230414184249.webp)
 
 ## 🔥 配置
 
@@ -232,7 +236,7 @@ sudo docker-compose down
 
 ```mermaid
 graph LR
-    1[Heimdall] == 1. 查看所有容器状态 ==> 2[Portainer] == Prowlarr, Dashdot 可关闭以节省资源 ==> 2[Portainer]
+    1[Heimdall] == 1. 查看所有容器状态 ==> 2[Portainer]
     1[Heimdall] == 2. 搜索和请求电影/电视剧/动漫 ==> 3[Jellyseerr]
     1[Heimdall] == 3. 查看搜索结果 ==> 4[Sonarr / Radarr]
     1[Heimdall] == 4. 查看下载进度 ==> 5[qBittorrentee]
@@ -252,6 +256,7 @@ graph LR
 | Radarr | `http://ip:60217` | - | - |
 | Sonarr | `http://ip:60218` | - | - |
 | qBittorrent | `http://ip:60219` | atm | atm@20230101 |
+| ChineseSubFinder | `http://ip:60221` | atm | atm@20230101 |
 | Emby | `http://ip:60220` | atm | atm@20230101 |
 
 🔥 注意：如需开启外网访问，注意修改对应系统的密码和 API Key，并同时修改其他系统中的配置 🔥
