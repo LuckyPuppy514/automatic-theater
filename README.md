@@ -76,7 +76,7 @@ Jackett
 ![Jackett_tuya](https://cdn.jsdelivr.net/gh/LuckyPuppy514/pic-bed/common/Jackett_tuya.jpg)
 
 JProxy
-![JProxy_tuya](https://cdn.jsdelivr.net/gh/LuckyPuppy514/pic-bed/common/JProxy_tuya.jpg)
+![20230414184607](https://github.com/LuckyPuppy514/image/raw/main/2023/2023-04-14/20230414184607.webp)
 
 qBittorrent
 ![qBittorrentee_tuya](https://cdn.jsdelivr.net/gh/LuckyPuppy514/pic-bed/common/qBittorrentee_tuya.jpg)
