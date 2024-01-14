@@ -1,0 +1,114 @@
+---
+id: proporno
+name: ProPorno
+description: "ProPorno is a RUSSIAN Public tracker for 3X"
+language: ru-RU
+type: public
+encoding: UTF-8
+links:
+  - https://proporno.org/
+
+caps:
+  categorymappings:
+    - {id: 2, cat: XXX, desc: "порно видео"}
+    - {id: 4, cat: XXX, desc: "блондинки"}
+    - {id: 5, cat: XXX, desc: "лесбиянки"}
+    - {id: 19, cat: XXX, desc: "эротика"}
+    - {id: 20, cat: XXX, desc: "груповушка"}
+    - {id: 16, cat: XXX, desc: "анальный секс"}
+    - {id: 22, cat: XXX, desc: "молодые"}
+    - {id: 24, cat: XXX, desc: "минет / куннилингус / орал"}
+    - {id: 25, cat: XXX, desc: "большая грудь"}
+    - {id: 21, cat: XXX, desc: "любительское видео"}
+    - {id: 3, cat: XXX, desc: "порно фильмы"}
+    - {id: 7, cat: XXX, desc: "русское порно"}
+    - {id: 27, cat: XXX, desc: "убойная эротика"}
+    - {id: 26, cat: XXX, desc: "онлайн порно"}
+
+  modes:
+    search: [q]
+
+settings: []
+
+download:
+  selectors:
+    - selector: a[href^="magnet:?xt="]
+      attribute: href
+
+search:
+  paths:
+    # https://proporno.org/index.php?do=search&subaction=search&story=2024&titleonly=3&sortby=date&resorder=desc&showposts=0
+    - path: index.php
+  inputs:
+    do: search
+    subaction: search
+    story: "{{ if .Keywords }}{{ .Keywords }}{{ else }}{{ .Today.Year }}{{ end }}"
+    # 0 articles, 1 comments, 2 static, 3 titles
+    titleonly: "{{ if .Keywords }}3{{ else }}0{{ end }}"
+    sortby: date
+    resorder: desc
+    showposts: 0
+    $raw: "{{ range .Categories }}catlist[]={{.}}&{{end}}"
+
+  rows:
+    selector: div.goods-777:has(div.inmy), div.goods-7777:has(div.mini)
+    after: 1
+
+  fields:
+    categorydesc:
+      selector: div.inmy > a:last-of-type
+    title:
+      selector: div.news_text > a
+    details:
+      selector: div.news_text > a
+      attribute: href
+    download:
+      selector: div.news_text > a
+      attribute: href
+    poster:
+      selector: img[src*="/uploads/posts/"]
+      attribute: src
+    date_today:
+      # Сегодня, 19:56
+      selector: div.mini:contains("Сегодня")
+      optional: true
+      filters:
+        - name: regexp
+          args: "(Сегодня, \\d{2}:\\d{2})"
+        - name: replace
+          args: ["Сегодня", "Today"]
+        - name: fuzzytime
+    date_yday:
+      # Вчера, 20:01
+      selector: div.mini:contains("Вчера")
+      optional: true
+      filters:
+        - name: regexp
+          args: "(Вчера, \\d{2}:\\d{2})"
+        - name: replace
+          args: ["Вчера", "Yesterday"]
+        - name: fuzzytime
+    date_year:
+      # 20-09-2020, 19:41
+      selector: div.mini:contains("-")
+      optional: true
+      filters:
+        - name: regexp
+          args: "(\\d{1,2}-\\d{2}-\\d{4}, \\d{2}:\\d{2})"
+        - name: append
+          args: " +03:00" # MSK
+        - name: dateparse
+          args: "d-MM-yyyy, HH:mm zzz"
+    date:
+      text: "{{ if or .Result.date_year .Result.date_today .Result.date_yday }}{{ or .Result.date_year .Result.date_today .Result.date_yday }}{{ else }}now{{ end }}"
+    size:
+      text: "1 GB"
+    seeders:
+      text: 1
+    leechers:
+      text: 1
+    downloadvolumefactor:
+      text: 0
+    uploadvolumefactor:
+      text: 1
+# engine n/a

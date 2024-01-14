@@ -1,0 +1,162 @@
+---
+id: karagarga
+name: Karagarga
+description: "Karagarga tracks non-hollywood, rare and obscure movies, music and literature."
+language: en-US
+type: private
+encoding: iso-8859-1
+links:
+  - https://karagarga.in/
+
+caps:
+  categorymappings:
+    - {id: 1, cat: Movies, desc: "Movies"}
+    - {id: 2, cat: Audio, desc: "Music"}
+    - {id: 3, cat: Books, desc: "Literature"}
+
+  modes:
+    search: [q]
+    movie-search: [q, imdbid]
+    music-search: [q]
+    book-search: [q]
+
+settings:
+  - name: username
+    type: text
+    label: Username
+  - name: password
+    type: password
+    label: Password
+  - name: freeleech
+    type: checkbox
+    label: Search freeleech only
+    default: false
+
+login:
+  path: login.php
+  method: form
+  form: form[action="takelogin.php"]
+  inputs:
+    username: "{{ .Config.username }}"
+    password: "{{ .Config.password }}"
+  captcha:
+    type: image
+    selector: img#captcha_img
+    input: captcha
+  error:
+    - selector: table:contains("Login failed!")
+    - selector: table:contains("Login unsuccessful")
+  test:
+    path: index.php
+    selector: a[href*="logout.php"]
+
+search:
+  paths:
+    # https://karagarga.in/browse.php?search_type=title&search=&cat=3&genre=&subgenre=&country=0&hdrip=&sort=&d=&incldead=
+    - path: browse.php
+  inputs:
+    # torrent, title, director, uploader, year, imdb
+    search_type: "{{ if .Query.IMDBID }}imdb{{ else }}title{{ end }}"
+    search: "{{ if .Query.IMDBID }}{{ .Query.IMDBID }}{{ else }}{{ .Keywords }}{{ end }}"
+    # site does not support multiple cats
+    cat: 0
+    genre: ""
+    subgenre: ""
+    # 0 any, 2 USA, 12 UK, etc
+    country: 0
+    hdrip: ""
+    # "" yes, 1 no
+    incldead: ""
+    source: ""
+    fl: "{{ if .Config.freeleech }}1{{ else }}{{ end }}"
+    # sort keywordless search to get the latest, but dont sort keyword search to allow andmatch to return more results.
+    sort: "{{ if .Keywords }}{{ else }}added{{ end }}"
+    d: "{{ if .Keywords }}{{ else }}DESC{{ end }}"
+    # site supports imdbid searches and returns imdb links in results.
+
+  rows:
+    selector: table#browse > tbody > tr:has(a[href^="browse.php?genre="])
+    filters:
+      - name: andmatch
+
+  fields:
+    category:
+      selector: a[href^="browse.php?genre="] img
+      case:
+        img[title^="Movie"]: 1
+        img[title^="Music"]: 2
+        img[title^="Literature"]: 3
+    year:
+      selector: a[href$="search_type=year"]
+      optional: true
+    _flag:
+      selector: a[href^="browse.php?country="] img
+      attribute: title
+      optional: true
+    _filename:
+      selector: a[href^="/down.php/"]
+      attribute: href
+      filters:
+        - name: regexp
+          args: "(?:/down\\.php/\\d+/)(.+?)\\.torrent"
+        - name: re_replace
+          args: ["%20", "."]
+    title:
+      selector: a[href^="details.php?id="]
+      filters:
+        - name: append
+          args: " {{ .Result.year }} {{ .Result._flag }} [{{ .Result._filename }}]"
+    details:
+      selector: a[href^="details.php?id="]
+      attribute: href
+    download:
+      selector: a[href^="/down.php/"]
+      attribute: href
+    imdbid:
+      selector: a[href*="imdb.com/title/tt"]
+      attribute: href
+    date:
+      selector: td:nth-child(9)
+      filters:
+        - name: re_replace
+          args: ["([a-zA-Z]+)\\s+(\\d{1,2})\\s+'(\\d{2})", "$2 $1 $3"]
+        - name: dateparse
+          args: "d MMM yy"
+    files:
+      selector: td:nth-child(10)
+    size:
+      selector: td:nth-child(11)
+    grabs:
+      selector: td:nth-child(12)
+    seeders:
+      selector: td:nth-child(13)
+    leechers:
+      selector: td:nth-child(14)
+    _subs:
+      selector: span:contains("Subs:")
+      optional: true
+    genre:
+      selector: td:nth-child(5)
+      filters:
+        - name: replace
+          args: ["\n", " "]
+    _mom:
+      selector: img[title^="CURRENT"]
+      attribute: title
+      optional: true
+    description:
+      text: "{{ if .Result._subs }}Subs: {{ .Result._subs }}</br>{{ else }}{{ end }}{{ if .Result.genre }}Genre: {{ .Result.genre }}</br>{{ else }}{{ end }}{{ if .Result._mom }}Current MoM{{ else }}{{ end }}"
+    downloadvolumefactor:
+      case:
+        "span:contains(\"Freeleech\")": 0
+        "span:contains(\"Featured\")": 0
+        "*": 1
+    uploadvolumefactor:
+      case:
+#        ":has(img[title^=\"HD\"]):has(img[title^=\"CURRENT\"])": 1.8
+        "img[title^=\"CURRENT\"]": 1.6
+#        "img[title^=\"HD\"]": 1.3
+        "*": 1.1
+    minimumratio:
+      text: 0.25
+# engine n/a

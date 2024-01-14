@@ -1,0 +1,186 @@
+---
+id: majomparade
+name: Majomparádé
+description: "Majomparádé (TurkDepo) is a HUNGARIAN Private Torrent Tracker for 0DAY / GENERAL"
+language: hu-HU
+type: private
+encoding: UTF-8
+requestDelay: 2
+links:
+  - https://majomparade.eu/
+
+caps:
+  categorymappings:
+    - {id: 4, cat: Movies/3D, desc: "3D/Magyar", default: true}
+    - {id: 5, cat: Movies/3D, desc: "3D/Külföldi", default: true}
+    - {id: 48, cat: Movies/HD, desc: "Film/BR-BDRIP/Külföldi", default: true}
+    - {id: 50, cat: Movies/HD, desc: "Film/BR-BDRIP/Magyar", default: true}
+    - {id: 75, cat: Movies/SD, desc: "Film/Cam/Külföldi", default: true}
+    - {id: 76, cat: Movies/SD, desc: "Film/Cam/Magyar", default: true}
+    - {id: 26, cat: Movies/DVD, desc: "Film/DVD/Külföldi", default: true}
+    - {id: 25, cat: Movies/DVD, desc: "Film/DVD/Magyar", default: true}
+    - {id: 58, cat: Movies/DVD, desc: "Film/DVD9/Külföld", default: true}
+    - {id: 59, cat: Movies/DVD, desc: "Film/DVD9/Magyar", default: true}
+    - {id: 42, cat: Movies/HD, desc: "Film/HD/Külföldi", default: true}
+    - {id: 51, cat: Movies/HD, desc: "Film/HD/Magyar", default: true}
+    - {id: 38, cat: Movies/SD, desc: "Film/XviD/Külföldi", default: true}
+    - {id: 24, cat: Movies/SD, desc: "Film/XviD/Magyar", default: true}
+    - {id: 85, cat: TV/Sport, desc: "Sport/Külföldi", default: true}
+    - {id: 87, cat: TV/Sport, desc: "Sport/Magyar", default: true}
+    - {id: 47, cat: TV/SD, desc: "Sorozat/Külföldi", default: true}
+    - {id: 36, cat: TV/SD, desc: "Sorozat/Magyar", default: true}
+    - {id: 6, cat: TV/HD, desc: "Sorozat/HD/Magyar", default: true}
+    - {id: 7, cat: TV/HD, desc: "Sorozat/HD/Külföldi", default: true}
+    - {id: 56, cat: Audio/Audiobook, desc: "Hangoskönyv", default: true}
+    - {id: 33, cat: Books, desc: "Könyv/Külföldi", default: true}
+    - {id: 44, cat: Books, desc: "Könyv/Magyar", default: true}
+    - {id: 28, cat: PC/Games, desc: "Játék/ISO", default: true}
+    - {id: 32, cat: Console, desc: "Játék/Konzol", default: true}
+    - {id: 30, cat: PC/Games, desc: "Játék/RIP", default: true}
+    - {id: 53, cat: Audio/Lossless, desc: "Lossless/Külföldi", default: true}
+    - {id: 74, cat: Audio/Lossless, desc: "Lossless/Magyar", default: true}
+    - {id: 40, cat: Audio/Other, desc: "Zene/Külföldi", default: true}
+    - {id: 41, cat: Audio/Other, desc: "Zene/Magyar", default: true}
+    - {id: 34, cat: PC/Mobile-Other, desc: "Mobil", default: true}
+    - {id: 35, cat: PC/ISO, desc: "Programok/ISO", default: true}
+    - {id: 46, cat: PC/0day, desc: "Programok/RIP", default: true}
+    - {id: 70, cat: XXX/DVD, desc: "XXX/DVD", default: false}
+    - {id: 39, cat: XXX/XviD, desc: "XXX/XviD", default: false}
+    - {id: 57, cat: XXX, desc: "XXX/HD", default: false}
+
+  modes:
+    search: [q]
+    tv-search: [q, season, ep, imdbid]
+    movie-search: [q, imdbid]
+    music-search: [q]
+    book-search: [q]
+
+settings:
+  - name: cookie
+    type: text
+    label: Cookie
+  - name: info
+    type: info
+    label: How to get the Cookie
+    default: "<ol><li>Login to this tracker with your browser</li><li>Open the <b>DevTools</b> panel by pressing <b>F12</b></li><li>Select the <b>Network</b> tab</li><li>Click on the <b>Doc</b> button (Chrome Browser) or <b>HTML</b> button (FireFox)</li><li>Refresh the page by pressing <b>F5</b></li><li>Click on the first row entry</li><li>Select the <b>Headers</b> tab on the Right panel</li><li>Find <b>'cookie:'</b> in the <b>Request Headers</b> section</li><li><b>Select</b> and <b>Copy</b> the whole cookie string <i>(everything after 'cookie: ')</i> and <b>Paste</b> here.</li></ol>"
+  - name: useragent
+    type: text
+    label: User-Agent
+  - name: info_useragent
+    type: info
+    label: How to get the User-Agent
+    default: "<ol><li>From the same place you fetched the cookie,</li><li>Find <b>'user-agent:'</b> in the <b>Request Headers</b> section</li><li><b>Select</b> and <b>Copy</b> the whole user-agent string <i>(everything after 'user-agent: ')</i> and <b>Paste</b> here.</li></ol>"
+
+login:
+  method: cookie
+  inputs:
+    cookie: "{{ .Config.cookie }}"
+  test:
+    path: letoltes.php
+    selector: a[href^="logout.php?getUnique="]
+
+search:
+  paths:
+    - path: letoltes.php
+      categories: [4, 5, 48, 50, 75, 76, 26, 25, 58, 59, 42, 51, 38, 24, 85, 87, 47, 36, 6, 7, 56, 33, 44, 28, 32, 30, 53, 74, 40, 41, 34, 35, 46]
+      inputs:
+        tipus: 1
+    - path: letoltes.php
+      categories: [4, 5, 48, 50, 75, 76, 26, 25, 58, 59, 42, 51, 38, 24, 85, 87, 47, 36, 6, 7, 56, 33, 44, 28, 32, 30, 53, 74, 40, 41, 34, 35, 46]
+      inputs:
+        tipus: 2
+    - path: xxx.php
+      categories: [70, 39, 57]
+  inputs:
+    $raw: "{{ range .Categories }}category[]={{.}}&{{end}}"
+    name: "{{ if .Query.IMDBID }}http://www.imdb.com/title/{{ .Query.IMDBID }}{{ else }}{{ .Keywords }}{{ end }}"
+    imdb_search: "{{ if .Query.IMDBID }}yes{{ else }}{{ end }}"
+    k: yes
+    tipuska: 1
+
+  headers:
+    User-Agent: ["{{ .Config.useragent }}"]
+
+  rows:
+    selector: table#table > tbody > tr:has(a[href^="download.php?torrent="])
+
+  fields:
+    download:
+      selector: a[href^="download.php?torrent="]
+      attribute: href
+    title_default:
+      selector: a[href^="details.php?id="] > b
+      attribute: title
+    title:
+      selector: a[href^="details.php?id="] > b[title*="Torrent neve:"]
+      attribute: title
+      optional: true
+      default: "{{ .Result.title_default }}"
+      filters:
+        - name: regexp
+          args: "Torrent neve: (.*?)<"
+    title_hungarian:
+      selector: a[href^="details.php?id="] > b
+      attribute: title
+      filters:
+        - name: regexp
+          args: "<br />(.*)"
+    category:
+      selector: a[href*="&category[]="]
+      attribute: href
+      filters:
+        - name: querystring
+          args: category[]
+    details:
+      selector: a[href^="details.php?id="]
+      attribute: href
+    imdbid:
+      selector: a[href*="imdb.com/title/tt"]
+      attribute: href
+    poster:
+      selector: img[src="pic/borito.png"], a[href^="details.php?id="] > b[title*="Torrent neve:"]
+      attribute: title
+      filters:
+        - name: regexp
+          args: src='(.*?)'
+    files:
+      selector: td:nth-child(5)
+    size:
+      selector: td:nth-child(7)
+    grabs:
+      selector: td:nth-child(8)
+    seeders:
+      selector: td:nth-child(9)
+    leechers:
+      selector: td:nth-child(10)
+    date:
+      selector: td:nth-child(6)
+      filters:
+        - name: append
+          args: " +01:00" # CET
+        - name: dateparse
+          args: "yyyy-MM-dd HH:mm:ss zzz"
+    downloadvolumefactor:
+      text: 0
+    uploadvolumefactor:
+      case:
+        img[title="Ennél a torrentnél 2x szorzó van."]: 2
+        img[title="Ennél a torrentnél 3x szorzó van."]: 3
+        img[title="Ennél a torrentnél 4x szorzó van."]: 4
+        "*": 1
+    genre:
+      selector: td:nth-child(2)
+      remove: a, img
+      filters:
+        - name: re_replace
+          args: ["(?i)(0.5x|2x|3x|4x)", ""]
+    description:
+      case:
+        img[src$="/pic/yes.png"]: "Verified: {{ if .Result.genre }}{{ .Result.genre }}<br>{{ else }}{{ end }}{{ .Result.title_hungarian }}"
+        img[src$="/pic/nincs.png"]: "Unverified: {{ if .Result.genre }}{{ .Result.genre }}<br>{{ else }}{{ end }}{{ .Result.title_hungarian }}"
+    minimumratio:
+      text: 1.0
+    minimumseedtime:
+      # 2 days (as seconds = 2 x 24 x 60 x 60)
+      text: 172800
+# engine n/a

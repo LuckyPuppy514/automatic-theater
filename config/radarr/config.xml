@@ -8,10 +8,11 @@
   <EnableSsl>False</EnableSsl>
   <LaunchBrowser>True</LaunchBrowser>
   <ApiKey>ca7d9fcbaae64526b24adf580e32fe41</ApiKey>
-  <AuthenticationMethod>None</AuthenticationMethod>
+  <AuthenticationMethod>Forms</AuthenticationMethod>
   <Branch>master</Branch>
   <SslCertPath></SslCertPath>
   <SslCertPassword></SslCertPassword>
   <InstanceName>Radarr</InstanceName>
   <Theme>auto</Theme>
+  <AuthenticationRequired>DisabledForLocalAddresses</AuthenticationRequired>
 </Config>

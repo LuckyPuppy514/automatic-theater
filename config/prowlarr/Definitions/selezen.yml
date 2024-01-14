@@ -1,0 +1,238 @@
+---
+id: selezen
+name: seleZen
+description: "seleZen is a RUSSIAN Semi-Private Torrent Tracker for MOVIES"
+language: ru-RU
+type: semi-private
+encoding: UTF-8
+links:
+  - https://use.selezen.club/
+  - https://www.selezen.club/
+  - https://selezen.org/
+legacylinks:
+  - https://www.selezen.site/
+  - https://mel.selezen.net/
+  - https://s1.selezen.site/
+  - https://www.selezen.net/
+
+caps:
+  categorymappings:
+    - {id: 0, cat: Movies, desc: "Movies"}
+    - {id: 40, cat: Movies/BluRay, desc: "Blu-Ray"}
+    - {id: 78, cat: Other, desc: "RePack от селезень"}
+    - {id: 45, cat: Movies/HD, desc: "WEBRip 720p"}
+    - {id: 46, cat: Movies/HD, desc: "WEBRip 1080p"}
+    - {id: 47, cat: Movies/UHD, desc: "WEBRip 2160p"}
+    - {id: 48, cat: Movies/HD, desc: "WEB-DL 720p"}
+    - {id: 49, cat: Movies/HD, desc: "WEB-DL 1080p"}
+    - {id: 50, cat: Movies/UHD, desc: "SDR WEB-DL 2160p"}
+    - {id: 51, cat: Movies/UHD, desc: "HDR WEB-DL 2160p"}
+    - {id: 52, cat: Movies/HD, desc: "BDRip 720p"}
+    - {id: 53, cat: Movies/HD, desc: "BDRip 1080p"}
+    - {id: 54, cat: Movies/UHD, desc: "SDR BDRip 2160p"}
+    - {id: 55, cat: Movies/UHD, desc: "HDR BDRip 2160p"}
+    - {id: 56, cat: Movies/HD, desc: "UHD BDRip 720p"}
+    - {id: 57, cat: Movies/HD, desc: "UHD BDRip 1080p"}
+    - {id: 58, cat: Movies/HD, desc: "BDRemux 1080p"}
+    - {id: 59, cat: Movies/UHD, desc: "SDR BDRemux 2160p"}
+    - {id: 60, cat: Movies/UHD, desc: "HDR BDRemux 2160p"}
+    - {id: 61, cat: Movies/UHD, desc: "DV BDRemux 2160p"}
+    - {id: 62, cat: Movies/HD, desc: "Blu-Ray 1080p"}
+    - {id: 63, cat: Movies/UHD, desc: "Blu-Ray 2160p"}
+    - {id: 64, cat: Movies/3D, desc: "3D BDRemux 1080p"}
+    - {id: 65, cat: Movies/3D, desc: "3D Blu-Ray 1080p"}
+    - {id: 74, cat: Movies/HD, desc: "WEBRip"}
+    - {id: 75, cat: Movies/HD, desc: "BDRip"}
+    - {id: 76, cat: Movies/HD, desc: "WEB-DLRip"}
+    - {id: 77, cat: Movies/HD, desc: "HDRip"}
+    - {id: 69, cat: Movies, desc: "WEB-DLRip-AVC"}
+    - {id: 70, cat: Movies, desc: "HDRip-AVC"}
+    - {id: 71, cat: Movies, desc: "BDRip-AVC"}
+    - {id: 72, cat: Movies/HD, desc: "WEB-DLRip 720p"}
+
+  modes:
+    search: [q]
+    movie-search: [q, imdbid]
+
+settings:
+  - name: username
+    type: text
+    label: Username
+  - name: password
+    type: password
+    label: Password
+  - name: stripcyrillic
+    type: checkbox
+    label: Strip Cyrillic Letters
+    default: false
+  - name: addrussiantotitle
+    type: checkbox
+    label: Add RUS to end of all titles to improve language detection by Radarr. Will cause English-only results to be misidentified.
+    default: false
+  - name: sort
+    type: select
+    label: Sort requested from site
+    default: date
+    options:
+      date: created
+      title: title
+  - name: type
+    type: select
+    label: Order requested from site
+    default: desc
+    options:
+      desc: desc
+      asc: asc
+
+login:
+  path: login.html
+  method: form
+  form: form[role="form"]
+  inputs:
+    login_name: "{{ .Config.username }}"
+    login_password: "{{ .Config.password }}"
+    login_not_save: ""
+    login: submit
+  error:
+    - selector: div.alert-warning:contains("Ошибка авторизации")
+  test:
+    path: /
+    selector: a[href$="/index.php?action=logout"]
+
+download:
+  selectors:
+    - selector: a[href^="magnet:?xt="]
+      attribute: href
+
+search:
+  # do=search&subaction=search&story=greyhound&titleonly=3&sortby=date&resorder=desc&showposts=1&catlist[]=49
+  paths:
+    - path: index.php
+      followredirect: true
+  inputs:
+    $raw: "{{ range .Categories }}catlist[]={{.}}&{{end}}"
+    do: search
+    subaction: search
+    showposts: 1
+    # 0 in article 1 in comments 2 in static pages 3 in article titles
+    titleonly: "{{ if .Query.IMDBID }}0{{ else }}3{{ end }}"
+    story: "{{ if or .Query.IMDBID .Keywords }}{{ or .Query.IMDBID .Keywords }}{{ else }}{{ .Today.Year }}{{ end }}"
+    sortby: "{{ .Config.sort }}"
+    resorder: "{{ .Config.type }}"
+
+  rows:
+    selector: div.card:has(h4):not(:has(a[href*="/news/"]))
+
+  fields:
+    category:
+      selector: h4
+      case:
+        "h4:contains(\"WEBRip 720p\")": 45
+        "h4:contains(\"WEBRip 1080p\")": 46
+        "h4:contains(\"WEBRip 2160p\")": 47
+        "h4:contains(\"SDR WEB-DL 2160p\")": 50
+        "h4:contains(\"HDR WEB-DL 2160p\")": 51
+        "h4:contains(\"WEB-DL 720p\")": 48
+        "h4:contains(\"WEB-DL 1080p\")": 49
+        "h4:contains(\"SDR BDRip 2160p\")": 54
+        "h4:contains(\"HDR BDRip 2160p\")": 55
+        "h4:contains(\"UHD BDRip 720p\")": 56
+        "h4:contains(\"UHD BDRip 1080p\")": 57
+        "h4:contains(\"SDR BDRemux 2160p\")": 59
+        "h4:contains(\"HDR BDRemux 2160p\")": 60
+        "h4:contains(\"DV BDRemux 2160p\")": 61
+        "h4:contains(\"3D BDRemux 1080p\")": 64
+        "h4:contains(\"3D Blu-Ray 1080p\")": 65
+        "h4:contains(\"BDRemux 1080p\")": 58
+        "h4:contains(\"Blu-Ray 1080p\")": 62
+        "h4:contains(\"Blu-Ray 2160p\")": 63
+        "h4:contains(\"BDRip 720p\")": 52
+        "h4:contains(\"BDRip 1080p\")": 53
+        "h4:contains(\"WEB-DLRip-AVC\")": 69
+        "h4:contains(\"HDRip-AVC\")": 70
+        "h4:contains(\"BDRip-AVC\")": 71
+        "h4:contains(\"WEB-DLRip 720p\")": 72
+        "h4:contains(\"WEBRip\")": 74
+        "h4:contains(\"WEB-DLRip\")": 76
+        "h4:contains(\"WEB-DL\")": 74
+        "h4:contains(\"BDRip\")": 75
+        "h4:contains(\"HDRip\")": 77
+        "h4:contains(\"Blu-Ray\")": 40
+        "h4:contains(\"RePack\")": 78
+        "*": 0
+    title:
+      selector: h4
+      filters:
+        - name: re_replace
+          args: ["(?i)\\bЛицензия\\b", "Lic"]
+        - name: re_replace
+          args: ["(?i)\\bселезень\\b", "selezen"]
+        - name: re_replace
+          args: ["(\\([\\p{IsCyrillic}\\W]+\\))|(^[\\p{IsCyrillic}\\W\\d]+\\/ )|([\\p{IsCyrillic} \\-]+,+)|([\\p{IsCyrillic}]+)", "{{ if .Config.stripcyrillic }}{{ else }}$1$2$3$4{{ end }}"]
+        - name: re_replace
+          args: ["(?i)\\bHDTV[-\\s]?Rip\\b", "HDTV"]
+        - name: re_replace
+          args: ["(?i)\\bSAT[-\\s]?Rip\\b", "HDTV"]
+        - name: re_replace
+          args: ["(?i)\\bWEB[-\\s]?DL[-\\s]?Rip\\b", "WEB-DL"]
+        - name: re_replace
+          args: ["(?i)\\bWEB\\sRip\\b", "WEBRip"]
+        - name: re_replace
+          args: ["(?i)\\bWEB\\sDL\\b", "WEB-DL"]
+        - name: re_replace
+          args: ["[\\[\\(\\{<«][\\s\\W]*[\\]\\)\\}>»]", ""]
+        - name: re_replace
+          args: ["^[\\s&,\\.!\\?\\+\\-_\\|\\/':]+", ""]
+        - name: append
+          args: "{{ if .Config.addrussiantotitle }} RUS{{ else }}{{ end }}"
+    details:
+      selector: a:has(h4)
+      attribute: href
+    download:
+      selector: a:has(h4)
+      attribute: href
+    poster:
+      selector: img.card-img
+      attribute: src
+    imdbid:
+      selector: a[href*="imdb.com/title/tt"]
+      attribute: href
+    genre:
+      selector: div.cats
+      filters:
+        - name: validate
+          args: "Аниме, Биографический, Боевик, Вестерн, Военный, Детектив, Документальный, Драма, Исторический, Комедия, Короткометражный, Криминал, Мелодрама, Мистика, Музыкальный, Мультфильм, Приключения, Семейный, Спорт, Триллер, Ужасы, Фантастика, Фэнтези"
+    description:
+      selector: p.card-text
+      filters:
+        - name: append
+          args: "{{ if .Result.genre }}</br>{{ .Result.genre }}{{ else }}{{ end }}"
+    date:
+      selector: a:has(span.bx-calendar)
+      filters:
+        - name: append
+          args: " +03:00" # MSK
+        - name: dateparse
+          args: "d.MM.yyyy HH:mm zzz"
+    seeders:
+      selector: a:has(i.bx-chevrons-up)
+      filters:
+        - name: split
+          args: [" ", 0]
+    leechers:
+      selector: a:has(i.bx-chevrons-up)
+      filters:
+        - name: split
+          args: [" ", 1]
+    grabs:
+      selector: a:has(i.bx-chevrons-up)
+      filters:
+        - name: split
+          args: [" ", -1]
+    size:
+      selector: a:has(span.bx-download)
+    downloadvolumefactor:
+      text: 0
+    uploadvolumefactor:
+      text: 1
+# engine n/a

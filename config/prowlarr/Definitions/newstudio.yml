@@ -1,0 +1,166 @@
+---
+id: newstudio
+name: NewStudio
+description: "NewStudio is a RUSSIAN Public site for TV"
+language: ru-RU
+type: public
+encoding: UTF-8
+requestDelay: 2
+links:
+  - https://newstudio.tv/
+legacylinks:
+  - http://newstudio.tv/
+
+caps:
+  categorymappings:
+    - {id: 6, cat: TV, desc: "TV series"}
+
+  modes:
+    search: [q]
+    tv-search: [q, season, ep]
+
+settings:
+  - name: stripcyrillic
+    type: checkbox
+    label: Strip Cyrillic Letters
+    default: false
+  - name: addrussiantotitle
+    type: checkbox
+    label: Add RUS to end of all titles to improve language detection by Sonarr and Radarr. Will cause English-only results to be misidentified.
+    default: false
+  - name: sort
+    type: select
+    label: Sort requested from site
+    default: 1
+    options:
+      1: created
+      10: seeders
+      7: size
+      2: title
+  - name: type
+    type: select
+    label: Order requested from site
+    default: 2
+    options:
+      2: desc
+      1: asc
+
+search:
+  paths:
+    - path: tracker.php
+    - path: tracker.php
+      inputs:
+        start: 50
+  inputs:
+    nm: "{{ .Keywords }}"
+    o: "{{ .Config.sort }}"
+    s: "{{ .Config.type }}"
+
+  keywordsfilters:
+    # strip season and/or ep
+    - name: re_replace
+      args: ["(?i)\\b(?:[SE]\\d{1,4}){1,2}\\b\\s?", ""]
+
+  rows:
+    selector: table.well > tbody > tr:has(a[href^="./viewtopic.php?t="])
+    filters:
+      - name: andmatch
+
+  fields:
+    category:
+      # add category for Sonarr
+      text: 6
+    title:
+      selector: a[href^="./viewtopic.php?t="] > b
+      filters:
+        - name: re_replace
+          args: ["(?i)Сезон\\s*(\\d+).+Серия\\s*(\\d+)", "S$1E$2"]
+        - name: re_replace
+          args: ["(?i)Сезон\\s*(\\d+)", "S$1"]
+        - name: re_replace
+          args: ["(\\([\\p{IsCyrillic}\\W]+\\))|(^[\\p{IsCyrillic}\\W\\d]+\\/ )|([\\p{IsCyrillic} \\-]+,+)|([\\p{IsCyrillic}]+)", "{{ if .Config.stripcyrillic }}{{ else }}$1$2$3$4{{ end }}"]
+        - name: re_replace
+          args: ["(?i)\\bHDTV[-\\s]?Rip\\b", "HDTV"]
+        - name: re_replace
+          args: ["(?i)\\bSAT[-\\s]?Rip\\b", "HDTV"]
+        - name: re_replace
+          args: ["(?i)\\bWEB[-\\s]?DL[-\\s]?Rip\\b", "WEB-DL"]
+        - name: re_replace
+          args: ["(?i)\\bWEB\\sRip\\b", "WEBRip"]
+        - name: re_replace
+          args: ["(?i)\\bWEB\\sDL\\b", "WEB-DL"]
+        - name: re_replace
+          args: ["[\\[\\(\\{<«][\\s\\W]*[\\]\\)\\}>»]", ""]
+        - name: re_replace
+          args: ["^[\\s&,\\.!\\?\\+\\-_\\|\\/':]+", ""]
+        - name: re_replace
+          args: ["(?i)^\\(\\s*([SE]\\d+.*?)\\s*\\)[\\s\\/\\|]*(.+)", "$2 $1"]
+        - name: append
+          args: "{{ if .Config.addrussiantotitle }} RUS{{ else }}{{ end }}"
+        - name: append
+          args: "-NewStudio"
+    details:
+      selector: a[href^="./viewtopic.php?t="]
+      attribute: href
+    download:
+      selector: a[href^="./download.php?id="]
+      attribute: href
+    poster:
+      selector: td:nth-child(3) > a > img
+      attribute: src
+    size:
+      selector: td:nth-child(5) > a
+    date:
+      # 16-Nov-17, Today 01:34
+      # 16-Ноя-17, Сегодня 12:34
+      # 15-Nov-17, Yesterday 17:20
+      # 15-Ноя-17, Вчера 12:40
+      # 4-Nov-17, 23:50
+      # 14-Ноя-17, 06:11
+      selector: td:nth-child(6)
+      filters:
+        # replace white spaces
+        - name: re_replace
+          args: ["(Сегодня|Вчера|\\s|,|-)+", " "]
+        - name: re_replace
+          args: ["(Today|Yesterday|\\s|,|-)+", " "]
+        # replace month abbreviations
+        - name: replace
+          args: ["Янв", "Jan"]
+        - name: replace
+          args: ["Фев", "Feb"]
+        - name: replace
+          args: ["Мар", "Mar"]
+        - name: replace
+          args: ["Апр", "Apr"]
+        - name: replace
+          args: ["Май", "May"]
+        - name: replace
+          args: ["Июн", "Jun"]
+        - name: replace
+          args: ["Июл", "Jul"]
+        - name: replace
+          args: ["Авг", "Aug"]
+        - name: replace
+          args: ["Сен", "Sep"]
+        - name: replace
+          args: ["Окт", "Oct"]
+        - name: replace
+          args: ["Ноя", "Nov"]
+        - name: replace
+          args: ["Дек", "Dec"]
+        - name: append
+          args: ":00 +03:00" # MSK
+        - name: dateparse
+          args: "d MMM yy HH:mm:ss zzz"
+    seeders:
+      text: 1
+    leechers:
+      text: 1
+    downloadvolumefactor:
+      text: 0
+    uploadvolumefactor:
+      text: 1
+    description:
+      selector: a[href^="./viewtopic.php?t="] > b
+# engine n/a

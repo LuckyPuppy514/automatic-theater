@@ -1,0 +1,194 @@
+---
+id: torrent9
+name: Torrent9
+description: "Torrent9 is a FRENCH Public site for TV / MOVIES / GENERAL"
+language: fr-FR
+type: public
+encoding: UTF-8
+followredirect: true
+testlinktorrent: false
+links:
+  - https://www.torrent9.fm/
+  - https://torrent9.unblockninja.com/
+legacylinks:
+  - http://www.torrent9.ec/
+  - http://www.torrent9.red/
+  - http://www.torrent9.bz/
+  - http://www.torrents9.pe/
+  - http://www.torrent9.cc/
+  - http://www.torrent9.pe/
+  - http://www.torrent9.blue/
+  - https://www.torrent9.blue/
+  - https://ww2.torrent9.blue/
+  - https://www.torrent9.rip/
+  - https://www.torrent9.ph/
+  - https://ww1.torrent9.ph/
+  - https://torrent9.ga/
+  - https://www.torrent9.uno/
+  - https://wvw.torrent9.uno/
+  - https://ww1.torrent9.uno/
+  - https://wvw.t9.pe/
+  - https://www4.torrent9.to/
+  - https://www.torrent9.cat/
+  - https://www.torrent09.uno/
+  - https://www.torrent9.pl/ # this is a proxy for torrent9clone
+  - https://torrent9.black-mirror.xyz/ # this is a proxy for torrent9clone
+  - https://torrent9.unblocked.casa/ # this is a proxy for torrent9clone
+  - https://torrent9.proxyportal.fun/ # this is a proxy for torrent9clone
+  - https://torrent9.uk-unblock.xyz/ # this is a proxy for torrent9clone
+  - https://torrent9.ind-unblock.xyz/ # this is a proxy for torrent9clone
+  - https://ww1.torrent9.is/
+  - https://ww1.torrent9.to/
+  - https://www.torrent9.is/
+  - https://torrent9.li/ # not a proxy for torrent9 or torrent9clone
+  - https://www.oxtorrent.me/ # http 522 Connection timed out
+  - https://www.torrent9.gg/
+  - https://torrent9.to/ # no response data
+  - https://www.torrent9.fi/ # this is the torrent9clone domain
+
+caps:
+  # dont forget to update the search fields category case block
+  categorymappings:
+    - {id: films, cat: Movies, desc: "Movies"}
+    - {id: series, cat: TV, desc: "TV"}
+    - {id: musique, cat: Audio, desc: "Music"}
+    - {id: ebook, cat: Books, desc: "Books"}
+    - {id: logiciels, cat: PC, desc: "Software"}
+    - {id: jeux-pc, cat: PC/Games, desc: "PC Games"}
+    - {id: jeux-consoles, cat: Console/XBox 360, desc: "Console Games"}
+    - {id: other, cat: Other, desc: "Other"} # dummy cat for results missing icon
+
+  modes:
+    search: [q]
+    tv-search: [q, season, ep]
+    movie-search: [q]
+    music-search: [q]
+    book-search: [q]
+  allowrawsearch: true
+
+settings:
+  - name: multilang
+    type: checkbox
+    label: Replace MULTi by another language in release name
+    default: false
+  - name: multilanguage
+    type: select
+    label: Replace MULTi by this language
+    default: FRENCH
+    options:
+      FRENCH: FRENCH
+      MULTi FRENCH: MULTi FRENCH
+      ENGLISH: ENGLISH
+      MULTi ENGLISH: MULTi ENGLISH
+      VOSTFR: VOSTFR
+      MULTi VOSTFR: MULTi VOSTFR
+  - name: vostfr
+    type: checkbox
+    label: Replace VOSTFR and SUBFRENCH with ENGLISH
+    default: false
+  - name: sort
+    type: select
+    label: Sort requested from site (Only works for searches with Keywords)
+    default: ".html"
+    options:
+      ".html": best
+      ".html,trie-date-d": created desc
+      ".html,trie-date-a": created asc
+      ".html,trie-seeds-d": seeders desc
+      ".html,trie-seeds-a": seeders asc
+      ".html,trie-poid-d": size desc
+      ".html,trie-poid-a": size asc
+      ".html,trie-nom-d": title desc
+      ".html,trie-nom-a": title asc
+
+download:
+  selectors:
+    - selector: a:has(i.fa-magnet)
+      attribute: href
+
+search:
+  paths:
+    - path: "{{ if .Keywords }}/search_torrent/{{ .Keywords }}{{ .Config.sort }}{{ else }}{{ end }}"
+  keywordsfilters:
+    # if searching for season packs with S01 to saison 1 #9712
+    - name: re_replace
+      args: ["(?i)(S0)(\\d{1,2})$", "saison $2"]
+    - name: re_replace
+      args: ["(?i)(S)(\\d{1,3})$", "saison $2"]
+    - name: replace
+      args: [" ", "-"]
+
+  rows:
+    selector: table.table-striped > tbody > tr
+    filters:
+      - name: andmatch
+
+  fields:
+    category:
+      selector: td:nth-child(1) i
+      optional: true
+      default: other
+      case:
+        i[class="fa fa-video-camera"]: films
+        i[class="fa fa-desktop"]: series
+        i[class="fa fa-tv"]: series
+        i[class="fa fa-music"]: musique
+        i[class="fa fa-gamepad"]: jeux-pc
+        i[class="fa fa-laptop"]: logiciels
+        i[class="fa fa-book"]: ebook
+    title_default:
+      selector: td:nth-child(1) a
+    title_optional:
+      selector: td:nth-child(1) a[title]
+      attribute: title
+      optional: true
+    title_phase1:
+      text: "{{ if .Result.title_optional }}{{ .Result.title_optional }}{{ else }}{{ .Result.title_default }}{{ end }}"
+      filters:
+        - name: re_replace
+          args: ["(?i)\\b(FRENCH|MULTI|TRUEFRENCH|VOSTFR|SUBFRENCH)\\b(.+?)(\\b(19|20\\d{2})\\b)$", "$3 $1$2"]
+    title_vostfr:
+      text: "{{ .Result.title_phase1 }}"
+      filters:
+        - name: re_replace
+          args: ["(?i)\\b(vostfr|subfrench)\\b", "ENGLISH"]
+    title_phase2:
+      text: "{{ if .Config.vostfr }}{{ .Result.title_vostfr }}{{ else }}{{ .Result.title_phase1 }}{{ end }}"
+    title_multilang:
+      text: "{{ .Result.title_phase2 }}"
+      filters:
+        - name: re_replace
+          args: ["(?i)\\b(MULTI(?!.*(?:FRENCH|ENGLISH|VOSTFR)))\\b", "{{ .Config.multilanguage }}"]
+    title:
+      text: "{{ if .Config.multilang }}{{ .Result.title_multilang }}{{ else }}{{ .Result.title_phase2 }}{{ end }}"
+    details:
+      selector: td:nth-child(1) a
+      attribute: href
+    download:
+      selector: td:nth-child(1) a
+      attribute: href
+    date:
+      selector: td:nth-child(2):contains("/")
+      optional: true
+      default: now
+      filters:
+        - name: dateparse
+          args: "dd/MM/yyyy"
+    size:
+      selector: "{{ if .Keywords }}td:nth-child(3){{ else }}td:nth-child(2){{ end }}"
+      filters:
+        - name: re_replace
+          args: ["(\\w)o", "$1B"]
+    seeders:
+      selector: "{{ if .Keywords }}td:nth-child(4){{ else }}td:nth-child(3){{ end }}"
+      optional: true
+      default: 0
+    leechers:
+      selector: "{{ if .Keywords }}td:nth-child(5){{ else }}td:nth-child(4){{ end }}"
+      optional: true
+      default: 0
+    downloadvolumefactor:
+      text: 0
+    uploadvolumefactor:
+      text: 1
+# engine n/a

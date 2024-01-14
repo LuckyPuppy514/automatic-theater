@@ -31,12 +31,10 @@
   <EnableDashboardResponseCaching>true</EnableDashboardResponseCaching>
   <ImageSavingConvention>Compatible</ImageSavingConvention>
   <EnableAutomaticRestart>true</EnableAutomaticRestart>
-  <CollectionFolderIdsMigrated>true</CollectionFolderIdsMigrated>
   <ServerName>ATM</ServerName>
+  <PreferredDetectedRemoteAddressFamily>InterNetwork</PreferredDetectedRemoteAddressFamily>
   <UICulture>zh-CN</UICulture>
-  <SaveMetadataHidden>false</SaveMetadataHidden>
   <RemoteClientBitrateLimit>0</RemoteClientBitrateLimit>
-  <DisplaySpecialsWithinSeasons>true</DisplaySpecialsWithinSeasons>
   <LocalNetworkSubnets />
   <LocalNetworkAddresses />
   <EnableExternalContentInSuggestions>true</EnableExternalContentInSuggestions>
@@ -49,17 +47,19 @@
   <UninstalledPlugins />
   <CollapseVideoFolders>true</CollapseVideoFolders>
   <EnableOriginalTrackTitles>false</EnableOriginalTrackTitles>
-  <VacuumDatabaseOnStartup>false</VacuumDatabaseOnStartup>
+  <VacuumDatabaseOnStartup>true</VacuumDatabaseOnStartup>
   <SimultaneousStreamLimit>0</SimultaneousStreamLimit>
   <DatabaseCacheSizeMB>128</DatabaseCacheSizeMB>
   <EnableSqLiteMmio>false</EnableSqLiteMmio>
-  <NextUpUpgraded>true</NextUpUpgraded>
-  <ChannelOptionsUpgraded>true</ChannelOptionsUpgraded>
-  <TimerIdsUpgraded>true</TimerIdsUpgraded>
-  <ForcedSortNameUpgraded>true</ForcedSortNameUpgraded>
-  <InheritedParentalRatingValueUpgraded>true</InheritedParentalRatingValueUpgraded>
+  <PlaylistsUpgradedToM3U>true</PlaylistsUpgradedToM3U>
+  <ImageExtractorUpgraded>true</ImageExtractorUpgraded>
   <EnablePeopleLetterSubFolders>true</EnablePeopleLetterSubFolders>
   <OptimizeDatabaseOnShutdown>true</OptimizeDatabaseOnShutdown>
   <DatabaseAnalysisLimit>400</DatabaseAnalysisLimit>
   <DisableAsyncIO>false</DisableAsyncIO>
+  <MigratedToUserItemShares4>true</MigratedToUserItemShares4>
+  <MigratedLibraryOptionsToDb>true</MigratedLibraryOptionsToDb>
+  <AllowLegacyLocalNetworkPassword>true</AllowLegacyLocalNetworkPassword>
+  <EnableSavedMetadataForPeople>false</EnableSavedMetadataForPeople>
+  <ProxyHeaderMode>RemoteAddressesOnly</ProxyHeaderMode>
 </ServerConfiguration>

@@ -1,0 +1,387 @@
+---
+id: yggcookie
+name: YGGcookie
+description: "YGGTorrent is a FRENCH Semi-Private Torrent Tracker for 0DAY / GENERAL"
+language: fr-FR
+type: semi-private
+encoding: UTF-8
+followredirect: true
+requestDelay: 2
+links:
+  - https://www3.yggtorrent.qa/
+legacylinks:
+  - https://ww3.yggtorrent.si/
+  - https://yggtorrent.si/
+  - http://www2.yggtorrent.si/
+  - https://www2.yggtorrent.si/
+  - https://www.yggtorrent.li/
+  - https://www4.yggtorrent.li/
+  - https://www3.yggtorrent.nz/
+  - https://www3.yggtorrent.re/
+  - https://www3.yggtorrent.la/
+  - https://www5.yggtorrent.la/
+  - https://www5.yggtorrent.fi/
+  - https://yggtorrent.lol/
+  - https://www6.yggtorrent.lol/
+  - https://www3.yggtorrent.do/
+  - https://www3.yggtorrent.wtf/
+
+caps:
+  categorymappings:
+    - {id: 2145, cat: TV, desc: "Film/Vidéo"}
+    - {id: 2178, cat: Movies/Other, desc: "Film/Vidéo : Animation"} # changed to movies, see #3553
+    - {id: 2179, cat: TV/Anime, desc: "Film/Vidéo : Animation Série"}
+    - {id: 2180, cat: Audio/Video, desc: "Film/Vidéo : Concert"}
+    - {id: 2181, cat: TV/Documentary, desc: "Film/Vidéo : Documentaire"}
+    - {id: 2182, cat: TV, desc: "Film/Vidéo : Emission TV"}
+    - {id: 2183, cat: Movies, desc: "Film/Vidéo : Film"}
+    - {id: 2184, cat: TV, desc: "Film/Vidéo : Série TV"}
+    - {id: 2185, cat: TV, desc: "Film/Vidéo : Spectacle"}
+    - {id: 2186, cat: TV/Sport, desc: "Film/Vidéo : Sport"}
+    - {id: 2187, cat: TV/Other, desc: "Film/Vidéo : Vidéo-clips"}
+    - {id: 2139, cat: Audio, desc: "Audio"}
+    - {id: 2147, cat: Audio, desc: "Audio : Karaoké"}
+    - {id: 2148, cat: Audio, desc: "Audio : Musique"}
+    - {id: 2150, cat: Audio, desc: "Audio : Podcast Radio"}
+    - {id: 2149, cat: Audio/Other, desc: "Audio : Samples"}
+    - {id: 2144, cat: PC, desc: "Application"}
+    - {id: 2177, cat: PC/0day, desc: "Application : Autre"}
+    - {id: 2176, cat: PC, desc: "Application : Formation"}
+    - {id: 2171, cat: PC/ISO, desc: "Application : Linux"}
+    - {id: 2172, cat: PC/Mac, desc: "Application : MacOS"}
+    - {id: 2174, cat: PC/Mobile-Android, desc: "Application : Smartphone"}
+    - {id: 2175, cat: PC/Mobile-Android, desc: "Application : Tablette"}
+    - {id: 2173, cat: PC/0day, desc: "Application : Windows"}
+    - {id: 2142, cat: PC/Games, desc: "Jeu vidéo"}
+    - {id: 2167, cat: Console/Other, desc: "Jeu vidéo : Autre"}
+    - {id: 2159, cat: PC/Games, desc: "Jeu vidéo : Linux"}
+    - {id: 2160, cat: PC/Games, desc: "Jeu vidéo : MacOS"}
+    - {id: 2162, cat: Console/XBox One, desc: "Jeu vidéo : Microsoft"}
+    - {id: 2163, cat: Console/Wii, desc: "Jeu vidéo : Nintendo"}
+    - {id: 2165, cat: PC/Mobile-Android, desc: "Jeu vidéo : Smartphone"}
+    - {id: 2164, cat: Console/PS4, desc: "Jeu vidéo : Sony"}
+    - {id: 2166, cat: PC/Mobile-Android, desc: "Jeu vidéo : Tablette"}
+    - {id: 2161, cat: PC/Games, desc: "Jeu vidéo : Windows"}
+    - {id: 2140, cat: Books, desc: "eBook"}
+    - {id: 2151, cat: Audio/Audiobook, desc: "eBook : Audio"}
+    - {id: 2152, cat: Books/EBook, desc: "eBook : Bds"}
+    - {id: 2153, cat: Books/Comics, desc: "eBook : Comics"}
+    - {id: 2154, cat: Books/EBook, desc: "eBook : Livres"}
+    - {id: 2155, cat: Books/Comics, desc: "eBook : Mangas"}
+    - {id: 2156, cat: Books/Mags, desc: "eBook : Presse"}
+    - {id: 2300, cat: Other, desc: "Nulled"}
+    - {id: 2301, cat: Other, desc: "Nulled : Wordpress"}
+    - {id: 2302, cat: Other, desc: "Nulled : Scripts PHP & CMS"}
+    - {id: 2303, cat: Other, desc: "Nulled : Mobile"}
+    - {id: 2304, cat: Other, desc: "Nulled : Divers"}
+    - {id: 2200, cat: Other, desc: "Imprimante 3D"}
+    - {id: 2201, cat: Other, desc: "Imprimante 3D : Objets"}
+    - {id: 2202, cat: Other, desc: "Imprimante 3D : Personnages"}
+    - {id: 2141, cat: Other, desc: "Emulation"}
+    - {id: 2157, cat: Other, desc: "Emulation : Emulateurs"}
+    - {id: 2158, cat: Other, desc: "Emulation : Roms"}
+    - {id: 2143, cat: Other, desc: "GPS"}
+    - {id: 2168, cat: Other, desc: "GPS : Applications"}
+    - {id: 2169, cat: Other, desc: "GPS : Cartes"}
+    - {id: 2170, cat: Other, desc: "GPS : Divers"}
+    - {id: 2188, cat: XXX, desc: "XXX"}
+    - {id: 2401, cat: XXX/Other, desc: "XXX : Ebooks"}
+    - {id: 2189, cat: XXX, desc: "XXX : Films"}
+    - {id: 2190, cat: XXX, desc: "XXX : Hentai"}
+    - {id: 2191, cat: XXX/ImageSet, desc: "XXX : Images"}
+    - {id: 2402, cat: XXX/Other, desc: "XXX : Jeux"}
+
+  modes:
+    search: [q]
+    tv-search: [q, season, ep]
+    movie-search: [q]
+    music-search: [q]
+    book-search: [q]
+  allowrawsearch: true
+
+settings:
+  - name: cookie
+    type: text
+    label: Cookie
+  - name: info_cookie
+    type: info
+    label: How to get the Cookie
+    default: "<ol><li>Login to this tracker with your browser</li><li>Open the <b>DevTools</b> panel by pressing <b>F12</b></li><li>Select the <b>Network</b> tab</li><li>Click on the <b>Doc</b> button (Chrome Browser) or <b>HTML</b> button (FireFox)</li><li>Refresh the page by pressing <b>F5</b></li><li>Click on the first row entry</li><li>Select the <b>Headers</b> tab on the Right panel</li><li>Find <b>'cookie:'</b> in the <b>Request Headers</b> section</li><li><b>Select</b> and <b>Copy</b> the whole cookie string <i>(everything after 'cookie: ')</i> and <b>Paste</b> here.</li></ol>"
+  - name: useragent
+    type: text
+    label: User-Agent
+  - name: info_useragent
+    type: info
+    label: How to get the User-Agent
+    default: "<ol><li>From the same place you fetched the cookie,</li><li>Find <b>'user-agent:'</b> in the <b>Request Headers</b> section</li><li><b>Select</b> and <b>Copy</b> the whole user-agent string <i>(everything after 'user-agent: ')</i> and <b>Paste</b> here.</li></ol>"
+  - name: category
+    type: select
+    label: Category
+    default: all
+    options:
+      all: "Tous"
+      2145: "Film/Vidéo"
+      2139: "Audio"
+      2144: "Application"
+      2142: "Jeu vidéo"
+      2140: "eBook"
+      2300: "Nulled"
+      2200: "Imprimante 3D"
+      2141: "Emulation"
+      2143: "GPS"
+      2188: "XXX"
+  - name: subcategory
+    type: select
+    label: Sub-category
+    default: all
+    options:
+      all: "Tous"
+      2178: "Film/Vidéo : Animation"
+      2179: "Film/Vidéo : Animation Série"
+      2180: "Film/Vidéo : Concert"
+      2181: "Film/Vidéo : Documentaire"
+      2182: "Film/Vidéo : Emission TV"
+      2183: "Film/Vidéo : Film"
+      2184: "Film/Vidéo : Série TV"
+      2185: "Film/Vidéo : Spectacle"
+      2186: "Film/Vidéo : Sport"
+      2187: "Film/Vidéo : Vidéo-clips"
+      2147: "Audio : Karaoké"
+      2148: "Audio : Musique"
+      2150: "Audio : Podcast Radio"
+      2149: "Audio : Samples"
+      2177: "Application : Autre"
+      2176: "Application : Formation"
+      2171: "Application : Linux"
+      2172: "Application : MacOS"
+      2174: "Application : Smartphone"
+      2175: "Application : Tablette"
+      2173: "Application : Windows"
+      2167: "Jeu vidéo : Autre"
+      2159: "Jeu vidéo : Linux"
+      2160: "Jeu vidéo : MacOS"
+      2162: "Jeu vidéo : Microsoft"
+      2163: "Jeu vidéo : Nintendo"
+      2165: "Jeu vidéo : Smartphone"
+      2164: "Jeu vidéo : Sony"
+      2166: "Jeu vidéo : Tablette"
+      2161: "Jeu vidéo : Windows"
+      2151: "eBook : Audio"
+      2152: "eBook : Bds"
+      2153: "eBook : Comics"
+      2154: "eBook : Livres"
+      2155: "eBook : Mangas"
+      2156: "eBook : Presse"
+      2301: "Nulled : Wordpress"
+      2302: "Nulled : Scripts PHP & CMS"
+      2303: "Nulled : Mobile"
+      2304: "Nulled : Divers"
+      2201: "Imprimante 3D : Objets"
+      2202: "Imprimante 3D : Personnages"
+      2157: "Emulation : Emulateurs"
+      2158: "Emulation : Roms"
+      2168: "GPS : Applications"
+      2169: "GPS : Cartes"
+      2170: "GPS : Divers"
+      2401: "XXX : Ebooks"
+      2189: "XXX : Films"
+      2190: "XXX : Hentai"
+      2191: "XXX : Images"
+      2402: "XXX : Jeux"
+  - name: info_category
+    type: info
+    label: Category and Sub-category
+    default: Only select a <i>Category</i> <b>OR</b> a <i>Sub-category</i>, leaving the other as <i>Tous</i>.
+  - name: multilang
+    type: checkbox
+    label: Replace MULTi by another language in release name
+    default: false
+  - name: multilanguage
+    type: select
+    label: Replace MULTi by this language
+    default: FRENCH
+    options:
+      FRENCH: FRENCH
+      MULTi.FRENCH: MULTi.FRENCH
+      ENGLISH: ENGLISH
+      MULTi.ENGLISH: MULTi.ENGLISH
+      VOSTFR: VOSTFR
+      MULTi.VOSTFR: MULTi.VOSTFR
+  - name: vostfr
+    type: checkbox
+    label: Replace VOSTFR and SUBFRENCH with ENGLISH
+    default: false
+  - name: filter_title
+    type: checkbox
+    label: Normalize release names by moving year after the title
+    default: false
+  - name: strip_season
+    type: checkbox
+    label: Strip season only (e.g. S01) from searches, as tracker does not support partial matches
+    default: true
+  - name: enhancedAnime
+    type: checkbox
+    label: Enhance Sonarr compatibility with anime by renaming episodes (xxx > Exxx). Can disturb movies search (e.g. Back To The Future 3 > Back To The Future E3).
+    default: false
+  - name: enhancedAnime4
+    type: checkbox
+    label: Extend the Sonarr compatibility with anime up to 4 digits. This WILL break all searches and result titles which contain years.
+    default: false
+  - name: sort
+    type: select
+    label: Sort requested from site
+    default: publish_date
+    options:
+      publish_date: created
+      seed: seeders
+      size: size
+      name: title
+  - name: type
+    type: select
+    label: Order requested from site
+    default: desc
+    options:
+      desc: desc
+      asc: asc
+  - name: flaresolverr
+    type: info
+    label: FlareSolverr
+    default: This site may use Cloudflare DDoS Protection, therefore Prowlarr may require <a href="https://github.com/FlareSolverr/FlareSolverr" target="_blank">FlareSolver</a> added as a proxy in Prowlarr (Settings => Indexers) to access it.
+
+login:
+  method: cookie
+  inputs:
+    cookie: "{{ .Config.cookie }}"
+  test:
+    path: /
+    selector: div#top_panel:contains("Déconnexion")
+
+search:
+  paths:
+    - path: engine/search
+      inputs:
+        name: "{{ .Keywords }}"
+      followredirect: true
+    - path: engine/search
+      inputs:
+        $raw: "name={{ if .Keywords }}{{ re_replace .Keywords \"(?i)S0?(\\d{1,2})\" \"Saison $1\" }}{{ else }}&page=50{{ end }}"
+      followredirect: true
+  inputs:
+    $raw: "{{ if eq .Config.subcategory \"all\" }}category={{ .Config.category }}{{ else }}sub_category={{ .Config.subcategory }}{{ end }}"
+    do: search
+    order: "{{ .Config.type }}"
+    sort: "{{ .Config.sort }}"
+
+  headers:
+    User-Agent: ["{{ .Config.useragent }}"]
+
+  keywordsfilters:
+    - name: re_replace # 1234 > E1234
+      args: ["\\b(\\d{4})\\b", "{{ if .Config.enhancedAnime4 }}E$1{{ else }}$1{{ end }}"]
+    - name: re_replace # 123 > E123
+      args: ["\\b(\\d{2,3})\\b", "{{ if .Config.enhancedAnime }}E$1{{ else }}$1{{ end }}"]
+    # fix date search and workaround for internal YGG issues
+    - name: re_replace
+      args: ["[\\\\\\-\\.\\/!\\s]+", " "]
+    # strip season as site does not support partial matches
+    - name: re_replace
+      args: ["(?i)\\b(S\\d{1,3})\\b", "{{ if .Config.strip_season }}{{ else }}$1{{ end }}"]
+    - name: trim
+    # put each word in quotations to prevent exact phrase search
+    - name: re_replace
+      args: ["([^\\s]+)", "\"$1\""]
+
+  rows:
+    selector: table.table > tbody > tr
+
+  fields:
+    _id:
+      selector: td:nth-child(2) > a
+      attribute: href
+      filters:
+        - name: regexp
+          args: "/(\\d+)-"
+    title_normal:
+      selector: td:nth-child(2) > a
+      filters:
+        # Saison 1 Episode 2 > S01E02
+        - name: re_replace
+          args: ["(?i)\\b(Saisons?[\\s\\.]*)(\\d{4}(?:[\\s\\.\\-aà]+\\d{4})?)([\\s\\.]*[EÉ]pisodes?[\\s\\.]*)(\\d{1,3}(?:[\\s\\.\\-aà]+\\d{1,3})?)\\b", "{{ if .Config.enhancedAnime4 }}S$2E$4{{ else }}$1$2$3$4{{ end }}"]
+        - name: re_replace
+          args: ["(?i)\\bSaisons?[\\s\\.]*(\\d{1,3}(?:[\\s\\.\\-aà]+\\d{1,3})?)[\\s\\.]*[EÉ]pisodes?[\\s\\.]*(\\d{1,3}(?:[\\s\\.\\-aà]+\\d{1,3})?)\\b", "S$1E$2"]
+        # Saison 1 > S01
+        - name: re_replace
+          args: ["(?i)\\b(Saisons?[\\s\\.]*)(\\d{4}(?:[\\s\\.\\-aà]+\\d{4})?)\\b", "{{ if .Config.enhancedAnime4 }}S$2{{ else }}$1$2{{ end }}"]
+        - name: re_replace
+          args: ["(?i)\\bSaisons?[\\s\\.]*(\\d{1,3}(?:[\\s\\.\\-aà]+\\d{1,3})?)\\b", "S$1"]
+        # Episode 1 > E01
+        - name: re_replace
+          args: ["(?i)\\b([EÉ]pisodes?[\\s\\.]*)(\\d{4}(?:[\\s\\.\\-aà]+\\d{4})?)\\b", "{{ if .Config.enhancedAnime4 }}S$2{{ else }}$1$2{{ end }}"]
+        - name: re_replace
+          args: ["(?i)\\b[EÉ]pisodes?[\\s\\.]*(\\d{1,3}(?:[\\s\\.\\-aà]+\\d{1,3})?)\\b", "S$1"]
+        # S1 à 2 > S1-2
+        - name: re_replace
+          args: ["(?i)\\b(S?\\d*[SE])(\\d{4})([\\s\\.\\-aà]+)(\\d{4})\\b", "{{ if .Config.enhancedAnime4 }}$1$2-$4{{ else }}$1$2$3$4{{ end }}"]
+        - name: re_replace
+          args: ["(?i)\\b(S?\\d*[SE])(\\d{1,3})[\\s\\.\\-aà]+(\\d{1,3})\\b", "$1$2-$3"]
+        # Replace French date dd-mm-yyyy to yyyy.mm.dd
+        - name: re_replace
+          args: ["\\b(\\d{2})[\\-_\\.](\\d{2})[\\-_\\.](\\d{4})\\b", "$3.$2.$1"]
+    title_filtered:
+      text: "{{ .Result.title_normal }}"
+      filters:
+        - name: re_replace
+          args: ["(?i)^(?:(.+?)((?:[\\.\\-\\s_\\[]+(?:imax|(?:dvd|bd|tv)(?:rip|scr)|bluray(?:\\-?rip)?|720\\s*p?|1080\\s*p?|vof?|vost(?:fr)?|multi|vf(?:f|q)?[1-3]?|(?:true)?french|eng?)[\\.\\-\\s_\\]]*)*)([\\(\\[]?(?:20|1[7-9])\\d{2}[\\)\\]]?)(.*)$|(.*))$", "$1 $3 $2 $4 $5"]
+        - name: trim
+        - name: re_replace
+          args: ["(?i)(.\\b(mkv|avi|divx|xvid|mp4)\\b)$", ""]
+        - name: re_replace
+          args: ["(\\s+)", " "]
+        - name: trim
+    title_phase1:
+      text: "{{ if .Config.filter_title }}{{ .Result.title_filtered }}{{ else }}{{ .Result.title_normal }}{{ end }}"
+    title_vostfr:
+      text: "{{ .Result.title_phase1 }}"
+      filters:
+        - name: re_replace
+          args: ["(?i)\\b(vostfr|subfrench)\\b", "ENGLISH"]
+    title_phase2:
+      text: "{{ if .Config.vostfr }}{{ .Result.title_vostfr }}{{ else }}{{ .Result.title_phase1 }}{{ end }}"
+    title_multilang:
+      text: "{{ .Result.title_phase2 }}"
+      filters:
+        - name: re_replace
+          args: ["(?i)\\b(MULTI(?!.*(?:FRENCH|ENGLISH|VOSTFR)))\\b", "{{ .Config.multilanguage }}"]
+    title:
+      text: "{{ if .Config.multilang }}{{ .Result.title_multilang }}{{ else }}{{ .Result.title_phase2 }}{{ end }}"
+      filters:
+        - name: re_replace
+          args: ["\\b(\\d{4})\\b", "{{ if .Config.enhancedAnime4 }}E$1{{ else }}$1{{ end }}"]
+        - name: re_replace
+          args: ["\\b(\\d{2,3})\\b", "{{ if .Config.enhancedAnime }}E$1{{ else }}$1{{ end }}"]
+    details:
+      selector: td:nth-child(2) > a
+      attribute: href
+    category:
+      selector: td:nth-child(1) > div.hidden
+    download:
+      text: "/engine/download_torrent?id={{ .Result._id }}"
+    date:
+      # unix
+      selector: td:nth-child(5) > div.hidden
+    size:
+      selector: td:nth-child(6)
+      filters:
+        - name: replace
+          args: ["o", "B"]
+    grabs:
+      selector: td:nth-child(7)
+    seeders:
+      selector: td:nth-child(8)
+    leechers:
+      selector: td:nth-child(9)
+    downloadvolumefactor:
+      text: 1
+    uploadvolumefactor:
+      text: 1
+# engine n/a

@@ -28,7 +28,7 @@
 
 ```mermaid
 graph LR
-    1[Jellyseerr] == 手动请求电视剧/综艺/动漫 ==> 2[Sonarr] == 自动搜索/下载 ==> 3[JProxy] == 自动搜索 ==> 4[Jackett]
+    1[Jellyseerr] == 手动请求电视剧/综艺/动漫 ==> 2[Sonarr] == 自动搜索/下载 ==> 3[JProxy] == 自动搜索 ==> 4[Prowlarr]
     1[Jellyseerr] == 手动请求电影 ==> 6[Radarr] == 自动搜索/下载 ==> 3[JProxy]
     3[JProxy] == 自动下载 ==> 5[qBittorrentee]
     2[Sonarr] == 自动导入 ==> 7[Emby]
@@ -48,9 +48,9 @@ graph LR
 | [Jellyseerr](https://github.com/Fallenbagel/jellyseerr) | 聚合搜索 | ⭕ | 搜索并推送到 Sonarr / Radarr |
 | [Radarr](https://github.com/Radarr/Radarr) | 电影订阅系统 | ⭕ | 定时搜索，下载，重命名并导入 |
 | [Sonarr](https://github.com/Sonarr/Sonarr) | 电视剧和动漫订阅系统 | ❌ | 定时搜索，下载，重命名并导入 |
-| [Jackett](https://github.com/Jackett/Jackett) | 种子站代理 | ❌ | 可添加种子站，提供种子搜索，支持结果缓存 |
-| [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr) | 绕过 Cloudflare 和 DDoS-GUARD | - | Jackett 已配置，无其他操作 |
-| [JProxy](https://github.com/LuckyPuppy514/jproxy) | 种子站代理过滤 | ⭕ | 介于 Sonarr / Radarr 和 Jackett / Prowlarr 之间的代理，主要用于优化查询和提升识别率 |
+| [Prowlarr](https://github.com/Prowlarr/Prowlarr) | 种子站代理 | ❌ | 可添加种子站，提供种子搜索，支持结果缓存 |
+| [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr) | 绕过 Cloudflare 和 DDoS-GUARD | - | Prowlarr 已配置，无其他操作 |
+| [JProxy](https://github.com/LuckyPuppy514/jproxy) | 种子站代理过滤 | ⭕ | 介于 Sonarr / Radarr 和 Prowlarr / Prowlarr 之间的代理，主要用于优化查询和提升识别率 |
 | [qBittorrent](https://github.com/qbittorrent/qBittorrent) | 下载客户端 | ⭕ | qBittorrent |
 | [ChineseSubFinder](https://github.com/ChineseSubFinder/ChineseSubFinder) | 字幕下载 | ⭕ | 自动下载电影和电视剧字幕 |
 
@@ -72,8 +72,8 @@ Radarr
 Sonarr
 ![Sonarr_tuya](https://cdn.jsdelivr.net/gh/LuckyPuppy514/pic-bed/common/Sonarr_tuya.jpg)
 
-Jackett
-![Jackett_tuya](https://cdn.jsdelivr.net/gh/LuckyPuppy514/pic-bed/common/Jackett_tuya.jpg)
+Prowlarr
+![Prowlarr_tuya](https://cdn.jsdelivr.net/gh/LuckyPuppy514/pic-bed/common/Prowlarr_tuya.jpg)
 
 JProxy
 ![20230414184607](https://github.com/LuckyPuppy514/image/raw/main/2023/2023-04-14/20230414184607.webp)
@@ -250,11 +250,11 @@ graph LR
 | Heimdall | `https://ip:60211`  | - | - |
 | Portainer | `http://ip:60212` | atm | atm@20230101 |
 | FlareSolverr | `http://ip:60213` | - | - |
-| Jackett | `http://ip:60214` | - | - |
+| Prowlarr | `http://ip:60223` | atm | atm@20230101 |
 | JProxy | `http://ip:60215` | atm | atm@20230101 |
 | Jellyseerr | `http://ip:60216` | atm | atm@20230101 |
-| Radarr | `http://ip:60217` | - | - |
-| Sonarr | `http://ip:60218` | - | - |
+| Radarr | `http://ip:60217` | atm | atm@20230101 |
+| Sonarr | `http://ip:60218` | atm | atm@20230101 |
 | qBittorrent | `http://ip:60219` | atm | atm@20230101 |
 | ChineseSubFinder | `http://ip:60221` | atm | atm@20230101 |
 | Emby | `http://ip:60220` | atm | atm@20230101 |

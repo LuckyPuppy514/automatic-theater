@@ -1,0 +1,209 @@
+---
+id: krazyzone
+name: KrazyZone
+description: "KrazyZone is a Private Torrent Tracker for MOVIES / TV / GENERAL"
+language: en-US
+type: private
+encoding: UTF-8
+links:
+  - https://krazyzone.net/
+legacylinks:
+  - http://krazyzone.net/
+
+caps:
+  categorymappings:
+    - {id: 79, cat: Audio, desc: "Mastermix: Mastermix"}
+    - {id: 80, cat: Audio, desc: "DMC: DMC"}
+    - {id: 49, cat: Audio/MP3, desc: "KZN MP3 Weekly: Ex-Vip"}
+    - {id: 76, cat: Audio, desc: "KZN-Exclusive: Exclusive "}
+    - {id: 98, cat: Audio/MP3, desc: "Other Mp3 Weely: Mp3"}
+    - {id: 77, cat: Audio, desc: "KZN  Ex VIP: Ex VIP"}
+    - {id: 74, cat: Audio, desc: "Discography: Collection"}
+    - {id: 78, cat: Audio, desc: "Dj-Only: Dj-Music"}
+    - {id: 82, cat: Audio/Lossless, desc: "Flac: Flac - Flac Packs"}
+    - {id: 81, cat: Audio, desc: "Albums : Assorted Albums"}
+    - {id: 46, cat: Audio/Video, desc: "Music Videos: Music Videos"}
+    - {id: 24, cat: Audio, desc: "Karaoke: All Karaoke"}
+    - {id: 28, cat: Movies, desc: "Movies: 2024"}
+    - {id: 47, cat: Movies/BluRay, desc: "Movies: Bluray-HD"}
+    - {id: 9, cat: Movies/DVD, desc: "Movies: Dvdr-ISO"}
+    - {id: 52, cat: Movies, desc: "Classic Movies: Pre90s"}
+    - {id: 48, cat: Movies/SD, desc: "Movies: AVI-XVID-Dvdrip"}
+    - {id: 41, cat: Movies/3D, desc: "Remux - 3D: Remux - 3D"}
+    - {id: 22, cat: Movies/Foreign, desc: "Movies: Foreign"}
+    - {id: 23, cat: Movies/Other, desc: "Movies: Kids"}
+    - {id: 25, cat: Movies/WEB-DL, desc: "Movies: Netflix"}
+    - {id: 27, cat: Movies/UHD, desc: "Movies: 4K"}
+    - {id: 53, cat: Movies, desc: "Movie Packs: Movie Pks"}
+    - {id: 54, cat: Movies, desc: "Movie Pack: Pre-90s"}
+    - {id: 6, cat: Movies/Other, desc: "Kids Movie Pk: Movie Pks"}
+    - {id: 7, cat: TV, desc: "TV: Episodes"}
+    - {id: 8, cat: TV/Anime, desc: "TV: Kids - TV"}
+    - {id: 75, cat: TV/Documentary, desc: "TV: Documentary"}
+    - {id: 26, cat: TV/Sport, desc: "TV: Sports"}
+    - {id: 42, cat: Movies, desc: "TV Packs: Full Seasons"}
+    - {id: 50, cat: TV/Anime, desc: "TV Packs: Kids -  Packs"}
+    - {id: 83, cat: Movies, desc: "TV Packs: Pre90s"}
+    - {id: 84, cat: Audio/Audiobook, desc: "Audio Books: A-Books"}
+    - {id: 85, cat: Books, desc: "Ebooks: Ebooks-Mags-Comics"}
+    - {id: 86, cat: Movies/HD, desc: "1440P QHD: 1440P QHD"}
+    - {id: 87, cat: PC/0day, desc: "Apps: windows-Linux"}
+    - {id: 88, cat: TV/Anime, desc: "Anime: All Anime"}
+    - {id: 89, cat: PC/Games, desc: "Games: Pc - Iso"}
+    - {id: 90, cat: PC/Games, desc: "Games: Misc"}
+    - {id: 91, cat: Other, desc: "Wallpapers: Wallpapers"}
+    - {id: 92, cat: Other, desc: "Xmas Albums: Albums"}
+    - {id: 93, cat: Movies/Other, desc: "Xmas Movies : Packs"}
+    - {id: 94, cat: Audio/Other, desc: "Xmas Music Pack: Packs"}
+    - {id: 95, cat: Other, desc: "To Be Edited: Edit"}
+    - {id: 99, cat: PC/Mac, desc: "Apps Mac: Apps Mac"}
+
+  modes:
+    search: [q]
+    tv-search: [q, season, ep, imdbid]
+    movie-search: [q, imdbid]
+    music-search: [q]
+    book-search: [q]
+
+settings:
+  - name: username
+    type: text
+    label: Username
+  - name: password
+    type: password
+    label: Password
+  - name: freeleech
+    type: checkbox
+    label: Search freeleech only
+    default: false
+  - name: sort
+    type: select
+    label: Sort requested from site
+    default: id
+    options:
+      id: created
+      seeders: seeders
+      size: size
+      name: title
+  - name: type
+    type: select
+    label: Order requested from site
+    default: desc
+    options:
+      desc: desc
+      asc: asc
+  - name: info_results
+    type: info
+    label: Search results
+    default: "If you are getting <b>0 results</b> then access the site with your browser and <b>mark as read</b> all PMs."
+
+login:
+  path: account-login.php
+  method: post
+  inputs:
+    username: "{{ .Config.username }}"
+    password: "{{ .Config.password }}"
+  error:
+    - selector: div.myFrame:contains("Access Denied")
+  test:
+    path: index.php
+    selector: a[href="account-logout.php"]
+
+search:
+  paths:
+    # https://krazyzone.net/torrents-search.php?incldead=1&freeleech=0&inclrosub=0&sort=id&order=desc
+    - path: torrents-search.php
+  inputs:
+    $raw: "{{ range .Categories }}c{{.}}=1&{{end}}"
+    search: "{{ if .Query.IMDBID }}{{ .Query.IMDBID }}{{ else }}{{ .Keywords }}{{ end }}" # for dashboard imdbid search
+    # 0 active, 1 incldead, 2 onlydead
+    incldead: 1
+    # 0 all, 1 notfree, 2 onlyfree
+    freeleech: "{{ if .Config.freeleech }}2{{ else }}0{{ end }}"
+    # 0 all, 1 bulgarian, 2 english, 3 english and bulgarian
+    inclrosub: 0
+    # 0 both, 1 local, 2 external
+    sort: "{{ .Config.sort }}"
+    order: "{{ .Config.type }}"
+
+  rows:
+    selector: table.ttable_headinner > tbody > tr:has(a[href^="download.php?id="])
+    filters:
+      - name: andmatch
+
+  fields:
+    category:
+      selector: a[href^="torrents.php?cat="]
+      attribute: href
+      optional: true
+      default: 95
+      filters:
+        - name: querystring
+          args: cat
+    title:
+      selector: a[href^="torrents-details.php?id="]
+      attribute: title
+      filters:
+        - name: re_replace
+          args: ["[\\[|\\]]", ""]
+    details:
+      selector: a[href^="torrents-details.php?id="]
+      attribute: href
+    download:
+      selector: a[href^="download.php?id="]
+      attribute: href
+    poster:
+      selector: a[href^="torrents-details.php?id="]
+      attribute: onmouseover
+      filters:
+        - name: regexp
+          args: src=([^\s]+)
+    genre:
+      selector: div.t-tags
+      filters:
+        - name: re_replace
+          args: ["(?i)(Chat Show)", "Chat_Show"]
+        - name: re_replace
+          args: ["(?i)(Game Show)", "Game_Show"]
+        - name: re_replace
+          args: ["(?i)(Panel Show)", "Panel_Show"]
+        - name: re_replace
+          args: ["(?i)(Science Fiction)", "Science_Fiction"]
+        - name: re_replace
+          args: ["(?i)(Talk Show)", "Talk_Show"]
+        - name: validate
+          args: "Action, Adventure, Animation, Biography, Chat_Show, Comedy, Crime, Documentary, Drama, Family, Fantasy, Game_Show, History, Horror, Kids, Medical, Music, Mystery, Nature, News, Panel_Show, Reality, Romance, Science_Fiction, Science-Fiction, SciFi, Soap, Supernatural, Talk_Show, Thriller, War, Western"
+    description:
+      case:
+        img[src="images/ro-eng-flag.png"]: "Verified: {{ .Result.genre }}"
+        "*": "Unverified: {{ .Result.genre }}"
+    imdbid:
+      selector: a[href*="imdb.com/title/tt"]
+      attribute: href
+    size:
+      selector: td:nth-child(4)
+    date:
+      # 24.Jul<br>2022<br>07:47
+      selector: td:nth-child(5)
+      # auto adjusted by site account profile
+      filters:
+        - name: dateparse
+          args: "d.MMMyyyyHH:mm"
+    seeders:
+      selector: td:nth-child(7)
+    leechers:
+      selector: td:nth-child(8)
+    grabs:
+      selector: td:nth-child(9)
+    downloadvolumefactor:
+      case:
+        img[src="images/free.gif"]: 0
+        "*": 1
+    uploadvolumefactor:
+      text: 1
+    minimumratio:
+      text: 1.0
+    minimumseedtime:
+      # 24 hours (as seconds = 24 x 60 x 60)
+      text: 86400
+# TorrentTrader

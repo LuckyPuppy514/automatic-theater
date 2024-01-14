@@ -1,0 +1,246 @@
+---
+id: digitalcore
+name: DigitalCore
+description: "DigitalCore is a Private Torrent Tracker for MOVIES / TV / GENERAL"
+language: en-US
+type: private
+encoding: UTF-8
+links:
+  - https://digitalcore.club/
+
+caps:
+  categorymappings:
+    - {id: 2, cat: Movies/SD, desc: Movies/SD}
+    - {id: 1, cat: Movies/DVD, desc: Movies/DVDR}
+    - {id: 5, cat: Movies/HD, desc: Movies/720p}
+    - {id: 6, cat: Movies/HD, desc: Movies/1080p}
+    - {id: 4, cat: Movies/UHD, desc: Movies/2160p}
+    - {id: 3, cat: Movies/BluRay, desc: Movies/BluRay}
+    - {id: 38, cat: Movies/UHD, desc: Movies/Bluray/UHD}
+    - {id: 7, cat: Movies/HD, desc: Movies/PACKS}
+    - {id: 10, cat: TV/SD, desc: Tv/SD}
+    - {id: 11, cat: TV/SD, desc: Tv/DVDR}
+    - {id: 8, cat: TV/HD, desc: Tv/720p}
+    - {id: 9, cat: TV/HD, desc: Tv/1080p}
+    - {id: 13, cat: TV/UHD, desc: Tv/2160p}
+    - {id: 14, cat: TV/HD, desc: Tv/BluRay}
+    - {id: 12, cat: TV/HD, desc: Tv/PACKS}
+    - {id: 17, cat: Other, desc: Unknown}
+    - {id: 18, cat: PC/0day, desc: Apps/0DAY}
+    - {id: 20, cat: PC/ISO, desc: Apps/PC}
+    - {id: 21, cat: PC/Mac, desc: Apps/Mac}
+    - {id: 33, cat: PC, desc: Apps/Tutorials}
+    - {id: 22, cat: Audio/MP3, desc: Music/MP3}
+    - {id: 23, cat: Audio/Lossless, desc: Music/FLAC}
+    - {id: 24, cat: Audio/Video, desc: Music/MTV}
+    - {id: 29, cat: Audio, desc: Music/PACKS}
+    - {id: 39, cat: Audio/Video, desc: Music/DVD}
+    - {id: 40, cat: Audio/Video, desc: Music/Bluray}
+    - {id: 25, cat: PC/Games, desc: Games/PC}
+    - {id: 27, cat: PC/Mac, desc: Games/Mac}
+    - {id: 26, cat: Console, desc: Games/Consoles}
+    - {id: 43, cat: Console, desc: Games/ROMS}
+    - {id: 42, cat: XXX/Other, desc: Games/XXX}
+    - {id: 44, cat: Audio/Audiobook, desc: Audiobooks}
+    - {id: 28, cat: Books/EBook, desc: Ebooks}
+    - {id: 30, cat: XXX/SD, desc: XXX/SD}
+    - {id: 31, cat: XXX, desc: XXX/HD}
+    - {id: 32, cat: XXX/UHD, desc: XXX/4K}
+    - {id: 35, cat: XXX/SD, desc: XXX/Movies/SD}
+    - {id: 36, cat: XXX, desc: XXX/Movies/HD}
+    - {id: 37, cat: XXX/UHD, desc: XXX/Movies/4K}
+    - {id: 34, cat: XXX/ImageSet, desc: XXX/Imagesets}
+    - {id: 41, cat: XXX, desc: XXX/PACKS}
+
+  modes:
+    search: [q]
+    tv-search: [q, season, ep, imdbid]
+    movie-search: [q, imdbid]
+    music-search: [q]
+    book-search: [q]
+
+settings:
+  - name: cookie
+    type: text
+    label: Cookie
+  - name: info
+    type: info
+    label: How to get the Cookie
+    default: "<ol><li>Login to this tracker with your browser</li><li>Open the <b>DevTools</b> panel by pressing <b>F12</b></li><li>Select the <b>Network</b> tab</li><li>Click on the <b>Doc</b> button (Chrome Browser) or <b>HTML</b> button (FireFox)</li><li>Refresh the page by pressing <b>F5</b></li><li>Click on the first row entry</li><li>Select the <b>Headers</b> tab on the Right panel</li><li>Find <b>'cookie:'</b> in the <b>Request Headers</b> section</li><li><b>Select</b> and <b>Copy</b> the whole cookie string <i>(everything after 'cookie: ')</i> and <b>Paste</b> here.</li></ol>"
+  - name: freeleech
+    type: checkbox
+    label: Search freeleech only
+    default: false
+  - name: p2p_releases_only
+    type: checkbox
+    label: Search P2P releases only
+    default: false
+  - name: unrar_releases_only
+    type: checkbox
+    label: Search UNRAR releases only
+    default: false
+  - name: sort
+    type: select
+    label: Sort requested from site
+    default: d
+    options:
+      d: created
+      up: seeders
+      s: size
+      n: title
+  - name: type
+    type: select
+    label: Order requested from site
+    default: desc
+    options:
+      desc: desc
+      asc: asc
+
+login:
+  method: cookie
+  inputs:
+    cookie: "{{ .Config.cookie }}"
+
+search:
+  paths:
+    - path: api/v1/torrents
+      response:
+        type: json
+        noResultsMessage: ""
+
+  inputs:
+    $raw: "{{ range .Categories }}categories[]={{.}}&{{end}}"
+    dead: true
+    extendedDead: true
+    extendedSearch: false
+    freeleech: "{{ if .Config.freeleech }}true{{ else }}false{{ end }}"
+    index: 0
+    limit: 100
+    order: "{{ .Config.type }}"
+    p2p: "{{ if .Config.p2p_releases_only }}true{{ else }}{{ end }}"
+    page: search
+    searchText: "{{ if .Query.IMDBID }}{{ .Query.IMDBID }} {{ else }}{{ end }}{{ .Keywords }}"
+    section: all
+    sort: "{{ .Config.sort }}"
+    stereoscopic: false
+    unrar: "{{ if .Config.unrar_releases_only }}true{{ else }}{{ end }}"
+    watchview: false
+
+  rows:
+    selector: $
+    filters:
+      - name: andmatch
+
+  fields:
+    category:
+      selector: category
+    title:
+      selector: name
+    _id:
+      selector: id
+    details:
+      text: "/torrent/{{ .Result._id }}/"
+    download:
+      text: "/api/v1/torrents/download/{{ .Result._id }}"
+    imdbid:
+      selector: imdbid2
+    imdbid_full:
+      optional: true
+      selector: imdbid2
+    poster_normal:
+      optional: true
+      selector: firstpic
+    poster_imdb:
+      optional: true
+      text: "{{ if .Result.imdbid }}/img/imdb/{{ .Result.imdbid_full }}.jpg{{ else }}{{ end }}"
+    poster:
+      text: "{{ if .Result.poster_imdb }}{{ .Result.poster_imdb }}{{ else }}{{ .Result.poster_normal }}{{ end }}"
+    date:
+      # 2021-10-27 12:07:22
+      selector: added
+      filters:
+        - name: append
+          args: " +02:00" # EET
+        - name: dateparse
+          args: "yyyy-MM-dd HH:mm:ss zzz"
+    size:
+      selector: size
+    files:
+      selector: numfiles
+    grabs:
+      selector: times_completed
+    seeders:
+      selector: seeders
+    leechers:
+      selector: leechers
+    downloadvolumefactor:
+      # api returns 0=false, 1=true
+      selector: frileech
+      case:
+        0: 1 # not free
+        1: 0 # freeleech
+    uploadvolumefactor:
+      text: 1
+    minimumratio:
+      text: 1.1
+    minimumseedtime:
+      # 5 days (as seconds = 5 x 24 x 60 x 60)
+      text: 432000
+    title_desc:
+      optional: true
+      selector: title
+    year:
+      optional: true
+      selector: year
+    genre:
+      selector: genres
+    _tagline_desc:
+      optional: true
+      selector: tagline
+    _cast_desc:
+      optional: true
+      selector: cast
+    _rating_desc:
+      optional: true
+      selector: rating
+      filters:
+        - name: re_replace
+          args: ["^0$", ""]
+    _section_desc:
+      optional: true
+      selector: section
+    _predate_desc:
+      selector: preDate
+      filters:
+        - name: re_replace
+          args: ["0000-00-00 00:00:00", ""]
+    _p2ptag:
+      selector: p2p
+      case:
+        0: ""
+        1: P2P
+    _unrartag:
+      selector: unrar
+      case:
+        0: ""
+        1: UNRAR
+      optional: true
+    _packtag:
+      selector: pack
+      case:
+        0: ""
+        1: Pack
+    _reqidtag:
+      selector: reqid
+      case:
+        0: ""
+        "*": Request
+    _tag_desc:
+      optional: true
+      text: "{{ if .Result._p2ptag }}{{ .Result._p2ptag }}, {{ else }}{{ end }}{{ if .Result._unrartag }}{{ .Result._unrartag }}, {{ else }}{{ end }}{{ if .Result._packtag }}{{ .Result._packtag }}, {{ else }}{{ end }}{{ if .Result._reqidtag }}{{ .Result._reqidtag }}{{ else }}{{ end }}"
+      filters:
+        - name: regexp
+          args: "(.+?), $"
+    description:
+      text: "{{ if .Result.title_desc }}Title: {{ .Result.title_desc }}</br>{{ else }}{{ end }}{{ if .Result.year }}Year: {{ .Result.year }}</br>{{ else }}{{ end }}{{ if .Result.genre }}Genres: {{ .Result.genre }}</br>{{ else }}{{ end }}{{ if .Result._tagline_desc }}Tagline: {{ .Result._tagline_desc }}</br>{{ else }}{{ end }}{{ if .Result._cast_desc }}Cast: {{ .Result._cast_desc }}</br>{{ else }}{{ end }}{{ if .Result._rating_desc }}Rating: {{ .Result._rating_desc }}</br>{{ else }}{{ end }}{{ if .Result._tag_desc }}Tags: {{ .Result._tag_desc }}</br>{{ else }}{{ end }}{{ if .Result._predate_desc }}PRE: {{ .Result._predate_desc }}</br>{{ else }}{{ end }}{{ if .Result._section_desc }}Section: {{ .Result._section_desc }}{{ else }}{{ end }}"
+# json rartracker api v1

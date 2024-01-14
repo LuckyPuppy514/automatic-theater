@@ -1,0 +1,270 @@
+---
+id: hdgalaktik
+name: HDGalaKtik
+description: "HDGalaKtik is a RUSSIAN Semi-Private tracker for MOVIES / TV / GENERAL"
+language: ru-RU
+type: semi-private
+encoding: UTF-8
+links:
+  - https://www.trackerpmr.com/
+  - https://freetmd.com/
+  - https://kinoradiomagia.tv/
+legacylinks:
+  - https://hdgalaktik.com/
+
+caps:
+  categorymappings:
+    - {id: 13, cat: Movies, desc: "Фильмы (Movies)"}
+    - {id: 6, cat: TV, desc: "Мультфильмы (Cartoons)"}
+    - {id: 10, cat: Audio, desc: "Музыка (Music)"}
+    - {id: 26, cat: PC, desc: "Программы (Programs)"}
+    - {id: 5, cat: Console, desc: "Игры (Games)"}
+    - {id: 25, cat: Other, desc: "Картинки (Pictures)"}
+    - {id: 11, cat: TV, desc: "Сериалы (TV Series)"}
+    - {id: 12, cat: TV/Anime, desc: "Аниме (Anime)"}
+    - {id: 16, cat: Books, desc: "Книги (Books)"}
+    - {id: 18, cat: Audio/Video, desc: "Клипы / Ролики (Clips / Trailers)"}
+    - {id: 22, cat: TV, desc: "ТВ / Передачи (TV)"}
+    - {id: 27, cat: PC/Mobile-Other, desc: "Игры - Мобила / КПК (Mobile)"}
+    - {id: 1, cat: PC/ISO, desc: "Образы (ISO)"}
+    - {id: 4, cat: Other, desc: "Другое (Other)"}
+
+  modes:
+    search: [q]
+    tv-search: [q, season, ep]
+    movie-search: [q]
+    music-search: [q]
+    book-search: [q]
+
+settings:
+  - name: cookie
+    type: text
+    label: Cookie
+  - name: info
+    type: info
+    label: How to get the Cookie
+    default: "<ol><li>Login to this tracker with your browser</li><li>Open the <b>DevTools</b> panel by pressing <b>F12</b></li><li>Select the <b>Network</b> tab</li><li>Click on the <b>Doc</b> button (Chrome Browser) or <b>HTML</b> button (FireFox)</li><li>Refresh the page by pressing <b>F5</b></li><li>Click on the first row entry</li><li>Select the <b>Headers</b> tab on the Right panel</li><li>Find <b>'cookie:'</b> in the <b>Request Headers</b> section</li><li><b>Select</b> and <b>Copy</b> the whole cookie string <i>(everything after 'cookie: ')</i> and <b>Paste</b> here.</li></ol>"
+  - name: stripcyrillic
+    type: checkbox
+    label: Strip Cyrillic Letters
+    default: false
+  - name: addrussiantotitle
+    type: checkbox
+    label: Add RUS to end of all titles to improve language detection by Sonarr and Radarr. Will cause English-only results to be misidentified.
+    default: false
+  - name: freeleech
+    type: checkbox
+    label: Search freeleech only
+    default: false
+  - name: sort
+    type: select
+    label: Sort requested from site
+    default: 4
+    options:
+      4: created
+      1: title
+      5: size
+      8: seeders
+  - name: type
+    type: select
+    label: Order requested from site
+    default: desc
+    options:
+      desc: desc
+      asc: asc
+  - name: info_tpp
+    type: info
+    label: Results Per Page
+    default: For best results, change the <b>Torrents per page:</b> setting to <b>100</b> on your account profile.
+
+login:
+  method: cookie
+  inputs:
+    cookie: "{{ .Config.cookie }}"
+  test:
+    path: /
+    selector: a[href="mybonus.php"]
+
+search:
+  # https://www.trackerpmr.com/browse.php?search=&stype=0&s=0&cat=0&gr=0&kp=0&im=0&incldead=1&sort=0&type=desc
+  paths:
+    - path: browse.php
+  inputs:
+    $raw: "{{ range .Categories }}c{{.}}=1&{{end}}"
+    search: "{{ .Keywords }}"
+    # 0 title, 1 descr, 2 filename, 4 infohash
+    stype: 0
+    # 0 AND 1 OR
+    s: 0
+    # release group
+    gr: 0
+    # ratings
+    kp: 0
+    # 1 active, 2 dead, 3 gold, 4 sticky, lots of others
+    incldead: "{{ if .Config.freeleech }}3{{ else }}1{{ end }}"
+    sort: "{{ .Config.sort }}"
+    type: "{{ .Config.type }}"
+
+  keywordsfilters:
+    - name: re_replace # S01 to сезон 1
+      args: ["(?i)\\bS0*(\\d+)\\b", "сезон $1"]
+    - name: re_replace # E02 to сери 1
+      args: ["(?i)\\bE0*(\\d+)\\b", "сери $1"]
+    - name: re_replace # S01E02 to сезон 1 сери 2
+      args: ["(?i)\\bS0*(\\d+)E0*(\\d+)\\b", "сезон $1 сери $2"]
+    - name: re_replace # replace special characters with "%" (wildcard)
+      args: ["[^a-zA-Z0-9]+", "%"]
+
+  rows:
+    selector: table.embedded > tbody > tr.torcontduo
+
+  fields:
+    category_default:
+      selector: td:nth-child(1)
+      optional: true
+      filters:
+        - name: replace
+          args: ["---", 4]
+    category:
+      selector: a[href^="browse.php?cat="]
+      attribute: href
+      optional: true
+      default: "{{ .Result.category_default }}"
+      filters:
+        - name: querystring
+          args: cat
+    title:
+      selector: a.alink
+      attribute: onmouseover
+      filters:
+        - name: regexp
+          args: \'>(.+?)</div
+        # normalize to SXXEYY format
+        - name: re_replace
+          args: ["(?i)[CС]езоны?[\\s:]*(\\d+(?:-\\d+)?).+?(?:\\s*(?:[CС]ери[ияй]|Эпизод|Выпуски?))[\\s:]*(\\d+(?:-\\d+)?)\\s*из\\s*(\\w?)", "S$1E$2 of $3"]
+        - name: re_replace
+          args: ["(?i)(\\d+(?:-\\d+)?)\\s*[CС]езоны?.+?(\\d+(?:-\\d+)?)\\s*из\\s*(\\w?)(?:\\s*(?:[CС]ери[ияй]|Эпизод|Выпуски?))?", "S$1E$2 of $3"]
+        - name: re_replace
+          args: ["(?i)(\\d+(?:-\\d+)?)\\s*[CС]езоны?.+?(\\d+(?:-\\d+)?)\\s*(?:\\s*(?:[CС]ери[ияй]|Эпизод|Выпуски?))\\s+из\\s*(\\w?)", "S$1E$2 of $3"]
+        - name: re_replace
+          args: ["(?i)[CС]езоны?[\\s:]*(\\d+(?:-\\d+)?).+?(\\d+(?:-\\d+)?)\\s*из\\s*(\\w?)(?:\\s*(?:[CС]ери[ияй]|Эпизод|Выпуски?))?", "S$1E$2 of $3"]
+        - name: re_replace
+          args: ["(?i)[CС]езоны?[\\s:]*(\\d+(?:-\\d+)?).+?(\\d+(?:-\\d+)?)\\s*(?:\\s*(?:[CС]ери[ияй]|Эпизод|Выпуски?))\\s+из\\s*(\\w?)", "S$1E$2 of $3"]
+        - name: re_replace
+          args: ["(?i)[CС]езоны?[\\s:]*(\\d+(?:-\\d+)?).+?(?:\\s*(?:[CС]ери[ияй]|Эпизод|Выпуски?))[\\s:]*(\\d+(?:-\\d+)?)", "S$1E$2"]
+        - name: re_replace
+          args: ["(?i)(\\d+(?:-\\d+)?)\\s*[CС]езоны?.+?(\\d+(?:-\\d+)?)(?:\\s*(?:[CС]ери[ияй]|Эпизод|Выпуски?))", "S$1E$2"]
+        - name: re_replace
+          args: ["(?i)[CС]езоны?[\\s:]*(\\d+(?:-\\d+)?).+?(\\d+(?:-\\d+)?)(?:\\s*(?:[CС]ери[ияй]|Эпизод|Выпуски?))", "S$1E$2"]
+        - name: re_replace
+          args: ["(?i)[CС]езоны?[\\s:]*(\\d+(?:-\\d+)?)", "S$1"]
+        - name: re_replace
+          args: ["(?i)(\\d+(?:-\\d+)?)\\s+[CС]езоны?", "S$1"]
+        - name: re_replace
+          args: ["(?i)(?:\\s*(?:[CС]ери[ияй]|Эпизод|Выпуски?))[\\s:]*(\\d+(?:-\\d+)?)\\s*из\\s*(\\w?)", "E$1 of $2"]
+        - name: re_replace
+          args: ["(?i)(\\d+(?:-\\d+)?)\\s*из\\s*(\\w?)(?:\\s*(?:[CС]ери[ияй]|Эпизод|Выпуски?))", "E$1 of $2"]
+        - name: re_replace
+          args: ["(?i)(\\d+(?:-\\d+)?)\\s+(?:\\s*(?:[CС]ери[ияй]|Эпизод|Выпуски?))\\s+из\\s*(\\w?)", "E$1 of $2"]
+        - name: re_replace
+          args: ["(?i)(?:\\s*(?:[CС]ери[ияй]|Эпизод|Выпуски?))[\\s:]*(\\d+(?:-\\d+)?)", "E$1"]
+        - name: re_replace
+          args: ["(?i)(\\d+(?:-\\d+)?)\\s+(?:\\s*(?:[CС]ери[ияй]|Эпизод|Выпуски?))", "E$1"]
+        - name: re_replace
+          args: ["(?i)\\bFiles-х\\b", "Files-x"]
+        - name: re_replace
+          args: ["(?i)\\sот\\s([\\w\\p{P}\\p{S}]+)$", "-$1"]
+        - name: re_replace
+          args: ["\\s\\|\\s(\\w{4,})$", "-$1"]
+        - name: re_replace
+          args: ["(\\([\\p{IsCyrillic}\\W]+\\))|(^[\\p{IsCyrillic}\\W\\d]+\\/ )|([\\p{IsCyrillic} \\-]+,+)|([\\p{IsCyrillic}]+)", "{{ if .Config.stripcyrillic }}{{ else }}$1$2$3$4{{ end }}"]
+        - name: re_replace
+          args: ["(?i)\\bHDTV[-\\s]?Rip\\b", "HDTV"]
+        - name: re_replace
+          args: ["(?i)\\bSAT[-\\s]?Rip\\b", "HDTV"]
+        - name: re_replace
+          args: ["(?i)\\bWEB[-\\s]?DL[-\\s]?Rip\\b", "WEB-DL"]
+        - name: re_replace
+          args: ["(?i)\\bWEB\\sRip\\b", "WEBRip"]
+        - name: re_replace
+          args: ["(?i)\\bWEB\\sDL\\b", "WEB-DL"]
+        - name: re_replace
+          args: ["[\\[\\(\\{<«][\\s\\W]*[\\]\\)\\}>»]", ""]
+        - name: re_replace
+          args: ["^[\\s&,\\.!\\?\\+\\-_\\|\\/':]+", ""]
+        - name: re_replace
+          args: ["(?i)^\\(\\s*([SE]\\d+.*?)\\s*\\)[\\s\\/\\|]*(.+)", "$2 $1"]
+        - name: append
+          args: "{{ if .Config.addrussiantotitle }} RUS{{ else }}{{ end }}"
+    details:
+      selector: a.alink
+      attribute: href
+    download:
+      selector: a.alink
+      attribute: href
+      filters:
+        - name: replace
+          args: ["details", "download"]
+    imdbid:
+      selector: a[href^="browse.php?imdb="]
+      attribute: href
+      filters:
+        - name: querystring
+          args: imdb
+    size:
+      selector: td:nth-child(4)
+    seeders:
+      selector: td:nth-child(6)
+      filters:
+        - name: split
+          args: ["|", 0]
+    leechers:
+      selector: td:nth-child(6)
+      filters:
+        - name: split
+          args: ["|", 1]
+    date_today:
+      # Сегодня в 18:22
+      selector: a[href^="browse.php?date="]:contains("Сегодня")
+      optional: true
+      filters:
+        - name: regexp
+          args: "(Сегодня в \\d{2}:\\d{2})"
+        - name: replace
+          args: ["Сегодня в", "Today"]
+        - name: fuzzytime
+    date_yday:
+      # Вчера в 20:52
+      selector: a[href^="browse.php?date="]:contains("Вчера")
+      optional: true
+      filters:
+        - name: regexp
+          args: "(Вчера в \\d{2}:\\d{2})"
+        - name: replace
+          args: ["Вчера в", "Yesterday"]
+        - name: fuzzytime
+    date_year:
+      # 23:48 24/07
+      selector: a[href^="browse.php?date="]:contains("/")
+      optional: true
+      filters:
+        - name: regexp
+          args: "(\\d{2}:\\d{2} \\d{2}/\\d{2})"
+        - name: append
+          args: " +03:00" # MSK
+        - name: dateparse
+          args: "HH:mm dd/MM zzz"
+    date:
+      text: "{{ if or .Result.date_year .Result.date_today .Result.date_yday }}{{ or .Result.date_year .Result.date_today .Result.date_yday }}{{ else }}now{{ end }}"
+    downloadvolumefactor:
+      case:
+        img[src="/pic/freedownload.gif"]: 0
+        "*": 1
+    uploadvolumefactor:
+      text: 1
+    minimumratio:
+      text: 1.0
+    description:
+      selector: a.alink
+      attribute: title
+# engine n/a

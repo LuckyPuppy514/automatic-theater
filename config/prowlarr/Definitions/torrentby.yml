@@ -1,0 +1,127 @@
+---
+id: torrentby
+name: torrent.by
+description: "torrent.by is a BELARUSIAN public Torrent Tracker"
+language: ru-RU
+type: public
+encoding: UTF-8
+links:
+  - https://torrent.by/
+legacylinks:
+  - http://torrent.by/
+
+caps:
+  categories:
+    Other: Other
+
+  modes:
+    search: [q]
+    tv-search: [q, season, ep]
+    movie-search: [q]
+    music-search: [q]
+    book-search: [q]
+
+settings:
+  - name: stripcyrillic
+    type: checkbox
+    label: Strip Cyrillic Letters
+    default: false
+  - name: addrussiantotitle
+    type: checkbox
+    label: Add RUS to end of all titles to improve language detection by Sonarr and Radarr. Will cause English-only results to be misidentified.
+    default: false
+  - name: info_8000
+    type: info
+    label: About torrent.by Categories
+    default: torrent.by does not return categories in its search results.</br>To add to your Apps' Torznab indexer, replace all categories with 8000(Other).
+
+search:
+  paths:
+    - path: "{{ if .Keywords }}search/?search={{ .Keywords }}&cat=0&search_in=0{{ else }}today{{ end }}"
+
+  keywordsfilters:
+    # strip season and/or ep
+    - name: re_replace
+      args: ["(?i)\\b(?:[SE]\\d{1,4}){1,2}\\b\\s?", ""]
+
+  rows:
+    selector: tr[class^="ttable_col"]
+
+  fields:
+    category:
+      text: other
+    title:
+      selector: td:nth-child(3) a
+      filters:
+        # normalize to SXXEYY format
+        - name: re_replace
+          args: ["(?i)(\\d+(?:-\\d+)?)[xх](\\d+(?:-\\d+)?)\\s*из\\s*(\\d+)", "S$1E$2 of $3"]
+        - name: re_replace
+          args: ["(?i)(\\d+(?:-\\d+)?)[xх](\\d+(?:-\\d+)?)", "S$1E$2"]
+        - name: re_replace
+          args: ["(?i)(\\d+(?:-\\d+)?)\\s*из\\s*(\\d+)", "E$1 of $2"]
+        - name: re_replace
+          args: ["(?i)\\bFiles-х\\b", "Files-x"]
+        - name: re_replace
+          args: ["(?i)\\sот\\s([\\w\\p{P}\\p{S}]+)$", "-$1"]
+        - name: re_replace
+          args: ["\\s\\|\\s(\\w{4,})$", "-$1"]
+        - name: re_replace
+          args: ["(\\([\\p{IsCyrillic}\\W]+\\))|(^[\\p{IsCyrillic}\\W\\d]+\\/ )|([\\p{IsCyrillic} \\-]+,+)|([\\p{IsCyrillic}]+)", "{{ if .Config.stripcyrillic }}{{ else }}$1$2$3$4{{ end }}"]
+        - name: re_replace
+          args: ["(?i)\\bHDTV[-\\s]?Rip\\b", "HDTV"]
+        - name: re_replace
+          args: ["(?i)\\bSAT[-\\s]?Rip\\b", "HDTV"]
+        - name: re_replace
+          args: ["(?i)\\bWEB[-\\s]?DL[-\\s]?Rip\\b", "WEB-DL"]
+        - name: re_replace
+          args: ["(?i)\\bWEB\\sRip\\b", "WEBRip"]
+        - name: re_replace
+          args: ["(?i)\\bWEB\\sDL\\b", "WEB-DL"]
+        - name: re_replace
+          args: ["[\\[\\(\\{<«][\\s\\W]*[\\]\\)\\}>»]", ""]
+        - name: re_replace
+          args: ["^[\\s&,\\.!\\?\\+\\-_\\|\\/':]+", ""]
+        - name: append
+          args: "{{ if .Config.addrussiantotitle }} RUS{{ else }}{{ end }}"
+    details:
+      selector: td:nth-child(3) a
+      attribute: href
+    download:
+      selector: a.dwnld
+      attribute: href
+    magnet:
+      selector: a[href^="magnet:?xt="]
+      attribute: href
+    size:
+      selector: td:nth-child(5)
+    seeders:
+      selector: font[color="green"]
+    leechers:
+      selector: font[color="red"]
+    date_day:
+      selector: td:nth-child(1):contains("Вчера"), td:nth-child(1):contains("Сегодня")
+      optional: true
+      filters:
+        - name: replace
+          args: ["Вчера", "Yesterday"]
+        - name: replace
+          args: ["Сегодня", "Today"]
+        - name: fuzzytime
+    date_year:
+      selector: td:nth-child(1):contains("-")
+      optional: true
+      filters:
+        - name: append
+          args: " +03:00" # MSK
+        - name: dateparse
+          args: "yyyy-MM-dd zzz"
+    date:
+      text: "{{ if or .Result.date_year .Result.date_day }}{{ or .Result.date_year .Result.date_day }}{{ else }}now{{ end }}"
+    downloadvolumefactor:
+      text: 0
+    uploadvolumefactor:
+      text: 1
+    description:
+      selector: td:nth-child(3) a
+# engine n/a

@@ -1,0 +1,135 @@
+---
+id: brasiltracker
+name: BrasilTracker
+description: "BrasilTracker is a BRAZILIAN Private Torrent Tracker for MOVIES / TV / GENERAL"
+language: pt-BR
+encoding: UTF-8
+type: private
+links:
+  - https://brasiltracker.org/
+
+caps:
+  categories:
+    Other: Other
+
+  modes:
+    search: [q]
+    tv-search: [q, season, ep]
+    movie-search: [q, imdbid]
+
+settings:
+  - name: cookie
+    type: text
+    label: Cookie
+  - name: info_cookie
+    type: info
+    label: How to get the Cookie
+    default: "<ol><li>Login to this tracker with your browser</li><li>Open the <b>DevTools</b> panel by pressing <b>F12</b></li><li>Select the <b>Network</b> tab</li><li>Click on the <b>Doc</b> button (Chrome Browser) or <b>HTML</b> button (FireFox)</li><li>Refresh the page by pressing <b>F5</b></li><li>Click on the first row entry</li><li>Select the <b>Headers</b> tab on the Right panel</li><li>Find <b>'cookie:'</b> in the <b>Request Headers</b> section</li><li><b>Select</b> and <b>Copy</b> the whole cookie string <i>(everything after 'cookie: ')</i> and <b>Paste</b> here.</li></ol>"
+  - name: info_8000
+    type: info
+    label: About BrasilTracker Categories
+    default: BrasilTracker does not return categories in its search results.</br>To add to your Apps' Torznab indexer, replace all categories with 8000(Other).
+  - name: freeleech
+    type: checkbox
+    label: Search freeleech only
+    default: false
+  - name: sort
+    type: select
+    label: Sort requested from site
+    default: time
+    options:
+      time: created
+      seeders: seeders
+      size: size
+  - name: type
+    type: select
+    label: Order requested from site
+    default: desc
+    options:
+      desc: desc
+      asc: asc
+
+login:
+  method: cookie
+  inputs:
+    cookie: "{{ .Config.cookie }}"
+  test:
+    path: index.php
+    selector: a[href^="logout.php?auth="]
+
+search:
+  paths:
+    # https://brasiltracker.org/torrents.php?order_by=time&order_way=desc&freetorrent=1&filter_cat[6]=1&filter_cat[3]=1&action=basic&searchsubmit=1
+    # https://brasiltracker.org/torrents.php?searchstr=mandalorain&order_by=size&order_way=desc&action=basic&searchsubmit=1
+    # https://brasiltracker.org/torrents.php?searchstr=tt8179024&order_by=time&order_way=desc&action=basic&searchsubmit=1
+    - path: torrents.php
+  inputs:
+    searchstr: "{{ if .Query.IMDBID }}{{ .Query.IMDBID }}{{ else }}{{ .Keywords }}{{ end }}"
+    order_by: "{{ .Config.sort }}"
+    order_way: "{{ .Config.type }}"
+    group_results: 0
+    action: basic
+    freetorrent: "{{ if .Config.freeleech }}1{{ else }}{{ end }}"
+    searchsubmit: 1
+
+  rows:
+    selector: table#torrent_table > tbody > tr.torrent
+
+  fields:
+    category:
+      text: Other
+    details:
+      selector: a[href^="torrents.php?id="]
+      attribute: href
+    download:
+      selector: a[href^="torrents.php?action=download&id="]
+      attribute: href
+    description:
+      selector: div.tags
+    poster:
+      selector: img[alt="Cover"]
+      attribute: src
+    imdbid:
+      selector: a[href*="imdb.com/title/tt"]
+      attribute: href
+    tmdbid:
+      selector: a[href*="themoviedb.org/movie/"], a[href*="themoviedb.org/tv/"]
+      attribute: href
+    files:
+      selector: td:nth-child(3)
+    date:
+      selector: span.time
+      attribute: title
+      filters:
+        - name: append
+          args: " -03:00" # BRT
+        - name: dateparse
+          args: "MMM d yyyy, HH:mm zzz"
+    size:
+      selector: td:nth-child(5)
+    grabs:
+      selector: td:nth-child(6)
+    seeders:
+      selector: td:nth-child(7)
+    leechers:
+      selector: td:nth-child(8)
+    downloadvolumefactor:
+      case:
+        strong.tl_free: 0
+        "*": 1
+    uploadvolumefactor:
+      text: 1
+    title_details:
+      selector: div.torrent_info
+      remove: strong
+    title:
+      selector: a[href^="torrents.php?id="]
+      filters:
+        - name: append
+          args: " {{ .Result.title_details }}"
+    minimumratio:
+      text: 1.0
+    minimumseedtime:
+      # 2 days (as seconds = 2 x 24 x 60 x 60)
+      text: 172800
+# Project Gazelle

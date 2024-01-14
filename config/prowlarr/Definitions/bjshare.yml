@@ -1,0 +1,199 @@
+---
+id: bjshare
+name: Bj-Share
+description: "Private PT-BR torrent"
+language: pt-BR
+type: private
+encoding: UTF-8
+links:
+  - https://bj-share.info/
+
+caps:
+  categorymappings:
+    - {id: 1, cat: Movies, desc: "Filmes"}
+    - {id: 2, cat: TV, desc: "TV"}
+    - {id: 3, cat: PC, desc: "Aplicativos"}
+    - {id: 4, cat: PC/Games, desc: "Jogos"}
+    - {id: 5, cat: Books/Comics, desc: "Mangás"}
+    - {id: 6, cat: TV, desc: "Vídeos de TV"}
+    - {id: 7, cat: Other, desc: "Outros"}
+    - {id: 8, cat: TV/Sport, desc: "Esportes"}
+    - {id: 9, cat: Books/Mags, desc: "Revistas"}
+    - {id: 10, cat: Books, desc: "E-Books"}
+    - {id: 11, cat: Audio/Audiobook, desc: "Audiobook"}
+    - {id: 12, cat: Books/Comics, desc: "Histórias em Quadrinhos"}
+    - {id: 13, cat: TV, desc: "Stand Up Comedy"}
+    - {id: 14, cat: TV, desc: "TV/Anime"} # Anime format is equal to TV Show (SXXEXX) except old ones like one piece
+    - {id: 15, cat: XXX/ImageSet, desc: "Fotos Adultas"}
+    - {id: 16, cat: TV/Other, desc: "Desenho Animado"}
+    - {id: 17, cat: TV/Documentary, desc: "Documentários"}
+    - {id: 18, cat: Other, desc: "Cursos"}
+    - {id: 19, cat: XXX, desc: "Filmes Adultos"}
+    - {id: 20, cat: XXX/Other, desc: "Jogos Adultos"}
+    - {id: 21, cat: XXX/Other, desc: "Mangás Adultos"}
+    - {id: 22, cat: XXX/Other, desc: "Animes Adultos"}
+    - {id: 23, cat: XXX/Other, desc: "HQ Adultos"}
+
+  modes:
+    search: [q]
+    tv-search: [q, season, ep]
+    movie-search: [q]
+
+settings:
+  - name: cookie
+    type: text
+    label: Cookie
+  - name: info_cookie
+    type: info
+    label: How to get the Cookie
+    default: "<ol><li>Login to this tracker with your browser<li>Open the <b>DevTools</b> panel by pressing <b>F12</b><li>Select the <b>Network</b> tab<li>Click on the <b>Doc</b> button (Chrome Browser) or <b>HTML</b> button (FireFox)<li>Refresh the page by pressing <b>F5</b><li>Click on the first row entry<li>Select the <b>Headers</b> tab on the Right panel<li>Find <b>'cookie:'</b> in the <b>Request Headers</b> section<li><b>Select</b> and <b>Copy</b> the whole cookie string <i>(everything after 'cookie: ')</i> and <b>Paste</b> here.</ol>"
+  - name: freeleech
+    type: checkbox
+    label: Search freeleech only
+    default: false
+
+login:
+  method: cookie
+  inputs:
+    cookie: "{{ .Config.cookie }}"
+  test:
+    path: index.php
+    selector: a[href^="/logout.php?auth="]
+
+search:
+  # https://bj-share.info/torrents.php?searchstr=aves+de+rapina&filter_cat%5B1%5D=1
+  paths:
+    - path: torrents.php
+
+  inputs:
+    $raw: "{{ range .Categories }}filter_cat[{{.}}]=1&{{end}}"
+    searchstr: "{{ .Keywords }}"
+    freetorrent: "{{ if .Config.freeleech }}1{{ else }}{{ end }}"
+
+  keywordsfilters:
+    - name: re_replace
+      args: ["(S[0-9]+E[0-9]+|S[0-9]+)", ""] # remove SXXEXX or SXX from search
+
+  rows:
+    # If the category is a TV show/Anime, there's a necessity to filter the results by season/episode to not show all of them
+    selector: "table.torrent_table > tbody > tr:not(tr.colhead).group,
+              table.torrent_table tbody tr:not(tr.colhead):contains('{{ .Query.Episode }}')"
+    filters:
+      - name: andmatch
+
+  fields:
+    download:
+      selector: a[title="Baixar"]
+      attribute: href
+
+    _singleTorrentInfo:
+      selector: div.torrent_info
+
+    _multipleTorrentInfo:
+      selector: a[href^="torrents.php?id="]
+
+    _info: # example [MKV / x265 / WEB-DL / Legendado / 4K / Free]
+      text: "{{ if .Result._singleTorrentInfo }}{{.Result._singleTorrentInfo}}{{ else }}{{.Result._multipleTorrentInfo}}{{ end }}"
+      filters:
+        - name: replace
+          args: ["Full HD", "1080p"]
+        - name: replace
+          args: ["4K", "2160p"]
+        - name: replace
+          args: ["SD", "480p"]
+        - name: replace
+          args: ["/ HD]", "720p"]
+        - name: replace
+          args: ["/ HD /", "720p"]
+        - name: replace
+          args: ["/ Free", ""]
+        - name: re_replace
+          args: ["[\\[\\]]+", ""]
+
+    _rawTitle:
+      selector: div.group_info
+      filters:
+        - name: re_replace
+          args: ["(\n.*)", ""] # remove everything after newline
+        - name: re_replace
+          args: ["  |\t", ""] # remove double space and tabs
+
+    _year:
+      text: "{{ .Result._rawTitle }}"
+      filters:
+        - name: regexp
+          args: "\\[([0-9]*)\\]"
+
+    details:
+      selector: a[href^="torrents.php?id="]:not(.tooltip)
+      attribute: href
+
+    title_MovieTV: # Movie and TV Format
+      # Title defined as:
+        # PT-BR/Japanese title [en-US title] [year]
+      text: "{{ .Result._rawTitle }}"
+      filters:
+        - name: re_replace
+          args: ["\\[[0-9]*\\].*", ""] # Removes the year and everything after
+        - name: re_replace
+          args: ["(.*)\\[(!?[^/]*?)\\]", "$2"]   # Parse only en-us title, when available
+        - name: append
+          args: "{{ .Result._year }}"
+        - name: append
+          args: " {{ .Result._info }}"
+
+    title_Other:
+      # Only remove brackets
+      text: "{{ .Result._rawTitle }}"
+      filters:
+        - name: re_replace
+          args: ["\\[|\\]", " "] # Remove Brackets
+
+    title_details:
+      # Title defined as:
+        # PT-BR/Japanese title [en-US title] [year]
+      text: "{{ .Result._rawTitle }}"
+      filters:
+        - name: re_replace
+          args: ["\\[[0-9]*\\].*", ""] # Removes the year and everything after
+        - name: re_replace
+          args: ["(.*)\\[(!?[^/]*?)\\]", "$2"]   # Parse only en-us title, when available
+
+    category_details:
+      selector: td.cats_col > a
+      attribute: href
+      filters:
+        - name: regexp
+          args: "%5b(\\d+?)%5d"
+
+    category:
+      text: "{{ .Result.category_details }}"
+
+    title:
+      text: "{{ if
+                    or (eq .Result.category_details \"1\")
+                   (or (eq .Result.category_details \"2\")  (or (eq .Result.category_details \"14\")
+                   (or (eq .Result.category_details \"16\") (or (eq .Result.category_details \"17\")
+                   (or eq .Result.category_details \"8\")
+                   (or (eq .Result.category_details \"13\") (eq .Result.category_details \"6\")))))))
+             }}{{.Result.title_MovieTV}}{{ else }}{{.Result.title_Other}}{{ end }}"
+
+    size:
+      selector: td:nth-last-child(4)
+    grabs:
+      selector: td:nth-last-child(3)
+    seeders:
+      selector: td:nth-last-child(2)
+    leechers:
+      selector: td:nth-last-child(1)
+    downloadvolumefactor:
+      case:
+        strong[title*="Free"]: 0
+        "*": 1
+    uploadvolumefactor:
+      text: 1
+    minimumratio:
+      text: 1.0
+    minimumseedtime:
+      # 7 days (as seconds = 7 x 24 x 60 x 60)
+      text: 604800

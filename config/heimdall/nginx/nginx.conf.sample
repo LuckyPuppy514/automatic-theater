@@ -1,4 +1,4 @@
-## Version 2022/08/16 - Changelog: https://github.com/linuxserver/docker-baseimage-alpine-nginx/commits/master/root/defaults/nginx/nginx.conf.sample
+## Version 2023/04/13 - Changelog: https://github.com/linuxserver/docker-baseimage-alpine-nginx/commits/master/root/defaults/nginx/nginx.conf.sample
 
 ### Based on alpine defaults
 # https://git.alpinelinux.org/aports/tree/main/nginx/nginx.conf?h=3.15-stable
@@ -55,7 +55,7 @@ http {
     tcp_nopush on;
 
     # all ssl related config moved to ssl.conf
-    include /config/nginx/ssl.conf;
+    # included in server blocks where listen 443 is defined
 
     # Enable gzipping of responses.
     #gzip on;

@@ -36,20 +36,20 @@
   "externalHostname": "",
   "libraries": [
    {
-    "id": "3227ce1e069754c594af25ea66d69fc7",
-    "name": "电影",
-    "enabled": true,
-    "type": "movie"
-   },
-   {
-    "id": "040d82c4cf758c8db8263882bcad9c70",
-    "name": "电视节目",
+    "id": "11",
+    "name": "🌟 动漫剧集 🌟",
     "enabled": true,
     "type": "show"
    },
    {
-    "id": "00f4e72f6c222cd20f10e5f9771cfabf",
-    "name": "动漫",
+    "id": "5",
+    "name": "🎞️ 电影 🎞️",
+    "enabled": true,
+    "type": "movie"
+   },
+   {
+    "id": "9",
+    "name": "📺 剧集 📺",
     "enabled": true,
     "type": "show"
    }
@@ -65,15 +65,18 @@
    "apiKey": "ca7d9fcbaae64526b24adf580e32fe41",
    "useSsl": false,
    "baseUrl": "",
-   "activeProfileId": 10,
-   "activeProfileName": "UHD-2160p HDR",
+   "activeProfileId": 14,
+   "activeProfileName": "2️⃣1️⃣6️⃣0️⃣🅿️",
    "activeDirectory": "/media/video/movie",
    "is4k": false,
-   "minimumAvailability": "announced",
-   "tags": [],
+   "minimumAvailability": "inCinemas",
+   "tags": [
+    1
+   ],
    "isDefault": true,
    "syncEnabled": true,
    "preventSearch": false,
+   "tagRequests": false,
    "id": 0
   }
  ],
@@ -85,25 +88,26 @@
    "apiKey": "43cc956985c343998f815949250c2a34",
    "useSsl": false,
    "baseUrl": "",
-   "activeProfileId": 7,
+   "activeProfileId": 10,
    "activeLanguageProfileId": 3,
-   "activeProfileName": "UHD-2160p",
+   "activeProfileName": "2️⃣1️⃣6️⃣0️⃣🅿️",
    "activeDirectory": "/media/video/serial",
-   "activeAnimeProfileId": 4,
+   "activeAnimeProfileId": 9,
    "activeAnimeLanguageProfileId": 2,
-   "activeAnimeProfileName": "HD-1080p",
+   "activeAnimeProfileName": "1️⃣0️⃣8️⃣0️⃣🅿️💤",
    "activeAnimeDirectory": "/media/video/anime",
    "tags": [
-    1
+    3
    ],
    "animeTags": [
-    2
+    4
    ],
    "is4k": false,
    "isDefault": true,
    "enableSeasonFolders": true,
    "syncEnabled": true,
-   "preventSearch": false,
+   "preventSearch": true,
+   "tagRequests": false,
    "id": 0
   }
  ],
@@ -209,6 +213,9 @@
   },
   "sonarr-scan": {
    "schedule": "0 30 4 * * *"
+  },
+  "availability-sync": {
+   "schedule": "0 0 5 * * *"
   },
   "download-sync": {
    "schedule": "0 * * * * *"

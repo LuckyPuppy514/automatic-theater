@@ -1,0 +1,90 @@
+---
+id: xxxclub
+name: XXXClub
+description: "XXXClub is a Public torrent site for 3X"
+language: en-US
+type: public
+encoding: UTF-8
+links:
+  - https://xxxclub.to/
+
+caps:
+  categorymappings:
+    - {id: 0, cat: XXX/SD, desc: "XXX 480p/SD"}
+    - {id: 1, cat: XXX/x264, desc: "XXX 720p/HD"}
+    - {id: 2, cat: XXX/x264, desc: "XXX 1080p/FullHD"}
+    - {id: 4, cat: XXX/UHD, desc: "XXX 2160p/UHD/4K"}
+    - {id: 3, cat: XXX/WEB-DL, desc: "XXX Movies/DVD/WEB"}
+    - {id: 5, cat: XXX/ImageSet, desc: "XXX IMAGESET"}
+    - {id: 6, cat: XXX/Other, desc: "XXX VR"}
+
+  modes:
+    search: [q]
+
+settings:
+  - name: sort
+    type: select
+    label: Sort requested from site
+    default: uploaded
+    options:
+      uploaded: created
+      size: size
+      seeders: seeders
+  - name: type
+    type: select
+    label: Order requested from site
+    default: desc
+    options:
+      desc: desc
+      asc: asc
+
+download:
+  selectors:
+    - selector: a[href^="/torrents/download/"], a[href^="magnet:?xt="]
+      attribute: href
+
+search:
+  headers:
+    User-Agent: ["Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.203"]
+
+  paths:
+    # https://xxxclub.to/torrents/browse/2,4/metartx?sort=size&order=asc
+    - path: "torrents/browse/{{ if .Categories }}{{ join .Categories \",\" }}{{ else }}all{{ end }}/{{ .Keywords }}?sort={{ .Config.sort }}&order={{ .Config.type }}"
+
+  rows:
+    selector: div.browsetableinside > ul > li:not(:first-child)
+
+  fields:
+    category:
+      selector: a.catah
+      attribute: href
+      filters:
+        - name: regexp
+          args: (\d)
+    title:
+      selector: a[href^="/torrents/details/"]
+    details:
+      selector: a[href^="/torrents/details/"]
+      attribute: href
+    download:
+      selector: a[href^="/torrents/details/"]
+      attribute: href
+    poster:
+      selector: img
+      attribute: src
+    date:
+      selector: span.adde
+      filters:
+        - name: dateparse
+          args: "dd MMM yyyy HH:mm:ss"
+    size:
+      selector: span.siz
+    seeders:
+      selector: span.see
+    leechers:
+      selector: span.lee
+    downloadvolumefactor:
+      text: 0
+    uploadvolumefactor:
+      text: 1
+# engine n/a

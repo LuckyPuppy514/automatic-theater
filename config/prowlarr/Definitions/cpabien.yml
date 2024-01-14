@@ -1,0 +1,149 @@
+---
+id: cpasbien
+name: cpasbien
+description: "cpasbien is a FRENCH Public site for TV / MOVIES / GENERAL"
+language: fr-FR
+type: public
+encoding: UTF-8
+followredirect: true
+links:
+  - https://cpasbien-vf.fr/
+legacylinks:
+  - https://www.cpasbiens.cz/
+  - https://www.cpasbiens.bz/
+  - https://www.cpasbien.vg/
+  - https://www.cpasbien.lol/
+  - https://www.gktorrent.biz/
+  - https://vww.cpasbien-fr.fr/
+  - https://wvw.cpasbien-fr.fr/
+  - https://wwwv.cpasbien-fr.fr/
+  - https://www2.cpasbien-fr.fr/
+  - https://www.cpasbien-fr.nz/
+  - https://vwwvwvwvvw.cpasbien-fr.nz/
+  - https://cpasbiens3.fr/
+  - https://labastidevivante.fr/
+  - https://cpasbiens911.fr/
+  - https://jardattraction.fr/
+
+caps:
+  categories:
+    Other: Other
+
+  modes:
+    search: [q]
+    tv-search: [q, season, ep]
+    movie-search: [q]
+
+settings:
+  - name: flaresolverr
+    type: info
+    label: FlareSolverr
+    default: This site may use Cloudflare DDoS Protection, therefore Prowlarr requires FlareSolverr to access it.
+  - name: info_8000
+    type: info
+    label: About cpasbien Categories
+    default: cpasbien does not return categories in its search results. To sync to your apps, include 8000(Other) in your Apps' Sync Categories.
+  - name: multilang
+    type: checkbox
+    label: Replace MULTi by another language in release name
+    default: false
+  - name: multilanguage
+    type: select
+    label: Replace MULTi by this language
+    default: FRENCH
+    options:
+      FRENCH: FRENCH
+      MULTi FRENCH: MULTi FRENCH
+      ENGLISH: ENGLISH
+      MULTi ENGLISH: MULTi ENGLISH
+      VOSTFR: VOSTFR
+      MULTi VOSTFR: MULTi VOSTFR
+  - name: vostfr
+    type: checkbox
+    label: Replace VOSTFR and SUBFRENCH with ENGLISH
+    default: false
+
+download:
+  selectors:
+    - selector: a[href^="magnet:?xt="]
+      attribute: href
+
+search:
+  paths:
+    - path: "{{ if .Keywords }}index.php?do=search&subaction=search{{ else }}{{ end }}"
+      method: post
+  # postData is mandatory FlareSolverr/FlareSolverr#789
+  allowEmptyInputs: true
+  inputs:
+    story: "{{ if .Keywords }}{{ .Keywords }}{{ else }}{{ end }}"
+  # does not support imdbid search and does not return imdb link in results.
+  keywordsfilters:
+    # if searching for season packs with S01 to saison 1 #9712
+    - name: re_replace
+      args: ["(?i)\\b(?:S0?)(\\d{1,3})\\b", "saison $1"]
+
+  rows:
+    selector: div#gauche > table > tbody > tr:has(a), div#dle-content > a.cover2
+
+  fields:
+    category:
+      text: Other
+    title_phase1_title:
+      selector: a
+    title_phase1_url:
+      selector: a
+      attribute: href
+      filters:
+        - name: regexp
+          args: torrents\d+\/(.+?)\/
+        - name: replace
+          args: ["-", " "]
+    title_phase1:
+      text: "{{ if .Result.title_phase1_title }}{{ .Result.title_phase1_title }}{{ else }}{{ .Result.title_phase1_url }}{{ end }}"
+      filters:
+        - name: re_replace
+          args: ["(?i)\\b(FRENCH|MULTI|TRUEFRENCH|VOSTFR|SUBFRENCH)\\b(.+?)(\\b(19|20\\d{2})\\b)$", "$3 $1$2"]
+    title_vostfr:
+      text: "{{ .Result.title_phase1 }}"
+      filters:
+        - name: re_replace
+          args: ["(?i)\\b(vostfr|subfrench)\\b", "ENGLISH"]
+    title_phase2:
+      text: "{{ if .Config.vostfr }}{{ .Result.title_vostfr }}{{ else }}{{ .Result.title_phase1 }}{{ end }}"
+    title_multilang:
+      text: "{{ .Result.title_phase2 }}"
+      filters:
+        - name: re_replace
+          args: ["(?i)\\b(MULTI(?!.*(?:FRENCH|ENGLISH|VOSTFR)))\\b", "{{ .Config.multilanguage }}"]
+    title:
+      text: "{{ if .Config.multilang }}{{ .Result.title_multilang }}{{ else }}{{ .Result.title_phase2 }}{{ end }}"
+    details:
+      selector: a
+      attribute: href
+    download:
+      selector: a
+      attribute: href
+    poster:
+      selector: img
+      attribute: src
+    size:
+      selector: div.poid
+      optional: true
+      default: "512 MB"
+    date:
+      text: now
+    seeders_optional:
+      selector: div.up
+      optional: true
+    seeders:
+      text: "{{ if .Result.seeders_optional }}{{ .Result.seeders_optional }}{{ else }}0{{ end }}"
+    leechers_optional:
+      selector: div.down
+      optional: true
+    leechers:
+      text: "{{ if .Result.leechers_optional }}{{ .Result.leechers_optional }}{{ else }}0{{ end }}"
+    downloadvolumefactor:
+      text: 0
+    uploadvolumefactor:
+      text: 1
+# engine n/a

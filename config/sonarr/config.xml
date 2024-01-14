@@ -6,11 +6,13 @@
   <UrlBase></UrlBase>
   <BindAddress>*</BindAddress>
   <ApiKey>43cc956985c343998f815949250c2a34</ApiKey>
-  <AuthenticationMethod>None</AuthenticationMethod>
+  <AuthenticationMethod>Forms</AuthenticationMethod>
   <UpdateMechanism>Docker</UpdateMechanism>
   <LaunchBrowser>True</LaunchBrowser>
   <Branch>main</Branch>
-  <SslCertHash></SslCertHash>
   <InstanceName>Sonarr</InstanceName>
   <SyslogPort>514</SyslogPort>
+  <AuthenticationRequired>DisabledForLocalAddresses</AuthenticationRequired>
+  <SslCertPath></SslCertPath>
+  <SslCertPassword></SslCertPassword>
 </Config>
