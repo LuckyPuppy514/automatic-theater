@@ -120,6 +120,10 @@ services:
     volumes:
       - ${CONFIG_PATH}/radarr:/config
       - ${MEDIA_PATH}:/media/video
+      - ${MEDIA_PATH}/movie:/media/video/movie
+      - ${MEDIA_PATH}/serial:/media/video/serial
+      - ${MEDIA_PATH}/anime:/media/video/anime
+      - ${MEDIA_PATH}/download:/media/video/download
     ports:
       - 60217:7878
     networks:
@@ -203,6 +207,8 @@ services:
       - GID=0
       - GIDLIST=0
       - TZ=${TZ}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
     volumes:
       - ${CONFIG_PATH}/emby:/config
       - ${MEDIA_PATH}:/media/video
@@ -211,3 +217,11 @@ services:
     networks:
       network:
         ipv4_address: 172.128.2.20
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
