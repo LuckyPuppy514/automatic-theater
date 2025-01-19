@@ -47,8 +47,8 @@ graph LR
 | [Emby](https://emby.media) | 媒体服务器 | ⭕ | 刮削信息，提供观看服务 |
 | [Jellyseerr](https://github.com/Fallenbagel/jellyseerr) | 聚合搜索 | ⭕ | 搜索并推送到 Sonarr / Radarr |
 | [Radarr](https://github.com/Radarr/Radarr) | 电影订阅系统 | ⭕ | 定时搜索，下载，重命名并导入 |
-| [Sonarr](https://github.com/Sonarr/Sonarr) | 电视剧和动漫订阅系统 | ❌ | 定时搜索，下载，重命名并导入 |
-| [Prowlarr](https://github.com/Prowlarr/Prowlarr) | 种子站代理 | ❌ | 可添加种子站，提供种子搜索，支持结果缓存 |
+| [Sonarr](https://github.com/Sonarr/Sonarr) | 电视剧和动漫订阅系统 | ⭕ | 定时搜索，下载，重命名并导入 |
+| [Prowlarr](https://github.com/Prowlarr/Prowlarr) | 种子站代理 | ⭕ | 可添加种子站，提供种子搜索，支持结果缓存 |
 | [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr) | 绕过 Cloudflare 和 DDoS-GUARD | - | Prowlarr 已配置，无其他操作 |
 | [JProxy](https://github.com/LuckyPuppy514/jproxy) | 种子站代理过滤 | ⭕ | 介于 Sonarr / Radarr 和 Prowlarr / Prowlarr 之间的代理，主要用于优化查询和提升识别率 |
 | [qBittorrent](https://github.com/qbittorrent/qBittorrent) | 下载客户端 | ⭕ | qBittorrent |

@@ -8,7 +8,7 @@ networks:
 
 services:
   heimdall:
-    image: linuxserver/heimdall:2.5.6
+    image: linuxserver/heimdall:latest
     container_name: heimdall
     restart: unless-stopped
     environment:
@@ -89,7 +89,7 @@ services:
         ipv4_address: 172.128.2.15
 
   jellyseerr:
-    image: fallenbagel/jellyseerr:latest
+    image: fallenbagel/jellyseerr:develop
     container_name: jellyseerr
     restart: unless-stopped
     environment:
@@ -110,7 +110,7 @@ services:
       - radarr
 
   radarr:
-    image: linuxserver/radarr:5.2.6
+    image: linuxserver/radarr:latest
     container_name: radarr
     restart: unless-stopped
     environment:
@@ -130,7 +130,7 @@ services:
       - qbittorrent
 
   sonarr:
-    image: linuxserver/sonarr:4.0.0
+    image: linuxserver/sonarr:develop
     container_name: sonarr
     restart: unless-stopped
     environment:
@@ -195,7 +195,7 @@ services:
         ipv4_address: 172.128.2.21
 
   emby:
-    image: emby/embyserver:4.8.0.69
+    image: emby/embyserver:latest
     container_name: emby
     restart: unless-stopped
     environment:
